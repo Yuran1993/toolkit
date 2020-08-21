@@ -1,0 +1,72 @@
+<header>
+  <div class="headerContainer container">
+    <div class="headerSection">
+      <h1>Bereken makkelijk en snel de impact van je website</h1>
+      <p>Online Dialogue biedt je een aantal eenvoudige tools waarmee je gemakkelijk en snel de impact van je website kan berekeken</p>
+  
+      <a href="" class="cta">
+        Ga naar de tool
+        <svg class="arrowWrapper" viewBox="0 0 156.15 79.49">
+          <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
+        </svg>
+      </a>
+  
+      <ul class="usps">
+        <li>Lorem, ipsum dolor sit consectetur</li>
+        <li>Lorem, ipsum dolor sit consectetur</li>
+      </ul>
+    </div>
+    <div class="headerSection">
+      <img src="../../assets/images/header_image.png" alt="">
+    </div>
+  </div>
+  <a class="arrow" href="#tools">
+    Alle tools
+    <div class="arrowWrapper">
+      <svg viewBox="0 0 156.15 79.49">
+        <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
+      </svg>
+      <svg viewBox="0 0 156.15 79.49">
+        <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
+      </svg>
+    </div>
+  </a>
+</header>
+<main>
+  <div id="tools" class="outerToolsContainer container">
+    <h2>Alle tools</h2>
+    <div class="innerToolsContainer">
+      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" [href]="tool.auth ? tool.url : '#'">
+        <img *ngIf='odd' src="../../assets/images/icons/dashboard/card-icoon-1.svg" alt="">
+        <img *ngIf='!odd' src="../../assets/images/icons/dashboard/card-icoon-2.svg" alt="">
+        <h3>{{tool.name}}</h3>
+        <p>{{tool.disc}}</p>
+        <span *ngIf='tool.auth' href="">Openen</span>
+        <span *ngIf='!tool.auth' href="">Registreer</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container ctaContainer">
+    <a href="" class="cta">Ik heb al een account</a>
+  </div>
+  
+  <div class="container articleContainer">
+    <div id="contact" class="contact">
+      <h2>Meer weten over de tooling van Online Dialogue? Neem contact op met</h2>
+
+      <div class="contactBody">
+        <img src="../../assets/images/placeHolderProfilePic.png" alt="">
+        <div>
+          <h3>Ronald Peters</h3>
+        <a href="tel:0302272442">Telefoon: 030 2272 442</a>
+        <a href="mailto:info@onlinedialogue.com" class="cta2">Stuur een e-mail</a>
+        </div>
+      </div>
+    </div>
+    <article>
+      <h2>Over Online Dialoguie tooling</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quas voluptate culpa velit, eum quis sed, provident magnam libero, quibusdam quam deserunt odio molestias? Inventore porro quo voluptates accusantium eaque.</p>
+    </article>
+  </div>
+</main>

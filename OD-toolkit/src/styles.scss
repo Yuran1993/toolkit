@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$groen: #6AB84A;
+$oranje: #EFA21D;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+html, body { height: 100%; }
+
+html {
+  font-family: 'Poppins', sans-serif;
+  font-size: 100%;
+  color: #000000;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+}
+
+a {
+  color: #000000;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+// router-outlet + * {
+//   display: block;
+//   padding-top: 70px;
+// }
+
+.container {
+  max-width: 1100px;
+  padding: 15px 25px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.cta {
+  display: inline-block;
+  background: $groen;
+  margin-bottom: 20px;
+  padding: 10px 25px;
+  border-radius: 50px;
+  color: white;
+
+  .arrowWrapper {
+    width: 1rem;
+    transform: rotate(-90deg) translate(1px, 10px);
+
+    .svgArrow {
+      fill: none;
+      stroke: #FFFFFF;
+      stroke-miterlimit: 10;
+      stroke-width: 15px;
+    }
+  }
+}
+
+button.cta2,
+a.cta2 {
+  display: inline-block!important;
+  padding: 10px 25px;
+  border-radius: 50px;
+  border: 2px solid $groen;
+  color: $groen;
+  font-weight: 500;
+}
+
+.usps {
+  li {
+    font-size: .8rem;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 35px;
+
+    &:before {
+      content: url(./assets/images/icons/dashboard/usp.svg);
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      line-height: 1;
+    }
+  }
+}
+
+.cdk-global-overlay-wrapper {
+  align-items: flex-start!important;
+}
+
+a.mat-raised-button,
+.mat-raised-button {
+  background: none;
+  padding: 0;
+  border: none;
+  box-shadow: none!important;
+  color: #000000;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+mat-dialog-container#modal-component {
+  margin-top: 100px;
+  padding: 0;
+  max-width: 600px;
+  height: initial;
+  background: none;
+  overflow: visible;
+  position: relative;
+  z-index: 10;
+  box-shadow: none;
+  
+}

@@ -1,0 +1,19 @@
+footer {
+  display: flex;
+  justify-content: center;
+  background-color: #0C0C28;
+  padding: 15px;
+
+  .innerFooter {
+    display: flex;
+    
+    span {
+      padding: 5px 15px;
+      color: #ffffff;
+      font-size: .8rem;
+      &:first-of-type {
+        border-right: 1px solid #ffffff;
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+$groen: #6AB84A;
+
+#modal-content-wrapper {
+  color: #000000;
+  position: relative;
+  background: #ffffff;
+  border-radius: 11px;
+}
+
+h1 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+p {
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+}
+
+.headBtns {
+  position: absolute;
+  top: 0;
+  left: 30px;
+
+  transform: translateY(-75%);
+
+  button {
+    padding: 10px 20px 15px;
+    border-radius: 10px 10px 0 0;
+    margin-right: 5px;
+    background: rgb(199, 198, 202);
+    background: linear-gradient(0deg, rgba(199, 198, 202, 1) 0%, rgba(235, 235, 239, 1) 100%);
+    font-weight: 500;
+
+    cursor: pointer;
+
+    &.open {
+      background: #ffffff;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+.model-wrapper {
+  padding: 35px;
+}
+
+#modal-body {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  input {
+    width: calc(50% - 15px);
+    padding: 15px;
+    border-radius: 50px;
+    border: solid 2px #F1F1F1;
+    outline: 0;
+
+    font-size: .9rem;
+
+    &:first-of-type {
+      margin-right: 15px;
+    }
+
+    &:focus {
+      border-color: $groen;
+    }
+  }
+}
+
+#modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.cta2 {
+  padding: 2px 20px;
+}
+
+.forgotPassword {
+  font-size: .9rem;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.error > p {
+  margin-bottom: 0;
+}
