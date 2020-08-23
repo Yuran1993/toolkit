@@ -1,10 +1,44 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TempToolComponent } from './temp-tool/temp-tool.component';
+import { AuthGuard } from './auth.guard';
+import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', pathMatch: 'full', component: DashboardComponent },
+  { 
+    path: '1',
+    component: TempToolComponent,
+    canActivate: [AuthGuard]
+ },
+  { 
+    path: 'abtestcalculator',
+    component: AbTestCalcComponent,
+    canActivate: [AuthGuard]
+ },
+  { 
+    path: '3',
+    component: TempToolComponent,
+    canActivate: [AuthGuard]
+ },
+  { 
+    path: '4',
+    component: TempToolComponent,
+    canActivate: [AuthGuard]
+ },
+  { 
+    path: '5',
+    component: TempToolComponent,
+    canActivate: [AuthGuard]
+ },
+  { 
+    path: '6',
+    component: TempToolComponent,
+    canActivate: [AuthGuard]
+ },
+ { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({

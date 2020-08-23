@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialogRef, throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
-import { Inject } from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 
-import { LoginService } from '../_service/login.service'
+import { authService } from '../_service/auth.service';
+import { ToolsService } from '../_service/tools.service';
+import { AutofocusDirective } from '../_service/autofocus.directive';
 
 @Component({
   selector: 'app-inlog-screen',
@@ -17,21 +19,25 @@ export class InlogScreenComponent implements OnInit {
 
   loginUserData = {};
 
-  constructor(public dialogRef: MatDialogRef<InlogScreenComponent>, private auth: LoginService, @Inject(MAT_DIALOG_DATA) public data: any) {  }
+  constructor(public dialogRef: MatDialogRef<InlogScreenComponent>, private auth: authService, @Inject(MAT_DIALOG_DATA) public data: any, private toolsAuth: ToolsService, private router:Router, ) {  }
 
   ngOnInit() {}
 
-  // When the user clicks the action button a.k.a. the logout button in the\
-  // modal, show an alert and followed by the closing of the modal
   actionFunction() {
     this.auth.loginUser(this.loginUserData)
     .subscribe(
       res => {
+        localStorage.setItem('token', res.token);
+
+        console.log('login', res);
+        
+        this.toolsAuth.changeToolsAuth(res.tools);
+        
         this.errorMsg = '';
-        console.log(res);
         this.closeModal();
+        this.router.navigate(['']);
       },
-      err => this.errorMsg = err.error
+      err => console.log(err)
     );
   }
 

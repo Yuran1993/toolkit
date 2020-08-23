@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InlogScreenComponent } from "../inlog-screen/inlog-screen.component";
+import { authService } from '../_service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,18 +11,24 @@ import { InlogScreenComponent } from "../inlog-screen/inlog-screen.component";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public matDialog: MatDialog) { }
+  constructor(public matDialog: MatDialog, private auth: authService, private router:Router) { }
 
-  openModal(bol) {
-
+  openModal(bol:boolean) {
     const dialogConfig = new MatDialogConfig();
-    // The user can't close the dialog by clicking outside its body
     dialogConfig.id = "modal-component";
     dialogConfig.disableClose = false;
-    // dialogConfig.data = true;
     dialogConfig.data = `{"login": ${bol}}`;
-    // https://material.angular.io/components/dialog/overview
+
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
+  }
+
+  scroll(id:string) {
+    this.router.navigate(['/']);
+    setTimeout(() => {
+      let el = document.getElementById(id);
+
+    el.scrollIntoView();
+    }, 200);
   }
 
   ngOnInit() {}

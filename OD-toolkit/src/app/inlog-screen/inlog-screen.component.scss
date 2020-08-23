@@ -20,14 +20,14 @@ p {
 
 .headBtns {
   position: absolute;
-  top: 0;
-  left: 30px;
+  top: 8px;
+  left: 0;
 
-  transform: translateY(-75%);
+  transform: translateY(-100%);
 
   button {
-    padding: 10px 20px 15px;
-    border-radius: 10px 10px 0 0;
+    padding: 10px 30px 10px;
+    border-radius: 15px 15px 0 0;
     margin-right: 5px;
     background: rgb(199, 198, 202);
     background: linear-gradient(0deg, rgba(199, 198, 202, 1) 0%, rgba(235, 235, 239, 1) 100%);

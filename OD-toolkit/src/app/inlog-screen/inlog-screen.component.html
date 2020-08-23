@@ -7,14 +7,16 @@
     <h1>Login</h1>
     <p>Wil je gebruik maken van deze tool? Registreer je of log in met je gegevens.</p>
   </header>
-  <section id="modal-body">
-    <input [(ngModel)]="loginUserData.email" type="text" name="loginEmail" id="loginEmail" placeholder="E-mailadres">
-    <input [(ngModel)]="loginUserData.password" type="password" name="loginPassword" id="loginPassword" placeholder="Wachtwoord">
-  </section>
-  <footer id="modal-footer">
-    <button mat-raised-button class="forgotPassword" (click)="closeModal()">Wachtwoord vergeten</button>
-    <button mat-raised-button class="cta2" (click)="actionFunction()">inloggen</button>
-  </footer>
+  <form (ngSubmit)= "actionFunction()">
+    <section id="modal-body">
+      <input [autofocus] [(ngModel)]="loginUserData.email" type="text" name="loginEmail" id="loginEmail" placeholder="E-mailadres">
+      <input [(ngModel)]="loginUserData.password" type="password" name="loginPassword" id="loginPassword" placeholder="Wachtwoord">
+    </section>
+    <footer id="modal-footer">
+      <button mat-raised-button class="forgotPassword" (click)="closeModal()">Wachtwoord vergeten</button>
+      <button mat-raised-button class="cta2">inloggen</button>
+    </footer>
+  </form>
 
   <section class="error">
     <p>{{errorMsg}}</p>
@@ -26,14 +28,16 @@
     <h1>Registreer</h1>
     <p>Wil je gebruik maken van deze tool? Registreer je of log in met je gegevens.</p>
   </header>
-  <section id="modal-body">
-    <input type="text" name="registreerName" id="registreerName" placeholder="Naam">
-    <input type="text" name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
-  </section>
-  <section id="modal-body">
-    <input type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
-    <button mat-raised-button class="cta2" (click)="actionFunction()">registreer</button>
-  </section>
+  <form>
+    <section id="modal-body">
+      <input [autofocus] type="text" name="registreerName" id="registreerName" placeholder="Naam">
+      <input type="text" name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
+    </section>
+    <section id="modal-body">
+      <input type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
+      <button mat-raised-button class="cta2" (click)="actionFunction()">registreer</button>
+    </section>
+  </form>
 
   <section class="error">
     <p>{{errorMsg}}</p>

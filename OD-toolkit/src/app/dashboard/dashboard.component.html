@@ -4,7 +4,7 @@
       <h1>Bereken makkelijk en snel de impact van je website</h1>
       <p>Online Dialogue biedt je een aantal eenvoudige tools waarmee je gemakkelijk en snel de impact van je website kan berekeken</p>
   
-      <a href="" class="cta">
+      <a routerLink="/1" class="cta">
         Ga naar de tool
         <svg class="arrowWrapper" viewBox="0 0 156.15 79.49">
           <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
@@ -20,7 +20,7 @@
       <img src="../../assets/images/header_image.png" alt="">
     </div>
   </div>
-  <a class="arrow" href="#tools">
+  <a class="arrow" (click)="scroll('tools')">
     Alle tools
     <div class="arrowWrapper">
       <svg viewBox="0 0 156.15 79.49">
@@ -36,19 +36,19 @@
   <div id="tools" class="outerToolsContainer container">
     <h2>Alle tools</h2>
     <div class="innerToolsContainer">
-      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" [href]="tool.auth ? tool.url : '#'">
+      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" [routerLink]="tool.url">
         <img *ngIf='odd' src="../../assets/images/icons/dashboard/card-icoon-1.svg" alt="">
         <img *ngIf='!odd' src="../../assets/images/icons/dashboard/card-icoon-2.svg" alt="">
         <h3>{{tool.name}}</h3>
         <p>{{tool.disc}}</p>
-        <span *ngIf='tool.auth' href="">Openen</span>
-        <span *ngIf='!tool.auth' href="">Registreer</span>
+        <span *ngIf='tool.auth' >Openen</span>
+        <span *ngIf='!tool.auth'>Registreer</span>
       </a>
     </div>
   </div>
 
-  <div class="container ctaContainer">
-    <a href="" class="cta">Ik heb al een account</a>
+  <div *ngIf="!auth.loggedIn()" class="container ctaContainer">
+    <a class="cta" (click)="openModal(true)">Ik heb al een account</a>
   </div>
   
   <div class="container articleContainer">
