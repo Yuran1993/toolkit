@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/server.js",
-    "build": "cd OD-toolkit && ng build --prod",
-    "heroku-postbuild": "cd OD-toolkit && ng build --prod --sourceMap=false"
+    "build": "cd ./OD-toolkit && ng build --prod",
+    "heroku-postbuild": "cd ./OD-toolkit && ng build --prod --sourceMap=false"
   },
   "author": "",
   "license": "ISC",
