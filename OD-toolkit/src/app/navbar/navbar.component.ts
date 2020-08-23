@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public matDialog: MatDialog, private auth: authService, private router:Router) { }
+  constructor(public matDialog: MatDialog, public auth: authService, private router:Router) { }
 
   openModal(bol:boolean) {
     const dialogConfig = new MatDialogConfig();

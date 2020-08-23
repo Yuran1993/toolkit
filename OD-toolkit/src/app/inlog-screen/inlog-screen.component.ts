@@ -17,7 +17,10 @@ export class InlogScreenComponent implements OnInit {
   login = JSON.parse(this.data).login;
   errorMsg:string;
 
-  loginUserData = {};
+  loginUserData = {
+    email: '',
+    password: '',
+  };
 
   constructor(public dialogRef: MatDialogRef<InlogScreenComponent>, private auth: authService, @Inject(MAT_DIALOG_DATA) public data: any, private toolsAuth: ToolsService, private router:Router, ) {  }
 
