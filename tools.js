@@ -1,39 +1,33 @@
 const tools = [
-  tool1 = {
-    name: 'tool-1',
-    url: '/tools/tool1',
+  {
+    name: '1',
+    url: '1',
     disc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam quaerat cumque nobis illum officiis veniam ex vitae odit',
-    auth: true,
   },
-  tool2 = {
-    name: 'tool-2',
-    url: '/tools/tool2',
+  {
+    name: 'A/B-test Calculator',
+    url: 'abtestcalculator',
     disc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam quaerat cumque nobis illum officiis veniam ex vitae odit',
-    auth: true,
   },
-  tool3 = {
-    name: 'tool-3',
-    url: '/tools/tool3',
+  {
+    name: 'Bayesiaanse A/B-test calculator',
+    url: 'bayesiaanseCalculator',
     disc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam quaerat cumque nobis illum officiis veniam ex vitae odit',
-    auth: true,
   },
-  tool4 = {
-    name: 'tool-4',
-    url: '/tools/tool4',
+  {
+    name: '4',
+    url: '4',
     disc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam quaerat cumque nobis illum officiis veniam ex vitae odit',
-    auth: false,
   },
-  tool5 = {
-    name: 'tool-5',
-    url: '/tools/tool5',
+  {
+    name: '5',
+    url: '5',
     disc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam quaerat cumque nobis illum officiis veniam ex vitae odit',
-    auth: false,
   },
-  tool6 = {
-    name: 'tool-6',
-    url: '/tools/tool6',
+  {
+    name: '6',
+    url: '6',
     disc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam quaerat cumque nobis illum officiis veniam ex vitae odit',
-    auth: false,
   },
 ];
 
