@@ -25,8 +25,6 @@ export class ToolsService {
   }
 
   reset() {
-    console.log('reset');
-    
     this.authArray.next(this.standard);
   }
 }
