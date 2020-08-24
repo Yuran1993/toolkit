@@ -29,8 +29,6 @@ export class authService {
     this.getToolsAuth.reset();
     setTimeout(() => {
       this.router.navigate(['']);
-      console.log('navigate');
-      
     }, 2000);
   }
 

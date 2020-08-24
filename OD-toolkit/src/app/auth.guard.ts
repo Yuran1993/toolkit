@@ -16,12 +16,7 @@ export class AuthGuard implements CanActivate {
       const tools = result;
       const page = state.url.replace('/', '');
 
-      console.log('authGuard toolsAuth: ', result);
-      
-
       pageAuth = tools.find(e => e.url === page);
-      console.log('authGuard: find page', pageAuth);
-      
     });
 
     if (pageAuth && pageAuth.auth) {

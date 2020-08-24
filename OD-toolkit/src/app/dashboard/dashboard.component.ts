@@ -52,10 +52,6 @@ export class DashboardComponent implements OnInit {
       this.tools = await this.getTools();
 
       if (result) {
-        console.log('tools', this.tools);
-        
-        console.log('result', result);
-        
         this.tools.forEach((e:any) => {
           const currentAuth = result.find((element) => element.url === e.url);
           if (currentAuth) {

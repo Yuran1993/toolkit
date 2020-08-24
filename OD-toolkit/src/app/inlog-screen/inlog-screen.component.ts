@@ -31,9 +31,6 @@ export class InlogScreenComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('token', res.token);
-
-        console.log('login', res);
-        
         this.toolsAuth.changeToolsAuth(res.tools);
         
         this.errorMsg = '';
