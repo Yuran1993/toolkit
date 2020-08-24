@@ -36,7 +36,7 @@
   <div id="tools" class="outerToolsContainer container">
     <h2>Alle tools</h2>
     <div class="innerToolsContainer">
-      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" [routerLink]="tool.url">
+      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" (click)="!tool.auth && openModal(false)" [routerLink]="tool.url">
         <img *ngIf='odd' src="../../assets/images/icons/dashboard/card-icoon-1.svg" alt="">
         <img *ngIf='!odd' src="../../assets/images/icons/dashboard/card-icoon-2.svg" alt="">
         <h3>{{tool.name}}</h3>
