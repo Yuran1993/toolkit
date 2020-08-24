@@ -38,6 +38,7 @@ button {
 
 .mat-raised-button {
   background: none!important;
+  font-family: inherit!important;
 }
 
 router-outlet + * > header {
