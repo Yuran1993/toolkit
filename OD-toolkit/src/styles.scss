@@ -36,9 +36,17 @@ button {
   font-family: 'Poppins', sans-serif;
 }
 
+a.mat-raised-button,
 .mat-raised-button {
   background: none!important;
+  padding: 0;
+  border: none;
+  box-shadow: none!important;
+  color: #000000;
   font-family: inherit!important;
+  font-size: inherit;
+  font-weight: inherit;
+  transform: none!important;
 }
 
 router-outlet + * > header {
@@ -114,18 +122,6 @@ a.cta2 {
 
 .cdk-global-overlay-wrapper {
   align-items: flex-start!important;
-}
-
-a.mat-raised-button,
-.mat-raised-button {
-  background: none;
-  padding: 0;
-  border: none;
-  box-shadow: none!important;
-  color: #000000;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
 }
 
 mat-dialog-container#modal-component {

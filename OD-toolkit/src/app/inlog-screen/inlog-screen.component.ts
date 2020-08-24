@@ -5,7 +5,6 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 
 import { authService } from '../_service/auth.service';
 import { ToolsService } from '../_service/tools.service';
-import { AutofocusDirective } from '../_service/autofocus.directive';
 
 @Component({
   selector: 'app-inlog-screen',
@@ -15,7 +14,7 @@ import { AutofocusDirective } from '../_service/autofocus.directive';
 
 export class InlogScreenComponent implements OnInit {
   login = JSON.parse(this.data).login;
-  errorMsg:string;
+  loginErrorMsg:string;
 
   loginUserData = {
     email: '',
@@ -33,11 +32,15 @@ export class InlogScreenComponent implements OnInit {
         localStorage.setItem('token', res.token);
         this.toolsAuth.changeToolsAuth(res.tools);
         
-        this.errorMsg = '';
+        this.loginErrorMsg = '';
         this.closeModal();
         this.router.navigate(['']);
       },
-      err => console.log(err)
+      err => {
+        this.loginErrorMsg = err.error
+        console.log(err.error);
+        
+      }
     );
   }
 
