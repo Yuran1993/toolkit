@@ -36,6 +36,10 @@ button {
   font-family: 'Poppins', sans-serif;
 }
 
+.mat-raised-button {
+  background: none!important;
+}
+
 router-outlet + * > header {
   padding-top: 120px;
 }
