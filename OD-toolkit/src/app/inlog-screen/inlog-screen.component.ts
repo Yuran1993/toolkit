@@ -15,6 +15,7 @@ import { ToolsService } from '../_service/tools.service';
 export class InlogScreenComponent implements OnInit {
   login = JSON.parse(this.data).login;
   loginErrorMsg:string;
+  registreerErrorMsg:string;
 
   loginUserData = {
     email: '',

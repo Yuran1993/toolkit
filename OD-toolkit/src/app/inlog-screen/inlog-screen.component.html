@@ -18,7 +18,7 @@
     </footer>
   </form>
 
-  <section class="error">
+  <section *ngIf="loginErrorMsg" class="error">
     <p>{{loginErrorMsg}}</p>
   </section>
 </div>
@@ -39,7 +39,7 @@
     </section>
   </form>
 
-  <section class="error loginError">
-    <p>{{loginErrorMsg}}</p>
+  <section *ngIf="registreerErrorMsg" class="error">
+    <p>{{registreerErrorMsg}}</p>
   </section>
 </div>
