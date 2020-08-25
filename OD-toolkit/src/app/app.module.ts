@@ -22,6 +22,7 @@ import { TempToolComponent } from './temp-tool/temp-tool.component';
 import { AutofocusDirective } from './_service/autofocus.directive';
 import { InputDataControllerService } from './_service/input-data-controller.service';
 import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
     FormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [authService,
     AuthGuard,
