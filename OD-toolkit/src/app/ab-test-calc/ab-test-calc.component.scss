@@ -11,6 +11,7 @@
 .mainContainer {
   display: flex;
   flex-flow: row nowrap;
+  padding-bottom: 0;
 
   @include breakpoint('medium') {
     flex-flow: column nowrap;
