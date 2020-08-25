@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, HostListener, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -16,7 +16,7 @@ interface LooseObject {
   styleUrls: ['./ab-test-calc.component.scss'],
 })
 
-export class AbTestCalcComponent implements OnInit {
+export class AbTestCalcComponent implements OnInit, OnDestroy {
   dataController = this.inputDataController.start(this);
   dataValues = this.dataController.inputData;
   result: LooseObject;
@@ -96,5 +96,9 @@ export class AbTestCalcComponent implements OnInit {
     setTimeout(() => {
       GoogleCharts.load(loadChart);
     }, 0);
+  }
+
+  ngOnDestroy(){
+    document.body.className="";
   }
 }
