@@ -51,9 +51,13 @@ export class DashboardComponent implements OnInit {
     this.auth.getToolsAuthServer();
     this.tools = await this.getTools();
     this.getToolsAuth.currentToolAuth.subscribe(async result => {
+      console.log(result);
+      
 
       if (result) {
         this.tools.forEach((e: any, i: number) => {
+          e.auth = false;
+
           const currentAuth = result.find((element) => element.url === e.url);
           if (currentAuth) {
             e.auth = currentAuth.auth;

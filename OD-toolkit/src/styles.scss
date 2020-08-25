@@ -13,6 +13,7 @@ $oranje: #EFA21D;
   margin: 0;
   list-style: none;
   text-decoration: none;
+  font-size: 0.9rem;
 }
 
 html, body { height: 100%; }
@@ -26,6 +27,13 @@ html {
 
 body {
   position: relative;
+}
+
+h2 {
+  font-size: 1.15rem;
+}
+h3 {
+  font-size: 1.1rem;
 }
 
 a {
