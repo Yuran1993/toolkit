@@ -5,8 +5,8 @@
 // VARS
 $breakpoints: (
   'large': 1210px,
-  'medium': 900px,
-  'small': 635px,
+  'medium': 920px,
+  'small': 620px,
 );
 $primaryFont: 'Poppins', sans-serif;
 $primaryColor: #0A5504;
@@ -21,6 +21,9 @@ $neutColor: #3577BE;
 $tooltipColor: #565656;
 
 // MIXINS
+$groen: #6AB84A;
+$oranje: #EFA21D;
+
 @mixin breakpoint($breakpoint) {
   @media (max-width: map-get($breakpoints, $breakpoint)) {
     @content;

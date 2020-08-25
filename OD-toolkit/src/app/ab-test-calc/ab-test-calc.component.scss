@@ -4,7 +4,7 @@
   opacity: 0 !important;
 }
 
-x .opacs {
+.opacs {
   opacity: 0;
 }
 
@@ -23,18 +23,19 @@ html {
   line-height: 1.7;
 }
 
-body {
-  height: 100%;
-  
-  padding-top: 80px;
-}
-
 main {
   width: 75%;
   transition: ease-in-out .3s all;
 
   @include breakpoint('medium') {
     width: 100%;
+  }
+}
+
+.container {
+  @include breakpoint('medium') {
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 
@@ -108,14 +109,14 @@ th {
 }
 
 aside {
-  width: 25%;
+  width: 30%;
   max-width: 350px;
   height: inherit;
   background: #ffffff;
   position: relative;
 
   .asideSection {
-    padding: 0;
+    padding: 20px;
     border-bottom: 3px solid #EEEEEE;
     position: relative;
     z-index: 3;
@@ -143,7 +144,7 @@ aside {
   }
 
   @include breakpoint('medium') {
-    width: 80%;
+    width: 85%;
     max-width: 900px;
     padding: 0px;
     margin: 30px auto;
@@ -167,10 +168,18 @@ aside {
 
   &:first-of-type {
     margin-top: 0;
+
+    @include breakpoint('medium') {
+      margin-top: 20px;
+    }
   }
 
   strong {
     font-size: inherit;
+  }
+
+  @include breakpoint('medium') {
+    margin: 30px auto;
   }
 
   @include breakpoint('small') {
@@ -227,10 +236,6 @@ aside {
       color: $neutColor;
     }
   }
-
-  @include breakpoint('medium') {
-    margin-top: 20px;
-  }
 }
 
 .urlList {
@@ -269,6 +274,7 @@ aside {
 
 label {
   display: inline-block;
+  font-size: 14px;
   margin-bottom: 5px;
   font-weight: 500;
 }
@@ -424,27 +430,28 @@ main {
     border-top: 1px solid #ccc;
     display: flex;
     flex-flow: row wrap;
+    justify-content: space-between;
 
-    >* {
-      width: 33.33%;
+    > * {
+      width: calc(33.33% - 20px);
       display: flex;
-      justify-content: center;
       margin-bottom: 20px;
 
       div {
         display: flex;
         flex-flow: column;
-        margin-right: auto;
+        width: 100%;
       }
 
       .title {
+        font-size: 14px;;
         font-weight: 500;
         margin-bottom: 10px;
       }
 
       .value {
         font-size: .9rem;
-        width: 120px;
+        width: 100%;
         padding: 8px 10px;
         background: #f3f3f3;
         border: 1px solid #CCC;
@@ -452,7 +459,7 @@ main {
       }
 
       @include breakpoint('small') {
-        width: 50%;
+        width: calc(50% - 50px);
       }
     }
 
@@ -486,6 +493,10 @@ form {
     &:last-of-type {
       border-bottom: none;
     }
+    @include breakpoint('medium') {
+      padding: 30px;
+    }
+
   }
 
   .columnContainer {

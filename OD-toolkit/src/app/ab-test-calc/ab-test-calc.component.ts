@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ interface LooseObject {
 @Component({
   selector: 'app-ab-test-calc',
   templateUrl: './ab-test-calc.component.html',
-  styleUrls: ['./ab-test-calc.component.scss']
+  styleUrls: ['./ab-test-calc.component.scss'],
 })
 
 export class AbTestCalcComponent implements OnInit {
@@ -81,6 +81,7 @@ export class AbTestCalcComponent implements OnInit {
   }
 
   async ngOnInit() {
+    document.body.className = "lichtGreen";
     window.scrollTo(0, 0);
     await this.getValues();
     if (this.dataValues.ua < this.dataValues.ca || this.dataValues.ub < this.dataValues.cb) {
