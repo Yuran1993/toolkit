@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { ToolsService } from '../_service/tools.service';
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   tools: [];
   toolsAuth;
 
-  openModal(bol:boolean) {
+  openModal(bol: boolean) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-component";
     dialogConfig.disableClose = false;
@@ -32,9 +32,10 @@ export class DashboardComponent implements OnInit {
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
   }
 
-  scroll(id:string) {
+  scroll(id: string) {
     let el = document.getElementById(id);
 
+    console.log(el);
     el.scrollIntoView();
   }
 
@@ -46,13 +47,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.auth.getToolsAuthServer();
+    this.tools = await this.getTools();
     this.getToolsAuth.currentToolAuth.subscribe(async result => {
-      this.tools = await this.getTools();
 
       if (result) {
-        this.tools.forEach((e:any) => {
+        this.tools.forEach((e: any, i: number) => {
           const currentAuth = result.find((element) => element.url === e.url);
           if (currentAuth) {
             e.auth = currentAuth.auth;

@@ -1,14 +1,14 @@
 @import '../../setup.scss';
 
 .hideHtml {
-  opacity: 0!important;
+  opacity: 0 !important;
 }
 
-.opacs {
+x .opacs {
   opacity: 0;
 }
 
-router-outlet+* {
+.mainContainer {
   display: flex;
   flex-flow: row nowrap;
 
@@ -25,12 +25,12 @@ html {
 
 body {
   height: 100%;
-  background: $secondaryColor;
+  
   padding-top: 80px;
 }
 
 main {
-  width: 70%;
+  width: 75%;
   transition: ease-in-out .3s all;
 
   @include breakpoint('medium') {
@@ -59,11 +59,14 @@ h1 {
 
 h2 {
   font-size: 1.2rem;
-  margin-bottom: 15px;
 }
 
 strong {
   display: inline-block;
+  font-size: 14px;
+}
+
+p {
   font-size: 14px;
 }
 
@@ -105,21 +108,24 @@ th {
 }
 
 aside {
-  width: 30%;
+  width: 25%;
   max-width: 350px;
   height: inherit;
-  padding: 20px 0;
   background: #ffffff;
   position: relative;
 
   .asideSection {
-    padding: 30px;
+    padding: 0;
     border-bottom: 3px solid #EEEEEE;
     position: relative;
     z-index: 3;
 
     h1+strong {
       margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 15px 0;
     }
   }
 
@@ -150,14 +156,18 @@ aside {
   }
 }
 
-.container {
-  width: 80%;
+.smallContainer {
+  width: 85%;
   max-width: 900px;
   padding: 20px 30px;
-  margin: 30px auto;
+  margin: 30px 0 30px auto;
   background: #FFF;
   box-shadow: 4px 4px 10px 0px rgba(204, 204, 204, 0.5);
   transition: ease-in-out .3s all;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 
   strong {
     font-size: inherit;
@@ -175,6 +185,10 @@ aside {
   h2 {
     color: #555;
     margin-bottom: 10px;
+  }
+
+  p {
+    margin-bottom: 0;
   }
 
   strong {
@@ -279,7 +293,7 @@ input[type="number"]:focus {
 
 .err,
 .err:focus {
-  border-color: $negColor!important;
+  border-color: $negColor !important;
 }
 
 .euro {
@@ -384,8 +398,9 @@ input[type="number"]:focus {
 
 
 main {
-  min-height: 1200px;
-  .container {
+
+  // min-height: 1200px;
+  .smallContainer {
     #smallChart {
       width: 50%;
       float: right;
@@ -410,7 +425,7 @@ main {
     display: flex;
     flex-flow: row wrap;
 
-    > * {
+    >* {
       width: 33.33%;
       display: flex;
       justify-content: center;
@@ -419,6 +434,7 @@ main {
       div {
         display: flex;
         flex-flow: column;
+        margin-right: auto;
       }
 
       .title {
@@ -462,7 +478,7 @@ form {
     &.rowWrap {
       flex-flow: column nowrap;
 
-      > div {
+      >div {
         display: flex;
       }
     }
@@ -490,7 +506,7 @@ form {
   .radioContainer {
     width: 50%;
 
-    .radio > label {
+    .radio>label {
       font-weight: 400;
       margin-bottom: 0;
     }
@@ -499,7 +515,7 @@ form {
   @include breakpoint('medium') {
     display: flex;
 
-    > .asideSection {
+    >.asideSection {
       width: 50%;
       border: none;
     }
@@ -507,10 +523,10 @@ form {
     @include breakpoint('small') {
       display: block;
 
-      > .asideSection {
+      >.asideSection {
         width: 100%;
         border-bottom: 3px solid #EEEEEE;
       }
-    }  
-  }  
+    }
+  }
 }

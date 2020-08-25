@@ -4,6 +4,8 @@ import { InlogScreenComponent } from "../inlog-screen/inlog-screen.component";
 import { authService } from '../_service/auth.service';
 import { Router } from '@angular/router';
 
+import { myTools } from '../_service/myTools'
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,9 +13,13 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public matDialog: MatDialog, public auth: authService, private router:Router) { }
+  constructor(
+    public matDialog: MatDialog,
+    public auth: authService,
+    private router: Router,
+  ) { }
 
-  openModal(bol:boolean) {
+  openModal(bol: boolean) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-component";
     dialogConfig.disableClose = false;
@@ -22,14 +28,21 @@ export class NavbarComponent implements OnInit {
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
   }
 
-  scroll(id:string) {
-    this.router.navigate(['/']);
-    setTimeout(() => {
-      let el = document.getElementById(id);
-
-    el.scrollIntoView();
-    }, 200);
+  scroll(id: string) {
+    let el = document.getElementById(id);
+    if (el) {
+      console.log('home', el.offsetTop);
+      el.scrollIntoView();
+      return;
+    } else {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => {
+          let el = document.getElementById(id);
+          el.scrollIntoView();
+        }, 200);
+      });
+    }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

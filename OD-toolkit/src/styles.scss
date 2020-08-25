@@ -49,7 +49,7 @@ a.mat-raised-button,
   transform: none!important;
 }
 
-router-outlet + * > header {
+router-outlet + * > *:first-of-type {
   padding-top: 120px;
 }
 

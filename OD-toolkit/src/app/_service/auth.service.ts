@@ -12,8 +12,8 @@ export class authService {
 
   constructor(
     private http: HttpClient,
-    private getToolsAuth: ToolsService, 
-    private router:Router
+    private getToolsAuth: ToolsService,
+    private router: Router
   ) { }
 
   loginUser(user) {
@@ -27,9 +27,7 @@ export class authService {
   logout() {
     localStorage.removeItem('token');
     this.getToolsAuth.reset();
-    setTimeout(() => {
-      this.router.navigate(['']);
-    }, 2000);
+    this.router.navigate(['']);
   }
 
   getToken() {
@@ -38,10 +36,14 @@ export class authService {
 
   getToolsAuthServer() {
     const token = localStorage.getItem('token');
-    
+
     if (token) {
-      this.http.get<[]>('api/toolsAuth').subscribe(result => {
-        this.getToolsAuth.changeToolsAuth(result)
+      return new Promise<[]>((resolve) => {
+        this.http.get<[]>('api/toolsAuth').subscribe(result => {
+          this.getToolsAuth.changeToolsAuth(result);
+
+          resolve(result);
+        });
       });
     } else {
       this.getToolsAuth.reset();

@@ -1,181 +1,192 @@
-<header></header>
-<aside>
-  <div class="asideSection">
-    <h1>A/B-test calculator</h1>
-    <strong>Is your test result significant? Does it have enough power?</strong>
-    <p>Play with the controls and get a better feel for how a lower confidence level will boost the power or how an
-      increase in test size can make a small CR-difference significant!</p>
-  </div>
+<div class="mainContainer container">
 
-  <form>
-    <div class="asideSection ">
-      <h2>Test data</h2>
+  <aside>
+    <div class="asideSection">
+      <h1>A/B-test calculator</h1>
+      <strong>Is your test result significant? Does it have enough power?</strong>
+      <p>Play with the controls and get a better feel for how a lower confidence level will boost the power or how an
+        increase in test size can make a small CR-difference significant!</p>
+    </div>
 
-      <div class="columnContainer">
-        <div class="column">
-          <div class="inputContainer">
-            <label for="visitorsA">Users A</label>
-            <input [(ngModel)]="dataValues.ua" #ctrl="ngModel" (change)="timeoutFunc()" name="visitorsA" id="visitorsA"
-              type="number">
+    <form>
+      <div class="asideSection ">
+        <h2>Test data</h2>
+
+        <div class="columnContainer">
+          <div class="column">
+            <div class="inputContainer">
+              <label for="visitorsA">Users A</label>
+              <input [(ngModel)]="dataValues.ua" #ctrl="ngModel" (change)="timeoutFunc()" name="visitorsA"
+                id="visitorsA" type="number">
+            </div>
+            <div class="inputContainer">
+              <label for="conversionsA">Conversions A</label>
+              <input [(ngModel)]="dataValues.ca" #ctrl="ngModel" (change)="timeoutFunc()" name="conversionsA"
+                id="conversionsA" type="number">
+            </div>
           </div>
-          <div class="inputContainer">
-            <label for="conversionsA">Conversions A</label>
-            <input [(ngModel)]="dataValues.ca" #ctrl="ngModel" (change)="timeoutFunc()" name="conversionsA"
-              id="conversionsA" type="number">
-          </div>
-        </div>
-        <div class="column">
-          <div class="inputContainer">
-            <label for="visitorsB">Users B</label>
-            <input [(ngModel)]="dataValues.ub" #ctrl="ngModel" (change)="timeoutFunc()" name="visitorsB" id="visitorsB"
-              type="number">
-          </div>
-          <div class="inputContainer">
-            <label for="conversionsB">Conversions B</label>
-            <input [(ngModel)]="dataValues.cb" #ctrl="ngModel" (change)="timeoutFunc()" name="conversionsB"
-              id="conversionsB" type="number">
+          <div class="column">
+            <div class="inputContainer">
+              <label for="visitorsB">Users B</label>
+              <input [(ngModel)]="dataValues.ub" #ctrl="ngModel" (change)="timeoutFunc()" name="visitorsB"
+                id="visitorsB" type="number">
+            </div>
+            <div class="inputContainer">
+              <label for="conversionsB">Conversions B</label>
+              <input [(ngModel)]="dataValues.cb" #ctrl="ngModel" (change)="timeoutFunc()" name="conversionsB"
+                id="conversionsB" type="number">
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="asideSection rowWrap">
-      <h2>Settings</h2>
-      <div>
-        <div class="radioContainer">
-          <label for="confidence" class="tooltip"
-            matTooltip="Probability of rejecting the Null Hypothesis when it is indeed false (1 - type I error)">Confidence</label>
-          <div class="radio">
-            <input (change)="go()" [(ngModel)]="dataValues.sig" id="90"name="confidence" type="radio" value="0.90"
-              checked="checked">
+      <div class="asideSection rowWrap">
+        <h2>Settings</h2>
+        <div>
+          <div class="radioContainer">
+            <label for="confidence" class="tooltip"
+              matTooltip="Probability of rejecting the Null Hypothesis when it is indeed false (1 - type I error)">Confidence</label>
+            <div class="radio">
+              <input (change)="go()" [(ngModel)]="dataValues.sig" id="90" name="confidence" type="radio" value="0.90"
+                checked="checked">
               <label for="90">90%</label>
+            </div>
+            <div class="radio">
+              <input (change)="go()" [(ngModel)]="dataValues.sig" id="95" name="confidence" type="radio" value="0.95">
+              <label for="95">95%</label>
+            </div>
+            <div class="radio">
+              <input (change)="go()" [(ngModel)]="dataValues.sig" id="99" name="confidence" type="radio" value="0.99">
+              <label for="99">99%</label>
+            </div>
           </div>
-          <div class="radio">
-            <input (change)="go()" [(ngModel)]="dataValues.sig" id="95"name="confidence" type="radio" value="0.95">
-            <label for="95">95%</label>
-          </div>
-          <div class="radio">
-            <input (change)="go()" [(ngModel)]="dataValues.sig" id="99" name="confidence" type="radio" value="0.99">
-            <label for="99">99%</label>
-          </div>
-        </div>
-        <div class="radioContainer">
-          <label for="hypothesis" class="tooltip"
-            matTooltip="Do you wish to be confident whether the conversion rate of B is lower? If you choose 1-sided then no conclusive statement can be made if the conversion rate of B is lower than of A.">Hypothesis</label>
-          <div class="radio">
-            <input (change)="go()" [(ngModel)]="dataValues.tail" id ="oneSided"name="hypothesis" type="radio"
-              value="1">
+          <div class="radioContainer">
+            <label for="hypothesis" class="tooltip"
+              matTooltip="Do you wish to be confident whether the conversion rate of B is lower? If you choose 1-sided then no conclusive statement can be made if the conversion rate of B is lower than of A.">Hypothesis</label>
+            <div class="radio">
+              <input (change)="go()" [(ngModel)]="dataValues.tail" id="oneSided" name="hypothesis" type="radio"
+                value="1">
               <label for="oneSided">one-sided</label>
-          </div>
-          <div class="radio">
-            <input (change)="go()" [(ngModel)]="dataValues.tail" id="twoSided" name="hypothesis" type="radio"
-              value="2">
+            </div>
+            <div class="radio">
+              <input (change)="go()" [(ngModel)]="dataValues.tail" id="twoSided" name="hypothesis" type="radio"
+                value="2">
               <label for="twoSided">two-sided</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </aside>
+
+  <main *ngIf="error">
+    <div *ngIf="result" class="smallContainer msg negative">
+      <h2>Input value error!</h2>
+      <p>To make an accurate calculation the users must be greater or equal to the conversions.</p>
+    </div>
+  </main>
+
+  <main *ngIf="!error" class={{hideHtml}}>
+    <div *ngIf="result" class="smallContainer msg {{result.state}}">
+      <div id="smallChart"></div>
+      <div *ngIf="result && result.state != 'neutral'">
+        <h2>Significant test result!</h2>
+        <p>Variation B's observed conversion rate ({{result.crB | percent:'0.2'}}) was
+          <strong>{{result.crUplift | percent:'0.2'}} {{result.highLow}}</strong> than variation A's conversion
+          rate ({{result.crA | percent:'0.2'}}). You can be <strong>{{result.confidence | percent}} confident</strong>
+          that this result is a consequence of the changes you made
+          and not a result of random chance.</p>
+      </div>
+      <div *ngIf="result && result.state == 'neutral'">
+        <h2>The test result is not significant.</h2>
+        <p>The observed difference in conversion rate <strong>({{result.crUplift | percent:'0.2'}})</strong> isn't big
+          enough to declare a
+          significant winner. There is no real difference in performance between A and B or you need to collect more
+          data.
+        </p>
+      </div>
+    </div>
+    <div *ngIf="result && result.srmError == true" class="smallContainer msg wrn">
+      <div>
+        <h2>Possible SRM alert.</h2>
+        <p>Assuming you intented to have a 50% / 50% split, a Sample Ratio Mismatch (SRM) check indicates there might be
+          a
+          problem with your distribution.
+        </p>
+      </div>
+    </div>
+    <div class="smallContainer">
+      <div id="largeChart"></div>
+      <div *ngIf="result" id="chartInfo" class={{result.state}}>
+        <div>
+          <div>
+            <span class="title" matTooltip="Conversions A / Visitors A">Conversion Rate A</span>
+            <span class="value">{{result.crA | percent:'0.2'}}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="title" matTooltip="Conversions B / Visitors B">Conversion Rate B</span>
+            <span class="value">{{result.crB | percent:'0.2'}}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="title" matTooltip="CRB - CRA / CRA">Relative uplift</span>
+            <span class="value uplift">{{result.crUplift | percent:'0.2'}}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="title">Observed Power</span>
+            <span class="value">{{result.power}}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="title">P value</span>
+            <span class="value">{{result.pValue}}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="title" matTooltip="( CRB - CRA ) / SEdifference">Z-score</span>
+            <span class="value">{{result.zScore}}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="title" matTooltip="( CRA * (1-CRA ) / VisitorsA)1/2">Standard error A</span>
+            <span class="value">{{result.seA}}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="title" matTooltip="( CRB * (1-CRB ) / VisitorsB)1/2">Standard error B</span>
+            <span class="value">{{result.seB}}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="title" matTooltip="SEdifference = ( SEA2 + SEB2 )1/2">Error of difference</span>
+            <span class="value">{{result.seDiff}}</span>
           </div>
         </div>
       </div>
     </div>
-  </form>
-</aside>
-
-<main *ngIf="error">
-  <div *ngIf="result" class="container msg negative">
-    <h2>Input value error!</h2>
-    <p>To make an accurate calculation the users must be greater or equal to the conversions.</p>
-  </div>
-</main>
-
-<main *ngIf="!error" class={{hideHtml}}>
-  <div *ngIf="result" class="container msg {{result.state}}">
-    <div id="smallChart"></div>
-    <div *ngIf="result && result.state != 'neutral'">
-      <h2>Significant test result!</h2>
-      <p>Variation B's observed conversion rate ({{result.crB | percent:'0.2'}}) was
-        <strong>{{result.crUplift | percent:'0.2'}} {{result.highLow}}</strong> than variation A's conversion
-        rate ({{result.crA | percent:'0.2'}}). You can be <strong>{{result.confidence | percent}} confident</strong>
-        that this result is a consequence of the changes you made
-        and not a result of random chance.</p>
+    <div class="smallContainer urlList">
+      <h2>Recommended reading</h2>
+      <ul>
+        <li><a target="_blank"
+            href="https://signalvnoise.com/posts/3004-ab-testing-tech-note-determining-sample-size">AB-testing tech note
+            determining sample-size</a></li>
+        <li><a target="_blank"
+            href="http://www.win-vector.com/blog/2014/05/a-clear-picture-of-power-and-significance-in-ab-tests/">A clear
+            picture of power and significance in AB-tests</a></li>
+        <li><a target="_blank" href="https://www.statmethods.net/stats/power.html">Power analysis in R</a></li>
+        <li><a target="_blank"
+            href="http://jakewestfall.org/blog/index.php/2015/06/16/dont-fight-the-power-analysis/">Don't fight the
+            power (analysis)</a></li>
+      </ul>
     </div>
-    <div *ngIf="result && result.state == 'neutral'">
-      <h2>The test result is not significant.</h2>
-      <p>The observed difference in conversion  rate <strong>({{result.crUplift | percent:'0.2'}})</strong> isn't big enough to declare a
-        significant winner. There is no real difference in performance between A and B or you need to collect more data.
-      </p>
-    </div>
-  </div>
-  <div *ngIf="result && result.srmError == true" class="container msg wrn">
-    <div>
-      <h2>Possible SRM alert.</h2>
-      <p>Assuming you intented to have a 50% / 50% split, a Sample Ratio Mismatch (SRM) check indicates there might be a
-        problem with your distribution.
-      </p>
-    </div>
-  </div>
-  <div class="container">
-    <div id="largeChart"></div>
-    <div *ngIf="result" id="chartInfo" class={{result.state}}>
-      <div>
-        <div>
-          <span class="title" matTooltip="Conversions A / Visitors A">Conversion Rate A</span>
-          <span class="value">{{result.crA | percent:'0.2'}}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="title" matTooltip="Conversions B / Visitors B">Conversion Rate B</span>
-          <span class="value">{{result.crB | percent:'0.2'}}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="title" matTooltip="CRB - CRA / CRA">Relative uplift</span>
-          <span class="value uplift">{{result.crUplift | percent:'0.2'}}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="title">Observed Power</span>
-          <span class="value">{{result.power}}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="title">P value</span>
-          <span class="value">{{result.pValue}}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="title" matTooltip="( CRB - CRA ) / SEdifference">Z-score</span>
-          <span class="value">{{result.zScore}}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="title" matTooltip="( CRA * (1-CRA ) / VisitorsA)1/2">Standard error A</span>
-          <span class="value">{{result.seA}}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="title" matTooltip="( CRB * (1-CRB ) / VisitorsB)1/2">Standard error B</span>
-          <span class="value">{{result.seB}}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span class="title" matTooltip="SEdifference = ( SEA2 + SEB2 )1/2">Error of difference</span>
-          <span class="value">{{result.seDiff}}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container urlList">
-    <h2>Recommended reading</h2>
-    <ul>
-      <li><a target="_blank" href="https://signalvnoise.com/posts/3004-ab-testing-tech-note-determining-sample-size">AB-testing tech note determining sample-size</a></li>
-      <li><a target="_blank" href="http://www.win-vector.com/blog/2014/05/a-clear-picture-of-power-and-significance-in-ab-tests/">A clear picture of power and significance in AB-tests</a></li>
-      <li><a target="_blank" href="https://www.statmethods.net/stats/power.html">Power analysis in R</a></li>
-      <li><a target="_blank" href="http://jakewestfall.org/blog/index.php/2015/06/16/dont-fight-the-power-analysis/">Don't fight the power (analysis)</a></li>
-    </ul>
-  </div>
-</main>
+  </main>
+</div>

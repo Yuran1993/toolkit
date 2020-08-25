@@ -32,7 +32,7 @@ import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
     InlogScreenComponent,
     TempToolComponent,
     AutofocusDirective,
-    AbTestCalcComponent
+    AbTestCalcComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +43,10 @@ import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
     MatButtonModule,
     MatDialogModule
   ],
-  providers: [authService, AuthGuard, AutofocusDirective, InputDataControllerService,
+  providers: [authService,
+    AuthGuard,
+    AutofocusDirective,
+    InputDataControllerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

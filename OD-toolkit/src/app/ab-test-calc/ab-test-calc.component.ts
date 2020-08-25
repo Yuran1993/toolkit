@@ -32,7 +32,7 @@ export class AbTestCalcComponent implements OnInit {
   ) { }
 
   getData(params: string): Observable<object> {
-    return this.http.get('./calc-calculator?' + params);
+    return this.http.get('./api/calc/abtestcalculator?' + params);
   }
 
   async getValues() {
@@ -81,6 +81,7 @@ export class AbTestCalcComponent implements OnInit {
   }
 
   async ngOnInit() {
+    window.scrollTo(0, 0);
     await this.getValues();
     if (this.dataValues.ua < this.dataValues.ca || this.dataValues.ub < this.dataValues.cb) {
       this.error = true;
