@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
@@ -36,16 +36,18 @@ export class AddToolComponent implements OnInit {
   async ngOnInit() {
     this.noAuth = [];
     const tools: any = await this.auth.getTools();
+    let currentToolAuth;
 
     this.toolsAuth.currentToolAuth.subscribe(async result => {
+      currentToolAuth = result
+    });
 
-      tools.forEach(e => {
-        const found = result.find(r => r.url === e.url && r.auth);
+    tools.forEach(e => {
+      const found = currentToolAuth.find(r => r.url === e.url && r.auth);
 
-        if (!found) {
-          this.noAuth.push(e);
-        }
-      });
+      if (!found) {
+        this.noAuth.push(e);
+      }
     });
 
     setTimeout(() => {
