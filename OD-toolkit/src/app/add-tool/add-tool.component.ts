@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
@@ -28,7 +28,13 @@ export class AddToolComponent implements OnInit {
     }, 1500);
   }
 
+  closeModal() {
+    this.dialogRef.close();
+
+  }
+
   async ngOnInit() {
+    this.noAuth = [];
     const tools: any = await this.auth.getTools();
 
     this.toolsAuth.currentToolAuth.subscribe(async result => {
@@ -40,18 +46,15 @@ export class AddToolComponent implements OnInit {
           this.noAuth.push(e);
         }
       });
-
-
-      setTimeout(() => {
-        const temp = document.getElementById(this.checked);
-        if (temp) {
-          temp.click();
-        }
-      }, 200);
     });
-  }
 
-  closeModal() {
-    this.dialogRef.close();
+    setTimeout(() => {
+      const temp = document.getElementById(this.checked);
+      console.log(temp);
+      
+      if (temp) {
+        temp.click();
+      }
+    }, 200);
   }
 }
