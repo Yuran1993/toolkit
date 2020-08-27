@@ -56,6 +56,6 @@ export class AddToolComponent implements OnInit {
         temp.click();
       }
       document.getElementById('modal-content-wrapper').style.opacity = '1';
-    }, 200);
+    }, 0);
   }
 }
