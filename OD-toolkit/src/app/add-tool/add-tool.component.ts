@@ -55,7 +55,7 @@ export class AddToolComponent implements OnInit {
       if (temp) {
         temp.click();
       }
-      document.getElementById('modal-content-wrapper').style.opacity = 1;
+      document.getElementById('modal-content-wrapper').style.opacity = '1';
     }, 200);
   }
 }
