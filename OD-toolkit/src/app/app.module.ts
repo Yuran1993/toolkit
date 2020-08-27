@@ -23,6 +23,7 @@ import { AutofocusDirective } from './_service/autofocus.directive';
 import { InputDataControllerService } from './_service/input-data-controller.service';
 import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddToolComponent } from './add-tool/add-tool.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     TempToolComponent,
     AutofocusDirective,
     AbTestCalcComponent,
+    AddToolComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [InlogScreenComponent]
+  entryComponents: [InlogScreenComponent, AddToolComponent]
 })
 export class AppModule { }

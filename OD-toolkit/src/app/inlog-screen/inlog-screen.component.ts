@@ -22,11 +22,29 @@ export class InlogScreenComponent implements OnInit {
     password: '',
   };
 
+  registerUserData = {
+    name: {
+      value: '',
+      pattern: new RegExp(/[A-Za-z]+/),
+      err: false,
+    },
+    email: {
+      value: '',
+      pattern: new RegExp(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+/),
+      err: false,
+    },
+    company: {
+      value: '',
+      pattern: new RegExp(/[A-Za-z]+/),
+      err: false,
+    }
+  };
+
   constructor(public dialogRef: MatDialogRef<InlogScreenComponent>, private auth: authService, @Inject(MAT_DIALOG_DATA) public data: any, private toolsAuth: ToolsService, private router:Router, ) {  }
 
   ngOnInit() {}
 
-  actionFunction() {
+  loginFunc() {
     this.auth.loginUser(this.loginUserData)
     .subscribe(
       res => {
@@ -40,13 +58,32 @@ export class InlogScreenComponent implements OnInit {
       err => {
         this.loginErrorMsg = err.error
         console.log(err.error);
-        
       }
     );
   }
 
-  // If the user clicks the cancel button a.k.a. the go back button, then\
-  // just close the modal
+  verifyRegister() {
+    let err = false;
+    Object.keys(this.registerUserData).forEach(element => {
+      const field = this.registerUserData[element];
+
+      if (!field.value.match(field.pattern)) {
+        field.err = 'err'
+        err = true;
+      } else {
+        field.err = ''
+      }
+    });
+
+    if (!err) {
+      this.sendRegister();
+    }
+  }
+
+  sendRegister() {
+    console.log(this.registerUserData);
+  }
+
   closeModal() {
     this.dialogRef.close();
   }

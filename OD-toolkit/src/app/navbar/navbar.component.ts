@@ -19,11 +19,14 @@ export class NavbarComponent implements OnInit {
     private router: Router,
   ) { }
 
-  openModal(bol: boolean) {
+  openLogReg(bol: boolean) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.id = "modal-component";
+    dialogConfig.id = "modal-logReg";
     dialogConfig.disableClose = false;
     dialogConfig.data = `{"login": ${bol}}`;
+    dialogConfig.position ={
+      top: '100px',
+    }
 
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
   }
@@ -31,14 +34,13 @@ export class NavbarComponent implements OnInit {
   scroll(id: string) {
     let el = document.getElementById(id);
     if (el) {
-      console.log('home', el.offsetTop);
-      el.scrollIntoView();
+      el.scrollIntoView({behavior: 'smooth'});
       return;
     } else {
       this.router.navigate(['/']).then(() => {
         setTimeout(() => {
           let el = document.getElementById(id);
-          el.scrollIntoView();
+          el.scrollIntoView({behavior: 'smooth'});
         }, 200);
       });
     }

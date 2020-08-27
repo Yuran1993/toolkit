@@ -19,6 +19,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
  },
   { 
+    path: 'bayesiaanseCalculator',
+    component: AbTestCalcComponent,
+    canActivate: [AuthGuard]
+ },
+  { 
     path: '3',
     component: TempToolComponent,
     canActivate: [AuthGuard]

@@ -16,13 +16,17 @@
   @include breakpoint('medium') {
     flex-flow: column nowrap;
   }
+  @include breakpoint('small') {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
-html {
-  height: 100%;
-  font-size: 12px;
-  line-height: 1.7;
-}
+// html {
+//   height: 100%;
+//   font-size: 12px;
+//   line-height: 1.7;
+// }
 
 main {
   width: 75%;
@@ -33,12 +37,12 @@ main {
   }
 }
 
-.container {
-  @include breakpoint('medium') {
-    padding-right: 0;
-    padding-left: 0;
-  }
-}
+// .container {
+//   @include breakpoint('medium') {
+//     padding-right: 0;
+//     padding-left: 0;
+//   }
+// }
 
 ::ng-deep .mat-tooltip {
   background-color: $tooltipColor;
@@ -77,38 +81,38 @@ th {
   flex-flow: row wrap;
 }
 
-.cta {
-  margin: 20px 0;
-  margin-left: auto;
-  border: none;
-  background: $cta;
-  padding: 10px 30px;
-  border-radius: 50px;
-  color: #ffffff;
-  font-weight: 600;
+// .cta {
+//   margin: 20px 0;
+//   margin-left: auto;
+//   border: none;
+//   background: $cta;
+//   padding: 10px 30px;
+//   border-radius: 50px;
+//   color: #ffffff;
+//   font-weight: 600;
 
-  transition: all .3s ease-in-out;
-  cursor: pointer;
-}
+//   transition: all .3s ease-in-out;
+//   cursor: pointer;
+// }
 
-.secondarBtn {
-  margin: 0;
-  margin-left: auto;
-  border: none;
-  background: $wrnColor;
-  padding: 10px 15px;
-  border-radius: 50px;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 600;
+// .secondarBtn {
+//   margin: 0;
+//   margin-left: auto;
+//   border: none;
+//   background: $wrnColor;
+//   padding: 10px 15px;
+//   border-radius: 50px;
+//   color: #ffffff;
+//   font-size: 11px;
+//   font-weight: 600;
 
-  cursor: pointer;
-}
+//   cursor: pointer;
+// }
 
 aside {
   width: 30%;
   max-width: 350px;
-  height: inherit;
+  // height: inherit;
   background: #ffffff;
   position: relative;
   box-shadow: 4px 4px 10px 0 rgba(204, 204, 204, .5);
@@ -187,7 +191,7 @@ aside {
 }
 
 .msg {
-  margin-top: 50px;
+  // margin-top: 50px;
   border-left: 4px solid #CCC;
 
   h2 {
@@ -301,57 +305,57 @@ input[type="number"]:focus {
   border-color: $negColor !important;
 }
 
-.euro {
-  position: relative;
+// .euro {
+//   position: relative;
 
-  &:before {
-    content: "€";
-    color: $primaryColor;
-    font-size: 14px;
-    font-weight: 500;
+//   &:before {
+//     content: "€";
+//     color: $primaryColor;
+//     font-size: 14px;
+//     font-weight: 500;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 27px;
-    height: 42px;
-    position: absolute;
-    bottom: 20px;
-    left: 5px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 27px;
+//     height: 42px;
+//     position: absolute;
+//     bottom: 20px;
+//     left: 5px;
 
-    border-radius: 3px;
-  }
+//     border-radius: 3px;
+//   }
 
-  input {
-    padding-left: 30px;
-  }
-}
+//   input {
+//     padding-left: 30px;
+//   }
+// }
 
-.percentage {
-  position: relative;
+// .percentage {
+//   position: relative;
 
-  &:after {
-    content: "%";
-    color: $primaryColor;
-    font-size: 14px;
-    font-weight: 500;
+//   &:after {
+//     content: "%";
+//     color: $primaryColor;
+//     font-size: 14px;
+//     font-weight: 500;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 27px;
-    height: 42px;
-    position: absolute;
-    right: 5px;
-    bottom: 20px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 27px;
+//     height: 42px;
+//     position: absolute;
+//     right: 5px;
+//     bottom: 20px;
 
-    border-radius: 3px;
-  }
+//     border-radius: 3px;
+//   }
 
-  input {
-    padding-right: 30px;
-  }
-}
+//   input {
+//     padding-right: 30px;
+//   }
+// }
 
 .radio {
   position: relative;

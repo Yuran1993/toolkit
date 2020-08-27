@@ -36,19 +36,20 @@
   <div id="tools" class="outerToolsContainer container">
     <h2>Alle tools</h2>
     <div class="innerToolsContainer">
-      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" (click)="!tool.auth && !auth.loggedIn() && openModal(false)" [routerLink]="tool.url">
-        <img *ngIf='odd' src="../../assets/images/icons/dashboard/card-icoon-1.svg" alt="">
-        <img *ngIf='!odd' src="../../assets/images/icons/dashboard/card-icoon-2.svg" alt="">
+      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" (click)="cardClick(tool)" [routerLink]="tool.url">
+        <img *ngIf='odd' src="../../assets/images/icons/dashboard/card-icoon-1.svg" alt="card icon">
+        <img *ngIf='!odd' src="../../assets/images/icons/dashboard/card-icoon-2.svg" alt="card icon">
         <h3>{{tool.name}}</h3>
         <p>{{tool.disc}}</p>
         <span *ngIf='tool.auth' >Openen</span>
-        <span *ngIf='!tool.auth'>Registreer</span>
+        <span *ngIf='!tool.auth && !auth.loggedIn()'>Registreer</span>
+        <span *ngIf='!tool.auth && auth.loggedIn()'>Toevoegen</span>
       </a>
     </div>
   </div>
 
   <div *ngIf="!auth.loggedIn()" class="container ctaContainer">
-    <a class="cta" (click)="openModal(true)">Ik heb al een account</a>
+    <a class="cta" (click)="openLogReg(true)">Ik heb al een account</a>
   </div>
   
   <div class="container articleContainer">

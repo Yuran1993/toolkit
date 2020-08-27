@@ -34,6 +34,14 @@ export class authService {
     return localStorage.getItem('token');
   }
 
+  getTools() {
+    return new Promise<[]>((resolve) => {
+      this.http.get<[]>('api/getTools').subscribe(result => {
+        resolve(result);
+      });
+    });
+  }
+
   getToolsAuthServer() {
     const token = localStorage.getItem('token');
 

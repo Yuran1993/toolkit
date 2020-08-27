@@ -2,19 +2,19 @@
   <button (click)="login=true;" [class]="login ? 'open' : ''">Login</button>
   <button (click)="login=false;" [class]="!login ? 'open' : ''">Registreer</button>
 </div>
-<div *ngIf="login" id="modal-content-wrapper" class="model-wrapper">
+<div *ngIf="login" id="modal-content-wrapper">
   <header id="modal-header">
     <h1>Login</h1>
     <p>Wil je gebruik maken van deze tool? Registreer je of log in met je gegevens.</p>
   </header>
-  <form (ngSubmit)= "actionFunction()">
+  <form (ngSubmit)= "loginFunc()">
     <section id="modal-body">
       <input [autofocus] [(ngModel)]="loginUserData.email" type="text" name="loginEmail" id="loginEmail" placeholder="E-mailadres">
       <input [(ngModel)]="loginUserData.password" type="password" name="loginPassword" id="loginPassword" placeholder="Wachtwoord">
     </section>
     <footer id="modal-footer">
       <button mat-raised-button type="button" class="forgotPassword" (click)="closeModal()">Wachtwoord vergeten</button>
-      <button mat-raised-button type="submit" class="cta2">inloggen</button>
+      <button type="submit" class="cta2">inloggen</button>
     </footer>
   </form>
 
@@ -28,14 +28,14 @@
     <h1>Registreer</h1>
     <p>Wil je gebruik maken van deze tool? Registreer je of log in met je gegevens.</p>
   </header>
-  <form>
+  <form (ngSubmit)= "verifyRegister()">
     <section id="modal-body">
-      <input [autofocus] type="text" name="registreerName" id="registreerName" placeholder="Naam">
-      <input type="text" name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
+      <input [autofocus] [(ngModel)]="registerUserData.name.value" [class]="registerUserData.name.err" type="text" name="registreerName" id="registreerName" placeholder="Naam">
+      <input [(ngModel)]="registerUserData.email.value" [class]="registerUserData.email.err" type="text" name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
     </section>
     <section id="modal-body">
-      <input type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
-      <button mat-raised-button class="cta2" (click)="actionFunction()">registreer</button>
+      <input [(ngModel)]="registerUserData.company.value" [class]="registerUserData.company.err" type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
+      <button class="cta2" type="submit">registreer</button>
     </section>
   </form>
 

@@ -1,11 +1,5 @@
 $groen: #6AB84A;
-
-#modal-content-wrapper {
-  color: #000000;
-  position: relative;
-  background: #ffffff;
-  border-radius: 11px;
-}
+$negColor: #fd8163;
 
 h1 {
   margin-bottom: 15px;
@@ -30,7 +24,7 @@ p {
     border-radius: 15px 15px 0 0;
     margin-right: 5px;
     background: rgb(199, 198, 202);
-    background: linear-gradient(0deg, rgba(199, 198, 202, 1) 0%, rgba(235, 235, 239, 1) 100%);
+    background: linear-gradient(0deg, #c7c6ca 0%, #ffffff 40%);
     font-weight: 500;
 
     cursor: pointer;
@@ -43,10 +37,6 @@ p {
       margin-right: 0;
     }
   }
-}
-
-.model-wrapper {
-  padding: 35px;
 }
 
 #modal-body {
@@ -70,6 +60,10 @@ p {
     &:focus {
       border-color: $groen;
     }
+
+    &.err {
+      border-color: $negColor;
+    }
   }
 }
 
@@ -80,7 +74,7 @@ p {
 }
 
 .cta2 {
-  padding: 2px 20px;
+  align-self: flex-end;
 }
 
 .forgotPassword {
