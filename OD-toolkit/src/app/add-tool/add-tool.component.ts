@@ -25,7 +25,7 @@ export class AddToolComponent implements OnInit {
 
     setTimeout(() => {
       this.closeModal();
-    }, 1500);
+    }, 2000);
   }
 
   closeModal() {
@@ -50,7 +50,6 @@ export class AddToolComponent implements OnInit {
 
     setTimeout(() => {
       const temp = document.getElementById(this.checked);
-      console.log(temp);
       
       if (temp) {
         temp.click();
