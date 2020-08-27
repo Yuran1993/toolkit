@@ -34,7 +34,6 @@ export class AddToolComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.noAuth = [];
     const tools: any = await this.auth.getTools();
     let currentToolAuth;
 
@@ -56,6 +55,7 @@ export class AddToolComponent implements OnInit {
       if (temp) {
         temp.click();
       }
+      document.getElementById('modal-content-wrapper').style.opacity = 1;
     }, 200);
   }
 }

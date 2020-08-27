@@ -1,6 +1,9 @@
 $primaryColor: #6AB84A;
 
 #modal-content-wrapper {
+  opacity: 0;
+  transition: ease-in-out .3s all;
+
   h1 {
     margin-bottom: 15px;
     font-size: 1.4rem;
