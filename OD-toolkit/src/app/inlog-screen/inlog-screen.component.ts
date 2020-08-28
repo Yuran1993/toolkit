@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef, throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { authService } from '../_service/auth.service';
 import { ToolsService } from '../_service/tools.service';
+import { MailService } from '../_service/mail.service';
 
 @Component({
   selector: 'app-inlog-screen',
@@ -14,11 +15,15 @@ import { ToolsService } from '../_service/tools.service';
 
 export class InlogScreenComponent implements OnInit {
   login = JSON.parse(this.data).login;
-  loginErrorMsg:string;
-  registreerErrorMsg:string;
+  loginErrorMsg: string;
+  registreerErrorMsg: string;
 
   loginUserData = {
-    email: '',
+    email: {
+      value: '',
+      pattern: new RegExp(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+/),
+      err: false
+    },
     password: '',
   };
 
@@ -40,26 +45,54 @@ export class InlogScreenComponent implements OnInit {
     }
   };
 
-  constructor(public dialogRef: MatDialogRef<InlogScreenComponent>, private auth: authService, @Inject(MAT_DIALOG_DATA) public data: any, private toolsAuth: ToolsService, private router:Router, ) {  }
+  constructor(
+    public dialogRef: MatDialogRef<InlogScreenComponent>,
+    private auth: authService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toolsAuth: ToolsService,
+    private router: Router,
+    private mail: MailService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   loginFunc() {
     this.auth.loginUser(this.loginUserData)
-    .subscribe(
-      res => {
-        localStorage.setItem('token', res.token);
-        this.toolsAuth.changeToolsAuth(res.tools);
-        
-        this.loginErrorMsg = '';
-        this.closeModal();
-        this.router.navigate(['']);
-      },
-      err => {
-        this.loginErrorMsg = err.error
-        console.log(err.error);
-      }
-    );
+      .subscribe(
+        res => {
+          localStorage.setItem('token', res.token);
+          this.toolsAuth.changeToolsAuth(res.tools);
+
+          this.loginErrorMsg = '';
+          this.closeModal();
+          this.router.navigate(['']); //Nodig?
+        },
+        err => {
+          this.loginErrorMsg = err.error
+          console.log(err.error);
+        }
+      );
+  }
+
+  forgotPassword() {
+    const field: any = this.loginUserData['email'];
+
+    if (!field.value.match(field.pattern)) {
+      field.err = 'err'
+    } else {
+      field.err = '';
+      this.mail.forgotPassword(field)
+        .subscribe(
+          res => {
+            console.log(res);
+            document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Aanvraag verstuurd!</p> <p style="margin-bottom: 0;">U ontvangt uw wachtwoord via het opgegeven e-mailadres.</p>`;
+          },
+          err => {
+            this.loginErrorMsg = err.error
+            console.log(err.error);
+          }
+        );
+
+    }
   }
 
   verifyRegister() {
@@ -81,7 +114,17 @@ export class InlogScreenComponent implements OnInit {
   }
 
   sendRegister() {
-    console.log(this.registerUserData);
+    this.mail.register(this.registerUserData)
+      .subscribe(
+        res => {
+          document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Aanvraag verstuurd!</p> <p style="margin-bottom: 0;">U ontvangt uw inloggevens via de mail ofzo, idk yet.</p>`;
+          // setTimeout(() => this.closeModal(), 3000);
+
+        },
+        err => {
+          console.log(err.error);
+        }
+      );
   }
 
   closeModal() {

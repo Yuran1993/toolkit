@@ -24,6 +24,7 @@ import { InputDataControllerService } from './_service/input-data-controller.ser
 import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddToolComponent } from './add-tool/add-tool.component';
+import { MailService } from './_service/mail.service';
 
 @NgModule({
   declarations: [
@@ -47,10 +48,12 @@ import { AddToolComponent } from './add-tool/add-tool.component';
     MatDialogModule,
     MatTooltipModule
   ],
-  providers: [authService,
+  providers: [
+    authService,
     AuthGuard,
     AutofocusDirective,
     InputDataControllerService,
+    MailService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

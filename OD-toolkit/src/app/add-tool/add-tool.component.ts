@@ -17,7 +17,13 @@ export class AddToolComponent implements OnInit {
   reqSend = false;
   checked = JSON.parse(this.data).elClicked;
 
-  constructor(public dialogRef: MatDialogRef<AddToolComponent>, private auth: authService, @Inject(MAT_DIALOG_DATA) public data: any, private toolsAuth: ToolsService, private mail: MailService,) { }
+  constructor(
+    public dialogRef: MatDialogRef<AddToolComponent>,
+    private auth: authService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toolsAuth: ToolsService,
+    private mail: MailService,
+  ) { }
 
   sendReq() {
     this.reqSend = true;

@@ -41,6 +41,10 @@ a {
   cursor: pointer;
 }
 
+input:focus {
+  outline: none;
+}
+
 button {
   background: none;
   border: none;
@@ -159,6 +163,7 @@ mat-dialog-container#modal-addTool {
 }
 
 #modal-content-wrapper {
+  min-width: 400px;
   color: #000000;
   position: relative;
   background: #ffffff;

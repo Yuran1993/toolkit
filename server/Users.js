@@ -1,6 +1,6 @@
 users = [
   {
-    email: 'user1',
+    email: 'user1@test.nl',
     password: 'wachtwoord',
     tools: [
       {url: '1', auth: true},
@@ -14,7 +14,7 @@ users = [
     _id: 1
   },
   {
-    email: 'user2',
+    email: 'user2@test.nl',
     password: 'wachtwoord',
     tools: [
       {url: '1', auth: true},
@@ -22,12 +22,12 @@ users = [
       {url: '3', auth: true},
       {url: '4', auth: true},
       {url: '5', auth: false},
-      {url: '6', auth: false},
+      {url: '6', auth: true},
     ],
     _id: 2
   },
   {
-    email: 'user3',
+    email: 'user3@test.nl',
     password: 'wachtwoord',
     tools: [
       {url: '1', auth: true},

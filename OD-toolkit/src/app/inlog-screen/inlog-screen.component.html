@@ -9,11 +9,11 @@
   </header>
   <form (ngSubmit)= "loginFunc()">
     <section id="modal-body">
-      <input [autofocus] [(ngModel)]="loginUserData.email" type="text" name="loginEmail" id="loginEmail" placeholder="E-mailadres">
+      <input [autofocus] [(ngModel)]="loginUserData.email.value" [class]="loginUserData.email.err" type="text" name="loginEmail" id="loginEmail" placeholder="E-mailadres">
       <input [(ngModel)]="loginUserData.password" type="password" name="loginPassword" id="loginPassword" placeholder="Wachtwoord">
     </section>
     <footer id="modal-footer">
-      <button mat-raised-button type="button" class="forgotPassword" (click)="closeModal()">Wachtwoord vergeten</button>
+      <button mat-raised-button type="button" class="forgotPassword" (click)="forgotPassword()">Wachtwoord vergeten</button>
       <button type="submit" class="cta2">inloggen</button>
     </footer>
   </form>

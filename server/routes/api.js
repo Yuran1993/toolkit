@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN });
 const users = require('../Users');
 
 const calc = require('./calculators')
@@ -10,19 +11,49 @@ router.use('/calc', calc);
 
 router.post('/login', (req, res) => {
   const userData = req.body;
-  const user = users.find((e) => e.email === userData.email);
+  const user = users.find((e) => e.email === userData.email.value);
+  console.log(req.body);
+  console.log(users);
 
   if (user) {
     if (user.password === userData.password) {
-      const payload = {subject: user._id};
+      const payload = { subject: user._id };
       const token = jwt.sign(payload, 'toolkitKey');
-      res.status(200).send({token, tools: user.tools});
+      res.status(200).send({ token, tools: user.tools });
     } else {
-      res.status(401).send('Password incorrect');
+      res.status(401).send('Wachtwoord incorrect');
     }
   } else {
-    res.status(401).send('User not found');
+    res.status(401).send('E-mailadres niet gevonden');
   }
+});
+
+router.post('/register', (req, res) => {
+  const userData = req.body;
+
+  const text =
+    `OD-toolkit: nieuwe registratie:
+
+Naam: ${userData['name'].value}
+Email: ${userData['email'].value}
+Bedrijf: ${userData['company'].value}
+`;
+
+  var mail = {
+    from: 'OD-auto <dev@onlinedialogue.com>',
+    to: 'yuran@onlinedialogue.com',
+    subject: 'Nieuwe registratie OD-toolkit',
+    text
+  };
+
+  //res.status(200).send();
+
+  mailgun.messages().send(mail, function (err, body) {
+    if (err) console.log(err) && res.status(200).send();
+    res.status(200).send();
+  });
+
+
 });
 
 const verifyToken = (req, res, next) => {
@@ -62,7 +93,7 @@ const verifyToken = (req, res, next) => {
 router.get('/getTools', (req, res) => {
   const tools = require('../../tools');
   var json = JSON.stringify(tools);
-  res.writeHead(200, {"Content-Type": "application/json"});
+  res.writeHead(200, { "Content-Type": "application/json" });
   res.end(json);
 });
 
@@ -71,6 +102,63 @@ router.get('/toolsAuth', verifyToken, (req, res) => {
   const user = users.find(e => e._id === id);
 
   res.status(200).send(user.tools);
+});
+
+router.post('/addToolReq', verifyToken, (req, res) => {
+  const id = req.userId;
+  const user = users.find(e => e._id === id);
+  const data = req.body;
+
+  let text =
+    `Gebruiker: ${user.email},
+vraag toegang tot de volgende tools:
+  
+`;
+
+  Object.keys(data).forEach(e => {
+    text += e + ',\n';
+  });
+
+  var mail = {
+    from: 'OD-auto <dev@onlinedialogue.com>',
+    to: 'yuran@onlinedialogue.com',
+    subject: 'OD-toolkit: tools aanvraag',
+    text
+  };
+
+  mailgun.messages().send(mail, function (err, body) {
+    if (err) console.log(err);
+  });
+});
+
+router.post('/forgotPassword', (req, res) => {
+  const emailAdres = req.body.value;
+  const user = users.find(e => e.email === emailAdres);
+
+  if (user) {
+    let text =
+      `Gebruiker: ${emailAdres},
+vraag het wachtwoord van het OD-toolkit account opnieuw op.
+`;
+
+    var mail = {
+      from: 'OD-auto <dev@onlinedialogue.com>',
+      to: 'yuran@onlinedialogue.com',
+      subject: 'OD-toolkit: wachtwoord aanvraag',
+      text
+    };
+
+    mailgun.messages().send(mail, function (err, body) {
+      if (err) console.log(err);
+      res.status(200).send();
+    });
+
+    // console.log(text);
+
+    // res.status(200).send();
+  } else {
+    res.status(401).send('E-mailadres niet gevonden');
+  }
 });
 
 module.exports = router;

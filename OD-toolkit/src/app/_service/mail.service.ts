@@ -1,16 +1,34 @@
-// require('dotenv').config();
-// const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN });
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MailService {
+  private _mailUrl = 'api/addToolReq';
+  private _registerUrl = 'api/register';
+  private _forgotPassword = 'api/forgotPassword';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
   addToolsReq(tools) {
-    const toolsToAdd = Object.keys(tools) //.forEach(e => console.log(e));
-    console.log(toolsToAdd);
+    this.http.post<any>(this._mailUrl, tools)
+    .subscribe(
+      res => {
+        console.log(res);
+        
+      },
+      err => {
+        console.log(err.error);
+      }
+    );
+  }
+  
+  register(data) {
+    return this.http.post<any>(this._registerUrl, data);
+  }
+  
+  forgotPassword(data) {
+    return this.http.post<any>(this._forgotPassword, data);
   }
 }

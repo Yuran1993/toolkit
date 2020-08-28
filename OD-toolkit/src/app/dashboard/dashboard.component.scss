@@ -221,10 +221,10 @@ main {
   margin-bottom: 40px;
 
   > * {
-    max-width: 460px;
+    width: calc(50% - 20px);
 
     @include breakpoint('medium') {
-      max-width: 100%
+      width: 100%
     }
 
     &.contact {
