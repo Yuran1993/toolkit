@@ -8,20 +8,6 @@
   opacity: 0;
 }
 
-.mainContainer {
-  display: flex;
-  flex-flow: row nowrap;
-  padding-bottom: 0;
-
-  @include breakpoint('medium') {
-    flex-flow: column nowrap;
-  }
-  @include breakpoint('small') {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
 // html {
 //   height: 100%;
 //   font-size: 12px;
@@ -110,13 +96,6 @@ th {
 // }
 
 aside {
-  width: 30%;
-  max-width: 350px;
-  // height: inherit;
-  background: #ffffff;
-  position: relative;
-  box-shadow: 4px 4px 10px 0 rgba(204, 204, 204, .5);
-  align-self: flex-start;
 
   .asideSection {
     padding: 20px;
@@ -157,36 +136,6 @@ aside {
       width: 100%;
       margin: 0 auto 30px;
     }
-  }
-}
-
-.smallContainer {
-  width: 85%;
-  max-width: 900px;
-  padding: 20px 30px;
-  margin: 30px 0 30px auto;
-  background: #FFF;
-  box-shadow: 4px 4px 10px 0px rgba(204, 204, 204, 0.5);
-  transition: ease-in-out .3s all;
-
-  &:first-of-type {
-    margin-top: 0;
-
-    @include breakpoint('medium') {
-      margin-top: 20px;
-    }
-  }
-
-  strong {
-    font-size: inherit;
-  }
-
-  @include breakpoint('medium') {
-    margin: 30px auto;
-  }
-
-  @include breakpoint('small') {
-    width: 100%;
   }
 }
 

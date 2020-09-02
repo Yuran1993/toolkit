@@ -11,7 +11,7 @@ const tools = [
   },
   {
     name: 'Bayesiaanse A/B-test calculator',
-    url: 'bayesiaanseCalculator',
+    url: 'bayesiaansecalculator',
     disc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam quaerat cumque nobis illum officiis veniam ex vitae odit',
   },
   {

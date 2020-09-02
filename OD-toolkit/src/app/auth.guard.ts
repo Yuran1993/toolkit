@@ -14,15 +14,15 @@ export class AuthGuard implements CanActivate {
   async canActivate(activeRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let pageAuth:any;
 
-    let tools:any = await this.auth.getToolsAuthServer();
-    if (!tools) {
+    let user:any = await this.auth.getUser();
+    if (!user) {
       this.getToolsAuth.currentToolAuth.subscribe(result => {
-        tools = result;
+        user = result;
       });
     }
 
     const page = state.url.replace('/', '');
-    pageAuth = tools.find(e => e.url === page);
+    pageAuth = user.tools.find(e => e.url === page);
 
     if (pageAuth && pageAuth.auth) {
       return true;

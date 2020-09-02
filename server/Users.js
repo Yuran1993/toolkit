@@ -1,20 +1,22 @@
 users = [
   {
     email: 'user1@test.nl',
+    name: 'user1',
     password: 'wachtwoord',
     tools: [
       {url: '1', auth: true},
       {url: '2', auth: true},
       {url: '3', auth: true},
       {url: '4', auth: true},
-      {url: '5', auth: true},
       {url: '6', auth: true},
       {url: 'abtestcalculator', auth: true},
+      {url: 'bayesiaansecalculator', auth: true},
     ],
     _id: 1
   },
   {
     email: 'user2@test.nl',
+    name: 'user2',
     password: 'wachtwoord',
     tools: [
       {url: '1', auth: true},
@@ -28,6 +30,7 @@ users = [
   },
   {
     email: 'user3@test.nl',
+    name: 'user3',
     password: 'wachtwoord',
     tools: [
       {url: '1', auth: true},

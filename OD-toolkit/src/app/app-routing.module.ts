@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TempToolComponent } from './temp-tool/temp-tool.component';
 import { AuthGuard } from './auth.guard';
 import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
+import { BayesCalcComponent } from './bayes-calc/bayes-calc.component';
 
 
 const routes: Routes = [
@@ -19,8 +20,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
  },
   { 
-    path: 'bayesiaanseCalculator',
-    component: AbTestCalcComponent,
+    path: 'bayesiaansecalculator',
+    component: BayesCalcComponent,
     canActivate: [AuthGuard]
  },
   { 

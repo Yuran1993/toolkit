@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     public matDialog: MatDialog
   ) { }
 
-  tools:any;
+  tools: any;
   toolsAuth;
 
   cardClick(tool) {
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
 
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
   }
- 
+
   openAdd(element) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-addTool";
@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
   scroll(id: string) {
     let el = document.getElementById(id);
 
-    el.scrollIntoView({behavior: 'smooth'});
+    el.scrollIntoView({ behavior: 'smooth' });
   }
 
   // getTools() {
@@ -73,21 +73,23 @@ export class DashboardComponent implements OnInit {
   // }
 
   async ngOnInit() {
-    this.auth.getToolsAuthServer();
+    this.auth.getUser();
     this.tools = await this.auth.getTools();
-    this.getToolsAuth.currentToolAuth.subscribe(async result => {      
+    this.getToolsAuth.currentToolAuth.subscribe(async user => {
 
-      if (result) {
+      if (user) {
         this.tools.forEach((e: any, i: number) => {
           e.auth = false;
+          console.log(user);
 
-          const currentAuth = result.find((element) => element.url === e.url);
+
+          const currentAuth = user.tools.find((element) => element.url === e.url);
           if (currentAuth) {
             e.auth = currentAuth.auth;
           }
         });
 
-      this.tools = this.tools.sort((x, y) =>  (x.auth === y.auth)? 0 : x.auth? -1 : 1);
+        this.tools = this.tools.sort((x, y) => (x.auth === y.auth) ? 0 : x.auth ? -1 : 1);
       }
     });
   }

@@ -41,13 +41,23 @@ export class authService {
       });
     });
   }
+  
+  getName() {
+    return new Promise<[]>((resolve) => {
+      this.http.get<[]>('api/getName').subscribe(result => {
+        resolve(result);
+      });
+    });
+  }
 
-  getToolsAuthServer() {
+  getUser() {
     const token = localStorage.getItem('token');
 
     if (token) {
       return new Promise<[]>((resolve) => {
         this.http.get<[]>('api/toolsAuth').subscribe(result => {
+          console.log(result);
+          
           this.getToolsAuth.changeToolsAuth(result);
 
           resolve(result);

@@ -25,6 +25,8 @@ import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddToolComponent } from './add-tool/add-tool.component';
 import { MailService } from './_service/mail.service';
+import { BayesCalcComponent } from './bayes-calc/bayes-calc.component';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,12 @@ import { MailService } from './_service/mail.service';
     DashboardComponent,
     FooterComponent,
     InlogScreenComponent,
+    AddToolComponent,
     TempToolComponent,
     AutofocusDirective,
     AbTestCalcComponent,
-    AddToolComponent,
+    BayesCalcComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

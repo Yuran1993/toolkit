@@ -6,7 +6,9 @@
     <li><a class="tools" (click)="scroll('tools')">Tools</a></li>
     <li><a class="contact" (click)="scroll('contact')">Contact</a></li>
     <li *ngIf="!auth.loggedIn()"><a class="user" mat-raised-button id="logout-button" (click)="openLogReg(true)">Login</a></li>
-    <li *ngIf="!auth.loggedIn()"><a class="registreer" (click)="openLogReg(false)">Registreer</a></li>
-    <li *ngIf="auth.loggedIn()"><a class="user" (click)="auth.logout()">Log uit</a></li>
+    <li *ngIf="!auth.loggedIn()"><a class="registreer" (click)="openLogReg(false)">Aanmelding</a></li>
+
+    <li *ngIf="auth.loggedIn()" class="user" >{{user.name}}</li>
+    <li *ngIf="auth.loggedIn()"><a class="registreer orange" (click)="auth.logout()">Uitloggen</a></li>
   </ul>
 </nav>

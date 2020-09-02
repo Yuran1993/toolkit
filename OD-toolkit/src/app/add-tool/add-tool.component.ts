@@ -41,14 +41,14 @@ export class AddToolComponent implements OnInit {
 
   async ngOnInit() {
     const tools: any = await this.auth.getTools();
-    let currentToolAuth;
+    let user;
 
     this.toolsAuth.currentToolAuth.subscribe(async result => {
-      currentToolAuth = result
+      user = result
     });
 
     tools.forEach(e => {
-      const found = currentToolAuth.find(r => r.url === e.url && r.auth);
+      const found = user.tools.find(r => r.url === e.url && r.auth);
 
       if (!found) {
         this.noAuth.push(e);
