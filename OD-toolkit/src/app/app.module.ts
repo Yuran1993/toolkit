@@ -39,7 +39,6 @@ import { ContactComponent } from './contact/contact.component';
     TempToolComponent,
     AutofocusDirective,
     AbTestCalcComponent,
-    BayesCalcComponent,
     InfoComponent,
     ContactComponent
   ],
