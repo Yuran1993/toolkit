@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { ToolsService } from '../_service/tools.service';
+import { GetUser } from '../_service/getUser.service';
 import { authService } from '../_service/auth.service';
 import { InlogScreenComponent } from '../inlog-screen/inlog-screen.component';
 import { AddToolComponent } from '../add-tool/add-tool.component';
@@ -16,12 +16,12 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private getToolsAuth: ToolsService,
+    private getToolsAuth: GetUser,
     public auth: authService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
   ) { }
 
-  tools:any;
+  tools: any;
   toolsAuth;
 
   cardClick(tool) {
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
 
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
   }
- 
+
   openAdd(element) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-addTool";
@@ -61,34 +61,11 @@ export class DashboardComponent implements OnInit {
   scroll(id: string) {
     let el = document.getElementById(id);
 
-    el.scrollIntoView({behavior: 'smooth'});
+    el.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // getTools() {
-  //   return new Promise<[]>((resolve) => {
-  //     this.http.get<[]>('api/getTools').subscribe(result => {
-  //       resolve(result);
-  //     });
-  //   });
-  // }
-
-  async ngOnInit() {
-    this.auth.getToolsAuthServer();
-    this.tools = await this.auth.getTools();
-    this.getToolsAuth.currentToolAuth.subscribe(async result => {      
-
-      if (result) {
-        this.tools.forEach((e: any, i: number) => {
-          e.auth = false;
-
-          const currentAuth = result.find((element) => element.url === e.url);
-          if (currentAuth) {
-            e.auth = currentAuth.auth;
-          }
-        });
-
-      this.tools = this.tools.sort((x, y) =>  (x.auth === y.auth)? 0 : x.auth? -1 : 1);
-      }
-    });
+async ngOnInit() {
+    this.tools = await this.auth.getToolsWAuth();
+    this.tools = this.tools.sort((x, y) => (x.auth === y.auth) ? 0 : x.auth ? -1 : 1);
   }
 }

@@ -19,7 +19,7 @@ router.post('/login', (req, res) => {
     if (user.password === userData.password) {
       const payload = { subject: user._id };
       const token = jwt.sign(payload, 'toolkitKey');
-      res.status(200).send({ token, tools: user.tools });
+      res.status(200).send({ token, user });
     } else {
       res.status(401).send('Wachtwoord incorrect');
     }
@@ -101,7 +101,7 @@ router.get('/toolsAuth', verifyToken, (req, res) => {
   const id = req.userId;
   const user = users.find(e => e._id === id);
 
-  res.status(200).send(user.tools);
+  res.status(200).send(user);
 });
 
 router.post('/addToolReq', verifyToken, (req, res) => {
@@ -111,12 +111,12 @@ router.post('/addToolReq', verifyToken, (req, res) => {
 
   let text =
     `Gebruiker: ${user.email},
-vraag toegang tot de volgende tools:
+vraagt toegang tot de volgende tools:
   
 `;
 
   Object.keys(data).forEach(e => {
-    text += e + ',\n';
+    text += e + '\n';
   });
 
   var mail = {
@@ -138,7 +138,7 @@ router.post('/forgotPassword', (req, res) => {
   if (user) {
     let text =
       `Gebruiker: ${emailAdres},
-vraag het wachtwoord van het OD-toolkit account opnieuw op.
+vraagt het wachtwoord van het OD-toolkit account opnieuw op.
 `;
 
     var mail = {

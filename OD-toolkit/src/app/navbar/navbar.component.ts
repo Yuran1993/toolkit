@@ -5,6 +5,7 @@ import { authService } from '../_service/auth.service';
 import { Router } from '@angular/router';
 
 import { myTools } from '../_service/myTools'
+import { GetUser } from '../_service/getUser.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,11 +13,13 @@ import { myTools } from '../_service/myTools'
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  user:any;
 
   constructor(
     public matDialog: MatDialog,
     public auth: authService,
     private router: Router,
+    private getToolsAuth: GetUser,
   ) { }
 
   openLogReg(bol: boolean) {
@@ -24,7 +27,7 @@ export class NavbarComponent implements OnInit {
     dialogConfig.id = "modal-logReg";
     dialogConfig.disableClose = false;
     dialogConfig.data = `{"login": ${bol}}`;
-    dialogConfig.position ={
+    dialogConfig.position = {
       top: '100px',
     }
 
@@ -34,17 +37,22 @@ export class NavbarComponent implements OnInit {
   scroll(id: string) {
     let el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({behavior: 'smooth'});
+      el.scrollIntoView({ behavior: 'smooth' });
       return;
     } else {
       this.router.navigate(['/']).then(() => {
         setTimeout(() => {
           let el = document.getElementById(id);
-          el.scrollIntoView({behavior: 'smooth'});
+          el.scrollIntoView({ behavior: 'smooth' });
         }, 200);
       });
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    this.getToolsAuth.currentToolAuth.subscribe(async user => {
+      this.user = user;
+    });
+  }
 }

@@ -14,7 +14,7 @@
     </section>
     <footer id="modal-footer">
       <button mat-raised-button type="button" class="forgotPassword" (click)="forgotPassword()">Wachtwoord vergeten</button>
-      <button type="submit" class="cta2">inloggen</button>
+      <button type="submit" class="cta2">Inloggen</button>
     </footer>
   </form>
 
@@ -25,7 +25,7 @@
 
 <div *ngIf="!login" id="modal-content-wrapper" class="model-wrapper">
   <header id="modal-header">
-    <h1>Registreer</h1>
+    <h1>Aanmelden</h1>
     <p>Wil je gebruik maken van deze tool? Registreer je of log in met je gegevens.</p>
   </header>
   <form (ngSubmit)= "verifyRegister()">
@@ -35,7 +35,7 @@
     </section>
     <section id="modal-body">
       <input [(ngModel)]="registerUserData.company.value" [class]="registerUserData.company.err" type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
-      <button class="cta2" type="submit">registreer</button>
+      <button class="cta2" type="submit">Aanmelden</button>
     </section>
   </form>
 

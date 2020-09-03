@@ -4,7 +4,7 @@ import { MatDialogRef, throwMatDialogContentAlreadyAttachedError } from '@angula
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { authService } from '../_service/auth.service';
-import { ToolsService } from '../_service/tools.service';
+import { GetUser } from '../_service/getUser.service';
 import { MailService } from '../_service/mail.service';
 
 @Component({
@@ -49,7 +49,7 @@ export class InlogScreenComponent implements OnInit {
     public dialogRef: MatDialogRef<InlogScreenComponent>,
     private auth: authService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private toolsAuth: ToolsService,
+    private toolsAuth: GetUser,
     private router: Router,
     private mail: MailService) { }
 
@@ -60,7 +60,10 @@ export class InlogScreenComponent implements OnInit {
       .subscribe(
         res => {
           localStorage.setItem('token', res.token);
-          this.toolsAuth.changeToolsAuth(res.tools);
+          this.toolsAuth.changeToolsAuth(res.user);
+
+          console.log('login', res);
+          
 
           this.loginErrorMsg = '';
           this.closeModal();

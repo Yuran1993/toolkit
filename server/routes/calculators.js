@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const users = require('../Users');
 
 const calcCalculator = require('../calculators/calc-calculator.js');
-
+const bayesCalculator = require('../calculators/bayes-calculator.js');
 const router = express.Router();
 
 const verifyToken = (req, res, next) => {
@@ -36,6 +36,12 @@ const verifyToken = (req, res, next) => {
 
 router.get('/abtestcalculator', verifyToken, async (req, res) => {
   const result = await calcCalculator(req.query);
+  res.status(200).send(result);
+});
+
+router.get('/bayescalculator', async (req, res) => {
+  const result = await bayesCalculator(req.query);
+  
   res.status(200).send(result);
 });
 

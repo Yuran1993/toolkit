@@ -63,6 +63,22 @@ nav {
           cursor: pointer;
         }
       }
+
+      &.user {
+        position: relative;
+        padding-left: 25px;
+        text-transform: uppercase;
+
+        &:before {
+          width: 20px;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          line-height: 1;
+          content: url(../../assets/images/icons/navbar/user.svg);
+        }
+      }
     }
   }
 }

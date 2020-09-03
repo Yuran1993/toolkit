@@ -4,6 +4,7 @@
 
 main {
   width: calc(70% - 30px);
+  max-width: 750px;
 
   section {
     margin-bottom: 40px;
@@ -43,7 +44,7 @@ h2 {
 
 .moreTools {
   padding: 20px 30px;
-  background: rgba(255, 255, 255, .45);
+  background: rgba(255, 255, 255, .60);
   border-radius: 10px;
 
   h2 {
