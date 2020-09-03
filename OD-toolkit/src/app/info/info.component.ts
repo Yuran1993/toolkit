@@ -17,7 +17,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   otherTools:any
 
   constructor(
-    private auth: authService,
+    public auth: authService,
     private matDialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
