@@ -75,8 +75,6 @@ export class authService {
 
   async getToolsWAuth() {
     return new Promise<[]>(async (resolve) => {
-      console.log('getToolsWAuth');
-
       this.getUser();
       await this.getTools();
       this.user.currentToolAuth.subscribe(async user => {

@@ -62,12 +62,8 @@ export class InlogScreenComponent implements OnInit {
           localStorage.setItem('token', res.token);
           this.toolsAuth.changeToolsAuth(res.user);
 
-          console.log('login', res);
-          
-
           this.loginErrorMsg = '';
           this.closeModal();
-          this.router.navigate(['']); //Nodig?
         },
         err => {
           this.loginErrorMsg = err.error

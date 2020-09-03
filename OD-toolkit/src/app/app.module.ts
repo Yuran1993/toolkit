@@ -28,6 +28,7 @@ import { MailService } from './_service/mail.service';
 import { BayesCalcComponent } from './bayes-calc/bayes-calc.component';
 import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
+import { StopPropagationDirective } from './stop-propagation.directive';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ContactComponent } from './contact/contact.component';
     AddToolComponent,
     BayesCalcComponent,
     InfoComponent,
-    ContactComponent
+    ContactComponent,
+    StopPropagationDirective
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,7 @@ import { ContactComponent } from './contact/contact.component';
     authService,
     AuthGuard,
     AutofocusDirective,
+    StopPropagationDirective,
     InputDataControllerService,
     MailService,
     {

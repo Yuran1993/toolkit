@@ -98,6 +98,7 @@ header {
       padding-top: 5px;
 
       svg {
+        overflow: visible;
         .svgArrow {
           fill:none;
           stroke:#D0E7CE;
@@ -164,18 +165,18 @@ main {
         font-size: .9rem;
       }
 
-      span {
+      a {
         font-weight: 500;
         margin-top: auto;
       }
 
       &.open {
-        span {
+        a {
           color: $groen;
         }
       }
       &.closed {
-        span {
+        a {
           color: $oranje;
         }
       }
