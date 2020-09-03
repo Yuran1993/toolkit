@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/server.js",
     "build": "cd ./OD-toolkit && ng build --prod",
-    "heroku-postbuild": "cd ./OD-toolkit && ng build --prod --sourceMap=false"
+    "heroku-postbuild": "cd ./OD-toolkit && ng build --aot --prod --sourceMap=false"
   },
   "private": true,
   "author": "",
@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/onlinedialogue/toolKit#readme",
   "dependencies": {
+    "@angular/cli": "~8.3.20",
+    "@angular/compiler-cli": "~8.2.14",
     "@angular/animations": "~8.2.14",
     "@angular/cdk": "~8.2.3",
     "@angular/common": "~8.2.14",
@@ -46,8 +48,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",
-    "@angular/cli": "~8.3.20",
-    "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
     "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",

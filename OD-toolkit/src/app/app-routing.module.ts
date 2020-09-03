@@ -49,7 +49,7 @@ const routes: Routes = [
   path: ':tool/info',
   component: InfoComponent,
 },
-//  { path: '**', redirectTo: '/' },
+{ path: '**', redirectTo: '/' },
 ];
 
 @NgModule({
