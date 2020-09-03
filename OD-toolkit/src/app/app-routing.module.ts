@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TempToolComponent } from './temp-tool/temp-tool.component';
 import { AuthGuard } from './auth.guard';
 import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
+import { InfoComponent } from './info/info.component';
 
 
 const routes: Routes = [
@@ -15,11 +16,6 @@ const routes: Routes = [
  },
   { 
     path: 'abtestcalculator',
-    component: AbTestCalcComponent,
-    canActivate: [AuthGuard]
- },
-  { 
-    path: 'bayesiaanseCalculator',
     component: AbTestCalcComponent,
     canActivate: [AuthGuard]
  },
@@ -43,7 +39,11 @@ const routes: Routes = [
     component: TempToolComponent,
     canActivate: [AuthGuard]
  },
- { path: '**', redirectTo: '/' },
+ { 
+  path: ':tool/info',
+  component: InfoComponent,
+},
+{ path: '**', redirectTo: '/' },
 ];
 
 @NgModule({
