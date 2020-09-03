@@ -13,7 +13,7 @@ import { GetUser } from '../_service/getUser.service';
 export class InfoComponent implements OnInit, OnDestroy {
   component = 'info';
   allTools: any;
-  tool: string;
+  tool: any;
   otherTools:any
 
   constructor(
