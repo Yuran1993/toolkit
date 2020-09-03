@@ -1,4 +1,4 @@
-const jStat = require('jStat');
+const jStat = require('jstat');
 let crate;
 const prior = { a: 0.5, b: 0.5 };
 const samples = 50000;
