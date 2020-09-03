@@ -25,7 +25,6 @@ import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddToolComponent } from './add-tool/add-tool.component';
 import { MailService } from './_service/mail.service';
-import { BayesCalcComponent } from './bayes-calc/bayes-calc.component';
 import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
 
