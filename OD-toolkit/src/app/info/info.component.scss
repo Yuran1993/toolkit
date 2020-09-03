@@ -1,0 +1,83 @@
+.mainContainer {
+  justify-content: space-between;
+}
+
+main {
+  width: calc(70% - 30px);
+
+  section {
+    margin-bottom: 40px;
+  
+    &.ctaContainer {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: flex-end;
+  
+      .cta {
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+header {
+  margin-bottom: 30px;
+}
+
+aside {
+  width: calc(30% - 30px);
+
+  section {
+    margin-bottom: 30px;
+  }
+
+  app-contact {
+    display: block;
+    background: #FFFFFF;
+  }
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+.moreTools {
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, .45);
+  border-radius: 10px;
+
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  li {
+    a {
+      display: block;
+      padding: 15px 0;
+      border-bottom: 1px solid #e8e8e8;
+      position: relative;
+      font-weight: 100;
+
+      .arrowLeftWrapper {
+        overflow: visible;
+        width: .7rem;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%) rotate(-90deg);
+
+        .svgArrow {
+          stroke: black;
+        }
+      }
+    }
+
+    &:last-child {
+      a {
+        border-bottom: none;
+
+      }
+    }
+  }
+}

@@ -25,6 +25,7 @@ import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddToolComponent } from './add-tool/add-tool.component';
 import { MailService } from './_service/mail.service';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MailService } from './_service/mail.service';
     AutofocusDirective,
     AbTestCalcComponent,
     AddToolComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
