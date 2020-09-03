@@ -5,6 +5,7 @@ import { TempToolComponent } from './temp-tool/temp-tool.component';
 import { AuthGuard } from './auth.guard';
 import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 import { BayesCalcComponent } from './bayes-calc/bayes-calc.component';
+import { InfoComponent } from './info/info.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,11 @@ const routes: Routes = [
     component: TempToolComponent,
     canActivate: [AuthGuard]
  },
- { path: '**', redirectTo: '/' },
+ { 
+  path: ':tool/info',
+  component: InfoComponent,
+},
+//  { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({

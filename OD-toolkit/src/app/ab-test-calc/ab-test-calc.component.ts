@@ -81,7 +81,7 @@ export class AbTestCalcComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    document.body.className = "lichtGreen";
+    document.body.className = "backgroundColor";
     window.scrollTo(0, 0);
     await this.getValues();
     if (this.dataValues.ua < this.dataValues.ca || this.dataValues.ub < this.dataValues.cb) {

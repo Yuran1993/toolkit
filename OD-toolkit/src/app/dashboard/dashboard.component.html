@@ -6,7 +6,7 @@
   
       <a routerLink="/1" class="cta">
         Ga naar de tool
-        <svg class="arrowWrapper" viewBox="0 0 156.15 79.49">
+        <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
           <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
         </svg>
       </a>
@@ -36,12 +36,12 @@
   <div id="tools" class="outerToolsContainer container">
     <h2>Alle tools</h2>
     <div class="innerToolsContainer">
-      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" (click)="!tool.auth && cardClick(tool)" [routerLink]="tool.url">
+      <a *ngFor="let tool of tools; index as i; odd as odd;" [class]="tool.auth ? 'open toolKaart' : 'closed toolKaart'" routerLink="{{tool.url}}/info">
         <img *ngIf='odd' src="../../assets/images/icons/dashboard/card-icoon-1.svg" alt="card icon">
         <img *ngIf='!odd' src="../../assets/images/icons/dashboard/card-icoon-2.svg" alt="card icon">
         <h3>{{tool.name}}</h3>
         <p>{{tool.disc}}</p>
-        <span *ngIf='tool.auth' >Openen</span>
+        <span *ngIf='tool.auth'>Openen</span>
         <span *ngIf='!tool.auth && !auth.loggedIn()'>Meld je aan</span>
         <span *ngIf='!tool.auth && auth.loggedIn()'>Toevoegen</span>
       </a>
@@ -49,18 +49,9 @@
   </div>
   
   <div class="container articleContainer">
-    <div id="contact" class="contact">
-      <h2>Meer weten over de tooling van Online Dialogue? Neem contact op met</h2>
 
-      <div class="contactBody">
-        <img src="../../assets/images/placeHolderProfilePic.png" alt="">
-        <div>
-          <h3>Ronald Peters</h3>
-        <a href="tel:0302272442">Telefoon: 030 2272 442</a>
-        <a href="mailto:info@onlinedialogue.com" target=_blank class="cta2">Stuur een e-mail</a>
-        </div>
-      </div>
-    </div>
+    <app-contact></app-contact>
+
     <article>
       <h2>Over Online Dialogue tooling</h2>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quas voluptate culpa velit, eum quis sed, provident magnam libero, quibusdam quam deserunt odio molestias? Inventore porro quo voluptates accusantium eaque.</p>

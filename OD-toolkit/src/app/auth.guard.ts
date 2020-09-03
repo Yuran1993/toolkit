@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
 
-import { ToolsService } from './_service/tools.service';
+import { GetUser } from './_service/getUser.service';
 import { authService } from './_service/auth.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { authService } from './_service/auth.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private getToolsAuth: ToolsService, private router: Router, public auth: authService) { }
+  constructor(private getToolsAuth: GetUser, private router: Router, public auth: authService) { }
 
   async canActivate(activeRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let pageAuth:any;

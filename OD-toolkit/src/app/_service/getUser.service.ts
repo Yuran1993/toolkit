@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ToolsService {
+export class GetUser {
   standard = {
     name: false,
     tools: [

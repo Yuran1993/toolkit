@@ -166,7 +166,7 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    document.body.className = "lichtGreen";
+    document.body.className = "backgroundColor";
     window.scrollTo(0, 0);
     await this.getValues();
 

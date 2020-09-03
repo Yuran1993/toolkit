@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ToolsService } from './tools.service';
+import { GetUser } from './getUser.service';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class authService {
+  tools: [];
 
   private _loginUrl = "api/login";
 
   constructor(
     private http: HttpClient,
-    private getToolsAuth: ToolsService,
-    private router: Router
+    private router: Router,
+    private user: GetUser,
   ) { }
 
   loginUser(user) {
@@ -26,7 +27,7 @@ export class authService {
 
   logout() {
     localStorage.removeItem('token');
-    this.getToolsAuth.reset();
+    this.user.reset();
     this.router.navigate(['']);
   }
 
@@ -36,12 +37,17 @@ export class authService {
 
   getTools() {
     return new Promise<[]>((resolve) => {
-      this.http.get<[]>('api/getTools').subscribe(result => {
-        resolve(result);
-      });
+      if (!this.tools) {
+        this.http.get<[]>('api/getTools').subscribe(result => {
+          this.tools = result
+          resolve(this.tools);
+        });
+      } else {
+        resolve(this.tools);
+      }
     });
   }
-  
+
   getName() {
     return new Promise<[]>((resolve) => {
       this.http.get<[]>('api/getName').subscribe(result => {
@@ -56,15 +62,37 @@ export class authService {
     if (token) {
       return new Promise<[]>((resolve) => {
         this.http.get<[]>('api/toolsAuth').subscribe(result => {
-          console.log(result);
-          
-          this.getToolsAuth.changeToolsAuth(result);
 
-          resolve(result);
+          this.user.changeToolsAuth(result);
+
+          resolve();
         });
       });
     } else {
-      this.getToolsAuth.reset();
+      this.user.reset();
     }
+  }
+
+  async getToolsWAuth() {
+    return new Promise<[]>(async (resolve) => {
+      console.log('getToolsWAuth');
+
+      this.getUser();
+      await this.getTools();
+      this.user.currentToolAuth.subscribe(async user => {
+
+        if (user) {
+          this.tools.forEach((e: any, i: number) => {
+            e.auth = false;
+
+            const currentAuth = user.tools.find((element) => element.url === e.url);
+            if (currentAuth) {
+              e.auth = currentAuth.auth;
+            }
+          });
+        }
+        resolve(this.tools);
+      });
+    });
   }
 }

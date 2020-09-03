@@ -1,1 +1,54 @@
-<p>info works!</p>
+<div *ngIf="tool" class="mainContainer container">
+  <main>
+    <header>
+      <h1>{{tool.name}}</h1>
+      <p>Online DIalogue biedt je een aantal eenvoudige tools waarmee je  gemakkelijk en snel de impact van je website kan berekenen.</p>
+      <ul class="usps">
+        <li>Lorem, ipsum dolor sit consectetur</li>
+        <li>Lorem, ipsum dolor sit consectetur</li>
+      </ul>
+    </header>
+
+    <section>
+      <h2>Omschrijving</h2>
+      <p>{{tool.disc}}</p>
+      <img src="" alt="">
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint dolor ducimus minima cupiditate laborum, quaerat
+        nemo unde facilis harum molestiae quidem aperiam perferendis aliquid porro in, veritatis obcaecati possimus
+        corrupti?</p>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint dolor ducimus minima cupiditate laborum, quaerat
+        nemo unde facilis harum molestiae quidem aperiam perferendis aliquid porro in, veritatis obcaecati possimus
+        corrupti?</p>
+    </section>
+
+    <section class="ctaContainer">
+      <a *ngIf="!auth.loggedIn() && !tool.auth" class="cta2" (click)="openLogReg(true)">Inloggen</a>
+      <a *ngIf="!auth.loggedIn() && !tool.auth" class="cta" (click)="openLogReg(false)">Aanmelden</a>
+      <a *ngIf="auth.loggedIn() && !tool.auth" class="cta">Toevoegen</a>
+      <a *ngIf="tool.auth" [routerLink]="['../']" class="cta">
+        Ga naar de tool
+        <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
+          <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
+        </svg>
+      </a>
+    </section>
+  </main>
+  <aside>
+    <section class="moreTools">
+      <h2>Andere tools</h2>
+
+      <ul>
+        <li *ngFor="let tool of otherTools">
+          <a routerLink='../../{{tool.url}}/info'>
+            {{tool.name}}
+            <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
+              <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
+            </svg>
+          </a>
+          
+        </li>
+      </ul>
+    </section>
+    <app-contact [component]="component"></app-contact>
+  </aside>
+</div>

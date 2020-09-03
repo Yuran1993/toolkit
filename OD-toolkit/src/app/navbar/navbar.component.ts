@@ -5,7 +5,7 @@ import { authService } from '../_service/auth.service';
 import { Router } from '@angular/router';
 
 import { myTools } from '../_service/myTools'
-import { ToolsService } from '../_service/tools.service';
+import { GetUser } from '../_service/getUser.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
     public matDialog: MatDialog,
     public auth: authService,
     private router: Router,
-    private getToolsAuth: ToolsService,
+    private getToolsAuth: GetUser,
   ) { }
 
   openLogReg(bol: boolean) {
