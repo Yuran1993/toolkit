@@ -1,6 +1,6 @@
 <div class="mainContainer container">
 
-  <aside class="inputAside">
+  <aside class="inputAside asideWcircle borderRadiusShadow">
     <div class="asideSection">
       <h1>A/B-test calculator</h1>
       <strong>Is your test result significant? Does it have enough power?</strong>
@@ -9,7 +9,7 @@
     </div>
 
     <form>
-      <div class="asideSection ">
+      <div class="asideSection">
         <h2>Test data</h2>
 
         <div class="columnContainer">
@@ -79,14 +79,14 @@
   </aside>
 
   <main *ngIf="error">
-    <div *ngIf="result" class="smallContainer msg negative">
+    <div *ngIf="result" class="smallContainer borderRadiusShadow msg negative">
       <h2>Input value error!</h2>
       <p>To make an accurate calculation the users must be greater or equal to the conversions.</p>
     </div>
   </main>
 
   <main *ngIf="!error" class={{hideHtml}}>
-    <div *ngIf="result" class="smallContainer msg {{result.state}}">
+    <div *ngIf="result" class="smallContainer borderRadiusShadow msg {{result.state}}">
       <div id="smallChart"></div>
       <div *ngIf="result && result.state != 'neutral'">
         <h2>Significant test result!</h2>
@@ -105,7 +105,7 @@
         </p>
       </div>
     </div>
-    <div *ngIf="result && result.srmError == true" class="smallContainer msg wrn">
+    <div *ngIf="result && result.srmError == true" class="smallContainer  borderRadiusShadow msg wrn">
       <div>
         <h2>Possible SRM alert.</h2>
         <p>Assuming you intented to have a 50% / 50% split, a Sample Ratio Mismatch (SRM) check indicates there might be
@@ -114,7 +114,7 @@
         </p>
       </div>
     </div>
-    <div class="smallContainer">
+    <div class="smallContainer borderRadiusShadow">
       <div id="largeChart"></div>
       <div *ngIf="result" id="chartInfo" class={{result.state}}>
         <div>
@@ -173,7 +173,7 @@
         </div>
       </div>
     </div>
-    <div class="smallContainer urlList">
+    <div class="smallContainer borderRadiusShadow urlList">
       <h2>Recommended reading</h2>
       <ul>
         <li><a target="_blank"

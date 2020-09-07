@@ -64,10 +64,6 @@ form {
     &:focus {
       border-color: $groen;
     }
-
-    &.err {
-      border-color: $negColor;
-    }
   }
 }
 

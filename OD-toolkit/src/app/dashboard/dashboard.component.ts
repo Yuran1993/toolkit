@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { GetUser } from '../_service/getUser.service';
 import { authService } from '../_service/auth.service';
 import { InlogScreenComponent } from '../inlog-screen/inlog-screen.component';
 import { AddToolComponent } from '../add-tool/add-tool.component';
@@ -15,8 +13,6 @@ import { AddToolComponent } from '../add-tool/add-tool.component';
 export class DashboardComponent implements OnInit {
 
   constructor(
-    private http: HttpClient,
-    private getToolsAuth: GetUser,
     public auth: authService,
     public matDialog: MatDialog,
   ) { }

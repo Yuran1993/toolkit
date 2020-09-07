@@ -1,17 +1,4 @@
-$groen: #6AB84A;
-$oranje: #EFA21D;
-
-$breakpoints: (
-  'large': 1210px,
-  'medium': 920px,
-  'small': 620px,
-);
-
-@mixin breakpoint($breakpoint) {
-  @media (max-width: map-get($breakpoints, $breakpoint)) {
-    @content;
-  }
-}
+@import '../../setup.scss';
 
 h2 {
   font-size: 1.5rem;
@@ -23,7 +10,7 @@ h3 {
 }
 
 header {
-  background: #EFF4F8;
+  background: $background;
 
   .headerContainer {
     display: flex;
@@ -84,7 +71,7 @@ header {
 
     &:before {
       content: '';
-      background: #EFF4F8;
+      background: $background;
       width: 70px;
       height: 70px;
       position: absolute;
@@ -162,7 +149,6 @@ main {
 
       p {
         text-align: center;
-        font-size: .9rem;
       }
 
       a {

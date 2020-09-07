@@ -1,6 +1,6 @@
 <div class="mainContainer container">
 
-  <aside class="inputAside">
+  <aside class="inputAside asideWcircle borderRadiusShadow">
   <div class="asideSection">
     <h1>Bayesian A/B-test Calculator</h1>
     <p>What is the probability that your test variation beats the original? Make a solid risk assessment whether to
@@ -61,14 +61,14 @@
 </aside>
 
 <main *ngIf="error">
-  <div *ngIf="result" class="smallContainer msg negative">
+  <div *ngIf="result" class="smallContainer  borderRadiusShadow msg negative">
     <h2>Input value error!</h2>
     <p>To make an accurate calculation the users must be greater or equal to the conversions.</p>
   </div>
 </main>
 
 <main *ngIf="!error" class={{hideHtml}}>
-  <div class="smallContainer">
+  <div class="smallContainer borderRadiusShadow">
     <h2>Main test result</h2>
     <strong>Chance of B outperforming A</strong>
     <div>
@@ -142,7 +142,7 @@
 
 
 
- <div *ngIf="result" class="smallContainer {{hideBusiness}}">
+ <div *ngIf="result" class="smallContainer borderRadiusShadow {{hideBusiness}}">
     <h2>Risk assessment of implementing B</h2>
     <div class="resultContainer">
       <div class="resultHead {{result[1]['totalEffect'] >= 0 ? 'green' : 'red'}}">

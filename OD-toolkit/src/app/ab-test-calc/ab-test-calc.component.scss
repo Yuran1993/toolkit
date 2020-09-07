@@ -1,19 +1,5 @@
 @import '../../setup.scss';
 
-.hideHtml {
-  opacity: 0 !important;
-}
-
-.opacs {
-  opacity: 0;
-}
-
-// html {
-//   height: 100%;
-//   font-size: 12px;
-//   line-height: 1.7;
-// }
-
 main {
   width: 75%;
   transition: ease-in-out .3s all;
@@ -23,37 +9,8 @@ main {
   }
 }
 
-// .container {
-//   @include breakpoint('medium') {
-//     padding-right: 0;
-//     padding-left: 0;
-//   }
-// }
-
-::ng-deep .mat-tooltip {
-  background-color: $tooltipColor;
-  font-size: 12px;
-  padding: 10px;
-  margin-top: 0 !important;
-}
-
-h1,
-h2,
-h3 {
-  color: $primaryColor;
-  width: 100%;
-}
-
-h1 {
-  font-size: 1.3rem;
-}
-
 strong {
   display: inline-block;
-  font-size: 14px;
-}
-
-p {
   font-size: 14px;
 }
 
@@ -61,83 +18,7 @@ th {
   font-weight: 400;
 }
 
-.rowWrap {
-  display: flex;
-  flex-flow: row wrap;
-}
-
-// .cta {
-//   margin: 20px 0;
-//   margin-left: auto;
-//   border: none;
-//   background: $cta;
-//   padding: 10px 30px;
-//   border-radius: 50px;
-//   color: #ffffff;
-//   font-weight: 600;
-
-//   transition: all .3s ease-in-out;
-//   cursor: pointer;
-// }
-
-// .secondarBtn {
-//   margin: 0;
-//   margin-left: auto;
-//   border: none;
-//   background: $wrnColor;
-//   padding: 10px 15px;
-//   border-radius: 50px;
-//   color: #ffffff;
-//   font-size: 11px;
-//   font-weight: 600;
-
-//   cursor: pointer;
-// }
-
-aside {
-
-  .asideSection {
-    padding: 20px;
-    border-bottom: 3px solid #EEEEEE;
-    position: relative;
-    z-index: 3;
-
-    h1+strong {
-      margin-bottom: 10px;
-    }
-
-
-  }
-
-  &:after {
-    content: '';
-    display: block;
-    width: 350px;
-    height: 350px;
-    background: #EFF4F8;
-    border-radius: 50%;
-
-    position: absolute;
-    bottom: 15vh;
-    left: -50%;
-  }
-
-  @include breakpoint('medium') {
-    width: 85%;
-    max-width: 900px;
-    padding: 0px;
-    margin: 30px auto;
-    box-shadow: 4px 4px 10px 0px rgba(204, 204, 204, 0.5);
-
-    @include breakpoint('small') {
-      width: 100%;
-      margin: 0 auto 30px;
-    }
-  }
-}
-
 .msg {
-  // margin-top: 50px;
   border-left: 4px solid #CCC;
 
   h2 {
@@ -154,7 +35,7 @@ aside {
   }
 
   &.positive {
-    border-left-color: #72B954;
+    border-left-color: $groen;
 
     h2 {
       color: $primaryColor;
@@ -187,34 +68,6 @@ aside {
   }
 }
 
-.urlList {
-  padding-left: 30px;
-
-  ul {
-    li {
-      padding-bottom: 10px;
-      font-weight: 500;
-      width: fit-content;
-      list-style: square;
-      margin-left: 15px;
-
-      &:last-of-type {
-        padding-bottom: 0;
-      }
-    }
-  }
-}
-
-[matTooltip]:after {
-  content: "?";
-  color: #0A5504;
-  font-size: 10px;
-  font-weight: 900;
-  margin-left: 5px;
-  display: inline-block;
-  transform: translateY(-5px);
-}
-
 // <Input elements 
 .inputContainer {
   display: flex;
@@ -228,7 +81,8 @@ label {
   font-weight: 500;
 }
 
-input {
+input[type="text"],
+input[type="number"] {
   padding: 10px;
   border-radius: 4px;
   border: 2px solid #e8e8e8;
@@ -237,115 +91,7 @@ input {
   -webkit-appearance: none;
 
   &:focus {
-    outline: none;
-  }
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus {
-  border-color: $primaryColor;
-}
-
-.err,
-.err:focus {
-  border-color: $negColor !important;
-}
-
-// .euro {
-//   position: relative;
-
-//   &:before {
-//     content: "€";
-//     color: $primaryColor;
-//     font-size: 14px;
-//     font-weight: 500;
-
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     width: 27px;
-//     height: 42px;
-//     position: absolute;
-//     bottom: 20px;
-//     left: 5px;
-
-//     border-radius: 3px;
-//   }
-
-//   input {
-//     padding-left: 30px;
-//   }
-// }
-
-// .percentage {
-//   position: relative;
-
-//   &:after {
-//     content: "%";
-//     color: $primaryColor;
-//     font-size: 14px;
-//     font-weight: 500;
-
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     width: 27px;
-//     height: 42px;
-//     position: absolute;
-//     right: 5px;
-//     bottom: 20px;
-
-//     border-radius: 3px;
-//   }
-
-//   input {
-//     padding-right: 30px;
-//   }
-// }
-
-.radio {
-  position: relative;
-  display: flex;
-  margin-top: 10px;
-  align-items: center;
-
-  input {
-    display: inline-block;
-    margin: 0 15px 0 0;
-    padding-left: 10px;
-    position: relative;
-    border: none;
-
-    &:checked {
-      &:after {
-        background: $primaryColor;
-      }
-    }
-
-    &:before {
-      content: "";
-      width: 15px;
-      height: 15px;
-      background-color: #ffffff;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      left: 50%;
-      border: 2px solid #e8e8e8;
-      border-radius: 50%;
-    }
-
-    &:after {
-      content: "";
-      width: 10px;
-      height: 10px;
-      background-color: #ffffff;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      left: 50%;
-      border-radius: 50%;
-    }
+    border-color: $primaryColor;
   }
 }
 
@@ -353,8 +99,6 @@ input[type="number"]:focus {
 
 
 main {
-
-  // min-height: 1200px;
   .smallContainer {
     #smallChart {
       width: 50%;
@@ -416,14 +160,14 @@ main {
     &.positive {
       .uplift {
         background: #E8F7E8;
-        border-color: #87b787;
+        border-color: $groen;
       }
     }
 
     &.negative {
       .uplift {
         background: #FED9D0;
-        border-color: #fd8163;
+        border-color: $negColor;
       }
     }
   }
@@ -448,7 +192,6 @@ form {
     @include breakpoint('medium') {
       padding: 30px;
     }
-
   }
 
   .columnContainer {

@@ -48,14 +48,6 @@ export class authService {
     });
   }
 
-  getName() {
-    return new Promise<[]>((resolve) => {
-      this.http.get<[]>('api/getName').subscribe(result => {
-        resolve(result);
-      });
-    });
-  }
-
   getUser() {
     const token = localStorage.getItem('token');
 

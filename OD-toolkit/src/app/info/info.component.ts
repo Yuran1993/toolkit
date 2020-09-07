@@ -3,7 +3,6 @@ import { authService } from '../_service/auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InlogScreenComponent } from '../inlog-screen/inlog-screen.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GetUser } from '../_service/getUser.service';
 
 @Component({
   selector: 'app-info',
@@ -21,7 +20,6 @@ export class InfoComponent implements OnInit, OnDestroy {
     private matDialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private user: GetUser,
   ) { }
 
   openLogReg(bol: boolean) {

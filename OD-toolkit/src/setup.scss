@@ -10,6 +10,7 @@ $breakpoints: (
   'xs': 1165px,
 );
 $primaryFont: 'Poppins', sans-serif;
+$background: #EFF4F8;
 $primaryColor: #0A5504;
 $secondaryColor: #F7F7F7;
 $cta: #F8B81F;
@@ -18,8 +19,9 @@ $wrnColor: #F5AC19;
 $negColor: #fd8163;
 $neutColor: #3577BE;
 
-
 $tooltipColor: #565656;
+
+$shadow: 4px 4px 10px 0 rgba(204,204,204,0.5);
 
 // MIXINS
 $groen: #6AB84A;
