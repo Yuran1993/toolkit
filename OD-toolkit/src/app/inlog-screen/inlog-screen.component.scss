@@ -86,13 +86,10 @@ form {
 
 .error {
   display: inline-block;
-  background: red;
-  padding: 10px 20px;
-  border-radius: 10px;
   margin-top: 20px;
 
   p {
-    color: white;
-    font-weight: 500;
+    color: red;
+    font-weight: 300;
   }
 }

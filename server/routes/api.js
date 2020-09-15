@@ -12,8 +12,6 @@ router.use('/calc', calc);
 router.post('/login', (req, res) => {
   const userData = req.body;
   const user = users.find((e) => e.email === userData.email.value);
-  console.log(req.body);
-  console.log(users);
 
   if (user) {
     if (user.password === userData.password) {
@@ -21,10 +19,10 @@ router.post('/login', (req, res) => {
       const token = jwt.sign(payload, 'toolkitKey');
       res.status(200).send({ token, user });
     } else {
-      res.status(401).send('Wachtwoord incorrect');
+      res.status(401).send('Het opgegeven wachtwoord komt niet overeen met het e-mailadres.<br>Probeer het nogmaals of reset je wachtwoord.');
     }
   } else {
-    res.status(401).send('E-mailadres niet gevonden');
+    res.status(401).send('Het opgegeven e-mailadres komt niet voor in ons bestand.<br>Gebruik een ander e-mailadres of meld je aan.');
   }
 });
 
@@ -45,8 +43,6 @@ Bedrijf: ${userData['company'].value}
     subject: 'Nieuwe registratie OD-toolkit',
     text
   };
-
-  //res.status(200).send();
 
   mailgun.messages().send(mail, function (err, body) {
     if (err) console.log(err) && res.status(200).send();
@@ -152,12 +148,8 @@ vraagt het wachtwoord van het OD-toolkit account opnieuw op.
       if (err) console.log(err);
       res.status(200).send();
     });
-
-    // console.log(text);
-
-    // res.status(200).send();
   } else {
-    res.status(401).send('E-mailadres niet gevonden');
+    res.status(401).send('Het opgegeven e-mailadres komt niet voor in ons bestand.<br>Gebruik een ander e-mailadres of meld je aan.');
   }
 });
 

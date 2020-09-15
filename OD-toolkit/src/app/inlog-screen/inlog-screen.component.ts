@@ -17,6 +17,7 @@ export class InlogScreenComponent implements OnInit {
   login = JSON.parse(this.data).login;
   loginErrorMsg: string;
   registreerErrorMsg: string;
+  reqSend = false;
 
   loginUserData = {
     email: {
@@ -53,9 +54,11 @@ export class InlogScreenComponent implements OnInit {
     private router: Router,
     private mail: MailService) { }
 
-  ngOnInit() { }
-
   loginFunc() {
+    document.querySelectorAll('#modal-body input').forEach(e => {
+      e.classList.remove('err');
+    });
+
     this.auth.loginUser(this.loginUserData)
       .subscribe(
         res => {
@@ -67,12 +70,17 @@ export class InlogScreenComponent implements OnInit {
         },
         err => {
           this.loginErrorMsg = err.error
-          console.log(err.error);
+          if (err.error.indexOf('Het opgegeven e-mailadres') !== -1) {
+            document.querySelector('[name="loginEmail"]').classList.add('err');
+          } else if (err.error.indexOf('Het opgegeven wachtwoord') !== -1) {
+            document.querySelector('[name="loginPassword"]').classList.add('err');
+          }
         }
       );
   }
 
   forgotPassword() {
+    document.querySelector('[name="loginEmail"]').classList.remove('err');
     const field: any = this.loginUserData['email'];
 
     if (!field.value.match(field.pattern)) {
@@ -82,15 +90,13 @@ export class InlogScreenComponent implements OnInit {
       this.mail.forgotPassword(field)
         .subscribe(
           res => {
-            console.log(res);
             document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Aanvraag verstuurd!</p> <p style="margin-bottom: 0;">U ontvangt uw wachtwoord via het opgegeven e-mailadres.</p>`;
           },
           err => {
             this.loginErrorMsg = err.error
-            console.log(err.error);
+            document.querySelector('[name="loginEmail"]').classList.add('err');
           }
         );
-
     }
   }
 
@@ -116,9 +122,7 @@ export class InlogScreenComponent implements OnInit {
     this.mail.register(this.registerUserData)
       .subscribe(
         res => {
-          document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Aanvraag verstuurd!</p> <p style="margin-bottom: 0;">U ontvangt uw inloggevens via de mail ofzo, idk yet.</p>`;
-          // setTimeout(() => this.closeModal(), 3000);
-
+          this.reqSend = true
         },
         err => {
           console.log(err.error);
@@ -129,4 +133,6 @@ export class InlogScreenComponent implements OnInit {
   closeModal() {
     this.dialogRef.close();
   }
+
+  ngOnInit() { }
 }

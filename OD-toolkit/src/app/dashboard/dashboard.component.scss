@@ -154,16 +154,32 @@ main {
       a {
         font-weight: 500;
         margin-top: auto;
+        padding: 5px 10px;
+        border: 2px solid;
+        border-radius: 5px;
+        transition: .2s ease-in all;
       }
 
       &.open {
         a {
           color: $groen;
+
+          &:hover {
+            color: #FFFFFF;
+            background: $groen;
+            border-color: $groen;
+          }
         }
       }
       &.closed {
         a {
           color: $oranje;
+
+          &:hover {
+            color: #FFFFFF;
+            background: $oranje;
+            border-color: $oranje;
+          }
         }
       }
     }

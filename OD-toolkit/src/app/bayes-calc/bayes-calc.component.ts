@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class BayesCalcComponent implements OnInit, OnDestroy {
   dataController = this.inputDataController.start(this);
   dataValues = this.dataController.inputData;
+  businessCorrect = false;
   business = {
     duration: {
       value: null,
@@ -134,23 +135,22 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
   }
 
   getBusiness() {
-    let businessCorrect = true;
+    this.businessCorrect = true;
 
     Object.values(this.business).forEach(e => {
-      if (businessCorrect) {
+      if (this.businessCorrect) {
         if (e.value === null) {
-          businessCorrect = false;
+          this.businessCorrect = false;
           e.err = 'err';
-          this.hideBusiness = 'opacs';
         } else {
-          businessCorrect = true;
+          this.businessCorrect = true;
           e.err = null;
         }
       } else if (e.value === null) {
         e.err = 'err';
       }
     });
-    if (businessCorrect) {
+    if (this.businessCorrect) {
       this.addBusiness = true;
       this.getValues();
       this.hideBusiness = '';

@@ -228,15 +228,14 @@ header {
     font-weight: 500;
 
     svg {
-      width: 0.8rem;
+      width: 0.6rem;
       position: absolute;
       left: 0;
       top: 50%;
 
-
-
       .svgArrow {
         stroke: #000000;
+        stroke-width: 30px;
       }
     }
   }
@@ -390,6 +389,7 @@ mat-dialog-container#modal-addTool {
 .err,
 .err:focus {
   border-color: $negColor !important;
+  background: #FFF7F6;
 }
 
 .euro {
@@ -493,4 +493,14 @@ mat-dialog-container#modal-addTool {
 .borderRadiusShadow {
   border-radius: 10px;
   box-shadow: $shadow;
+}
+
+.note {
+  font-weight: 100;
+  background: #FEFAE0;
+  padding: 10px;
+  border: 1px solid #efecec;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 0;
 }

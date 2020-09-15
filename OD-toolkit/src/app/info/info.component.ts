@@ -42,14 +42,17 @@ export class InfoComponent implements OnInit, OnDestroy {
 
     let snapShot = this.route.snapshot.paramMap.get('tool');
     this.tool = this.allTools.find(e => e.url === snapShot);
-    this.otherTools = this.allTools.filter(e => e.url !== snapShot);
 
-    console.log(this.otherTools);
+    this.allTools.forEach(e => e.active = false);
+    this.tool.active = true;
+    
 
     this.router.events.subscribe((val) => {
       snapShot = this.route.snapshot.paramMap.get('tool');
       this.tool = this.allTools.find(e => e.url === snapShot);
-      this.otherTools = this.allTools.filter(e => e.url !== snapShot);
+
+      this.allTools.forEach(e => e.active = false);
+      this.tool.active = true;
     });
 
     if (!this.tool) {

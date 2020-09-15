@@ -43,17 +43,16 @@
   </main>
   <aside>
     <section class="moreTools borderRadiusShadow">
-      <h2>Andere tools</h2>
+      <h2>Alle tools</h2>
 
       <ul>
-        <li *ngFor="let tool of otherTools">
-          <a routerLink='../../{{tool.url}}/info'>
+        <li *ngFor="let tool of allTools">
+          <a class="{{tool.active ? 'allToolsActive' : ''}}" routerLink='../../{{tool.url}}/info'>
             {{tool.name}}
             <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
               <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
             </svg>
           </a>
-          
         </li>
       </ul>
     </section>

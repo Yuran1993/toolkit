@@ -35,8 +35,7 @@ function calcProbs(distros, numSamples, inputValues, business) {
     for (let j = 0; j < numRows; j++) {
       if (distros[j]) {
         x = distros[j].dist.sample();
-        
-     //   console.log(x);
+
         if (x > winnerValue) {
           winnerIndex = j;
           winnerValue = x;
