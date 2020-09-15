@@ -22,7 +22,15 @@ main {
 }
 
 header {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  li {
+    font-size: 0.9rem;
+  }
 }
 
 aside {
@@ -43,18 +51,19 @@ h2 {
 }
 
 .moreTools {
-  padding: 20px 30px;
+  padding: 20px 0;
   background: rgba(255, 255, 255, .60);
 
   h2 {
     font-size: 1.2rem;
+    padding: 0 30px;
     margin-bottom: 10px;
   }
 
   li {
     a {
       display: block;
-      padding: 15px 0 15px 10px;
+      padding: 15px 30px;
       border-bottom: 1px solid #e8e8e8;
       position: relative;
       font-weight: 100;
@@ -62,7 +71,7 @@ h2 {
       .arrowLeftWrapper {
         width: .7rem;
         position: absolute;
-        right: 0;
+        right: 30px;
         top: 50%;
         transform: translate(0, -50%) rotate(-90deg);
 

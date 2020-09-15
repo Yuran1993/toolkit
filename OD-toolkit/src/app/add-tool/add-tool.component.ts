@@ -15,7 +15,7 @@ export class AddToolComponent implements OnInit {
   noAuth = [];
   toolReq = {};
   reqSend = false;
-  checked = JSON.parse(this.data).elClicked;
+  tool = JSON.parse(this.data).elClicked;
 
   constructor(
     public dialogRef: MatDialogRef<AddToolComponent>,
@@ -25,42 +25,39 @@ export class AddToolComponent implements OnInit {
     private mail: MailService,
   ) { }
 
-  sendReq() {
-    this.reqSend = true;
-    this.mail.addToolsReq(this.toolReq);
+  // sendReq() {
+  //   this.reqSend = true;
+  //   this.mail.addToolsReq(this.toolReq);
 
-    setTimeout(() => {
-      this.closeModal();
-    }, 2000);
-  }
+  //   setTimeout(() => {
+  //     this.closeModal();
+  //   }, 2000);
+  // }
 
   closeModal() {
     this.dialogRef.close();
-
   }
 
   async ngOnInit() {
-    const tools: any = await this.auth.getTools();
-    let user;
 
-    this.toolsAuth.currentToolAuth.subscribe(async result => {
-      user = result
-    });
+    this.mail.addToolsReq(this.tool);
+    
+    // const tools: any = await this.auth.getTools();
+    // let user;
 
-    tools.forEach(e => {
-      const found = user.tools.find(r => r.url === e.url && r.auth);
+    // this.toolsAuth.currentToolAuth.subscribe(async result => {
+    //   user = result
+    // });
 
-      if (!found) {
-        this.noAuth.push(e);
-      }
-    });
+    // tools.forEach(e => {
+    //   const found = user.tools.find(r => r.url === e.url && r.auth);
+
+    //   if (!found) {
+    //     this.noAuth.push(e);
+    //   }
+    // }); //TODO volledig bestand opschonen
 
     setTimeout(() => {
-      const temp = document.getElementById(this.checked);
-      
-      if (temp) {
-        temp.click();
-      }
       document.getElementById('modal-content-wrapper').style.opacity = '1';
     }, 0);
   }

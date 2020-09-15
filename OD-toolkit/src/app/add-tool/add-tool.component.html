@@ -1,7 +1,11 @@
 <div id="modal-content-wrapper">
   <div *ngIf="!reqSend">
-    <h1>Tools toevoegen</h1>
-    <form>
+    <h1>Tool toevoegen</h1>
+
+    <p>De aanvraag voor tool {{tool}} is verstuurd.</p>
+    <p class="note">Let op: Je aanvraag wordt handmatig verwerkt. Hierdoor kan je aanvraag iets langer duren dan verwacht.</p>
+  
+    <!-- <form>
       <div *ngFor="let na of noAuth; index as i; odd as odd;" class="checkbox-container check">
         <label [for]="na.url">{{na.name}}</label>
         <input [(ngModel)]="toolReq[na.url]" type="checkbox" [name]="na.url" [id]="na.url" [value]="na.url">
@@ -10,5 +14,5 @@
       <input class="cta2" type="button" value="Aanvragen" (click)="sendReq()">
     </form>
   </div>
-  <p *ngIf="reqSend">Aanvraag is verstuurd!</p>
+  <p *ngIf="reqSend">Aanvraag is verstuurd!</p> -->
 </div>

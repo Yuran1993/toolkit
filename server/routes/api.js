@@ -105,15 +105,17 @@ router.post('/addToolReq', verifyToken, (req, res) => {
   const user = users.find(e => e._id === id);
   const data = req.body;
 
+  console.log(data.tool);
+
   let text =
     `Gebruiker: ${user.email},
-vraagt toegang tot de volgende tools:
+vraagt toegang tot de volgende tool: ${data.tool}
   
 `;
 
-  Object.keys(data).forEach(e => {
-    text += e + '\n';
-  });
+  // Object.keys(data).forEach(e => {
+  //   text += e + '\n';
+  // }); //TODO
 
   var mail = {
     from: 'OD-auto <dev@onlinedialogue.com>',

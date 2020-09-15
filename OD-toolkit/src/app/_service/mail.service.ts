@@ -11,8 +11,10 @@ export class MailService {
 
   constructor(private http: HttpClient) {}
 
-  addToolsReq(tools) {
-    this.http.post<any>(this._mailUrl, tools)
+  addToolsReq(tool) {
+    console.log(tool);
+    
+    this.http.post<any>(this._mailUrl, {tool})
     .subscribe(
       res => {
         console.log(res);

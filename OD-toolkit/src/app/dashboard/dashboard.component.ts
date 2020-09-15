@@ -20,15 +20,15 @@ export class DashboardComponent implements OnInit {
   tools: any;
   toolsAuth;
 
-  cardClick(tool) {
-    if (this.auth.loggedIn()) {
-      if (!tool.auth) {
-        this.openAdd(tool.url)
-      }
-    } else {
-      this.openLogReg(false)
-    }
-  }
+  // cardClick(tool) {
+  //   if (this.auth.loggedIn()) {
+  //     if (!tool.auth) {
+  //       this.openAdd(tool.url)
+  //     }
+  //   } else {
+  //     this.openLogReg(false)
+  //   }
+  // }
 
   openLogReg(bol: boolean) {
     const dialogConfig = new MatDialogConfig();
@@ -43,6 +43,8 @@ export class DashboardComponent implements OnInit {
   }
 
   openAdd(element) {
+    console.log(element);
+    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-addTool";
     dialogConfig.disableClose = false;
