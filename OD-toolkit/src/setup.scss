@@ -1,7 +1,3 @@
-// IMPORTS
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap');
-@import '~@angular/cdk/overlay-prebuilt.css';
-
 // VARS
 $breakpoints: (
   'large': 1210px,
@@ -9,24 +5,20 @@ $breakpoints: (
   'small': 620px,
   'xs': 1165px,
 );
+
 $primaryFont: 'Poppins', sans-serif;
+
+$groen: #6AB84A;
+$blue: #3577BE;
+$oranje: #EFA21D;
+$red: #fd8163;
+
 $background: #EFF4F8;
-$primaryColor: #0A5504;
-$secondaryColor: #F7F7F7;
-$cta: #F8B81F;
-
-$wrnColor: #F5AC19;
-$negColor: #fd8163;
-$neutColor: #3577BE;
-
 $tooltipColor: #565656;
 
 $shadow: 4px 4px 10px 0 rgba(204,204,204,0.5);
 
 // MIXINS
-$groen: #6AB84A;
-$oranje: #EFA21D;
-
 @mixin breakpoint($breakpoint) {
   @media (max-width: map-get($breakpoints, $breakpoint)) {
     @content;

@@ -1,5 +1,4 @@
-$groen: #6AB84A;
-$negColor: #fd8163;
+@import '../../setup.scss';
 
 h1 {
   margin-bottom: 15px;
@@ -89,7 +88,7 @@ form {
   margin-top: 20px;
 
   p {
-    color: red;
+    color: $red;
     font-weight: 300;
   }
 }

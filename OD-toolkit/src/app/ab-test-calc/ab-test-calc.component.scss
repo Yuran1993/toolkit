@@ -1,5 +1,12 @@
 @import '../../setup.scss';
 
+::ng-deep .mat-tooltip {
+  background-color: $tooltipColor;
+  font-size: 12px;
+  padding: 10px;
+  margin-top: 0!important;
+}
+
 main {
   width: 75%;
   transition: ease-in-out .3s all;
@@ -38,32 +45,32 @@ th {
     border-left-color: $groen;
 
     h2 {
-      color: $primaryColor;
+      color: $groen;
     }
   }
 
   &.wrn {
-    border-left-color: $wrnColor;
+    border-left-color: $oranje;
     margin-top: 0;
 
     h2 {
-      color: $wrnColor;
+      color: $oranje;
     }
   }
 
   &.negative {
-    border-left-color: $negColor;
+    border-left-color: $red;
 
     h2 {
-      color: $negColor;
+      color: $red;
     }
   }
 
   &.neutral {
-    border-left-color: $neutColor;
+    border-left-color: $blue;
 
     h2 {
-      color: $neutColor;
+      color: $blue;
     }
   }
 }
@@ -91,13 +98,11 @@ input[type="number"] {
   -webkit-appearance: none;
 
   &:focus {
-    border-color: $primaryColor;
+    border-color: $groen;
   }
 }
 
 // Input elements>
-
-
 main {
   .smallContainer {
     #smallChart {
@@ -138,7 +143,6 @@ main {
 
       .title {
         font-size: 14px;
-        ;
         font-weight: 500;
         margin-bottom: 10px;
       }
@@ -167,7 +171,7 @@ main {
     &.negative {
       .uplift {
         background: #FED9D0;
-        border-color: $negColor;
+        border-color: $red;
       }
     }
   }

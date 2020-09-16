@@ -12,7 +12,7 @@ main {
 h1,
 h2,
 h3 {
-  color: $primaryColor;
+  color: $groen;
   width: 100%;
   margin-bottom: 10px;
 }
@@ -44,7 +44,7 @@ th {
   margin: 0;
   margin-left: auto;
   border: none;
-  background: $wrnColor;
+  background: $oranje;
   padding: 10px 15px;
   border-radius: 50px;
   color: #ffffff;
@@ -71,32 +71,32 @@ th {
     border-left-color: #72B954;
 
     h2 {
-      color: $primaryColor;
+      color: $groen;
     }
   }
 
   &.wrn {
-    border-left-color: $wrnColor;
+    border-left-color: $oranje;
     margin-top: 0;
 
     h2 {
-      color: $wrnColor;
+      color: $oranje;
     }
   }
 
   &.negative {
-    border-left-color: $negColor;
+    border-left-color: $red;
 
     h2 {
-      color: $negColor;
+      color: $red;
     }
   }
 
   &.neutral {
-    border-left-color: $neutColor;
+    border-left-color: $blue;
 
     h2 {
-      color: $neutColor;
+      color: $blue;
     }
   }
 
@@ -130,7 +130,7 @@ input[type="number"] {
 
 input[type="text"]:focus,
 input[type="number"]:focus {
-  border-color: $primaryColor;
+  border-color: $groen;
 }
 
 
@@ -150,7 +150,7 @@ input[type="number"]:focus {
 
     &:checked {
       &:after {
-        background: $primaryColor;
+        background: $groen;
       }
     }
 

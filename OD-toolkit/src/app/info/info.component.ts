@@ -3,6 +3,7 @@ import { authService } from '../_service/auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InlogScreenComponent } from '../inlog-screen/inlog-screen.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AddToolComponent } from '../add-tool/add-tool.component';
 
 @Component({
   selector: 'app-info',
@@ -32,6 +33,20 @@ export class InfoComponent implements OnInit, OnDestroy {
     }
 
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
+  }
+
+  openAdd(element) {
+    console.log(element);
+    
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.id = "modal-addTool";
+    dialogConfig.disableClose = false;
+    dialogConfig.data = `{"elClicked": "${element}"}`;
+    dialogConfig.position = {
+      top: '100px'
+    }
+
+    const modalDialog = this.matDialog.open(AddToolComponent, dialogConfig);
   }
 
   async ngOnInit() {

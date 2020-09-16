@@ -1,3 +1,5 @@
+@import '../../setup.scss';
+
 .mainContainer {
   justify-content: space-between;
 }
@@ -51,8 +53,9 @@ h2 {
 }
 
 .moreTools {
-  padding: 20px 0;
   background: rgba(255, 255, 255, .60);
+  padding-top: 20px;
+  overflow: hidden;
 
   h2 {
     font-size: 1.2rem;
@@ -81,7 +84,7 @@ h2 {
       }
 
       &.allToolsActive {
-        background: #EBF1F7;;
+        background: $background;
 
         .arrowLeftWrapper {
           display: none;
