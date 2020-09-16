@@ -4,13 +4,13 @@ users = [
     name: 'user1',
     password: 'wachtwoord',
     tools: [
-      {url: '1', auth: true},
+      {url: 'impact-analysis', auth: true},
       {url: '2', auth: true},
       {url: '3', auth: true},
       {url: '4', auth: true},
       {url: '6', auth: true},
-      {url: 'abtestcalculator', auth: true},
-      {url: 'bayesiaansecalculator', auth: true},
+      {url: 'abtest-calculator', auth: true},
+      {url: 'bayesiaanse-calculator', auth: true},
     ],
     _id: 1
   },

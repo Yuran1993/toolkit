@@ -87,7 +87,7 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
   }
 
   getData(params: string): Observable<object> {
-    return this.http.get('api/calc/bayescalculator?' + params);
+    return this.http.get('api/calc/bayes-calculator?' + params);
   }
 
   async getValues() {

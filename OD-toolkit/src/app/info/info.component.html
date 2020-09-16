@@ -10,28 +10,32 @@
   <main>
     <header>
       <h1>{{tool.name}}</h1>
-      <p>Online DIalogue biedt je een aantal eenvoudige tools waarmee je  gemakkelijk en snel de impact van je website kan berekenen.</p>
-      <ul class="usps">
-        <li>Lorem, ipsum dolor sit consectetur</li>
-        <li>Lorem, ipsum dolor sit consectetur</li>
+      <p>{{tool.header}}</p>
+      <ul *ngFor="let usp of tool.usps" class="usps">
+        <li>{{usp}}</li>
       </ul>
     </header>
 
     <section>
-      <h2>Omschrijving</h2>
-      <p>{{tool.disc}}</p>
-      <img src="" alt="">
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint dolor ducimus minima cupiditate laborum, quaerat
-        nemo unde facilis harum molestiae quidem aperiam perferendis aliquid porro in, veritatis obcaecati possimus
-        corrupti?</p>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint dolor ducimus minima cupiditate laborum, quaerat
-        nemo unde facilis harum molestiae quidem aperiam perferendis aliquid porro in, veritatis obcaecati possimus
-        corrupti?</p>
+      <p *ngFor="let para of tool.body" [innerHTML]="para"></p>
+    </section>
+    
+    <section *ngIf="tool.over">
+      <h2>Over</h2>
+      <p *ngFor="let para of tool.over" [innerHTML]="para"></p>
     </section>
 
-    <section class="ctaContainer">
-      <a *ngIf="!auth.loggedIn() && !tool.auth" class="cta2" (click)="openLogReg(true)">Inloggen</a>
-      <a *ngIf="!auth.loggedIn() && !tool.auth" class="cta" (click)="openLogReg(false)">Aanmelden</a>
+    <section *ngIf="!auth.loggedIn()">
+      <h2 *ngIf="tool.aanmelden" >Aanmelden</h2>
+      <p *ngFor="let para of tool.aanmelden" [innerHTML]="para"></p>
+
+      <section class="ctaContainer">
+        <a class="cta2" (click)="openLogReg(true)">Inloggen</a>
+        <a class="cta" (click)="openLogReg(false)">Aanmelden</a>
+      </section>
+    </section>
+
+    <section *ngIf="auth.loggedIn()" class="ctaContainer">
       <a *ngIf="auth.loggedIn() && !tool.auth" class="cta" (click)="openAdd(tool.name)">Toevoegen</a>
       <a *ngIf="tool.auth" [routerLink]="['../']" class="cta">
         Ga naar de tool

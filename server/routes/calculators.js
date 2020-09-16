@@ -34,12 +34,12 @@ const verifyToken = (req, res, next) => {
   }
 }
 
-router.get('/abtestcalculator', verifyToken, async (req, res) => {
+router.get('/abtest-calculator', verifyToken, async (req, res) => {
   const result = await calcCalculator(req.query);
   res.status(200).send(result);
 });
 
-router.get('/bayescalculator', async (req, res) => {
+router.get('/bayes-calculator', async (req, res) => {
   const result = await bayesCalculator(req.query);
   
   res.status(200).send(result);

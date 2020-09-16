@@ -32,7 +32,7 @@ export class AbTestCalcComponent implements OnInit, OnDestroy {
   ) { }
 
   getData(params: string): Observable<object> {
-    return this.http.get('./api/calc/abtestcalculator?' + params);
+    return this.http.get('./api/calc/abtest-calculator?' + params);
   }
 
   async getValues() {

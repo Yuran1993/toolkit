@@ -40,7 +40,7 @@
         <img *ngIf='odd' src="../../assets/images/icons/dashboard/card-icoon-1.svg" alt="card icon">
         <img *ngIf='!odd' src="../../assets/images/icons/dashboard/card-icoon-2.svg" alt="card icon">
         <h3>{{tool.name}}</h3>
-        <p>{{tool.disc}}</p>
+        <p>{{tool.header}}</p>
         <a *ngIf='tool.auth' stopPropagation [routerLink]="tool.url">Openen</a>
         <a *ngIf='!tool.auth && !auth.loggedIn()' stopPropagation [routerLink]="" (click)="openLogReg(false)">Meld je aan</a>
         <a *ngIf='!tool.auth && auth.loggedIn()' stopPropagation [routerLink]="" (click)="openAdd(tool.name)">Toevoegen</a>

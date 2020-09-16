@@ -11,37 +11,37 @@ import { InfoComponent } from './info/info.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: DashboardComponent },
   { 
-    path: '1',
+    path: 'impact-analysis',
     component: TempToolComponent,
     canActivate: [AuthGuard]
  },
   { 
-    path: 'abtestcalculator',
+    path: 'abtest-calculator',
     component: AbTestCalcComponent,
     canActivate: [AuthGuard]
  },
   { 
-    path: 'bayesiaansecalculator',
+    path: 'bayesiaanse-calculator',
     component: BayesCalcComponent,
     canActivate: [AuthGuard]
  },
   {
-    path: '3',
+    path: 'experiment-analysis',
     component: TempToolComponent,
     canActivate: [AuthGuard]
  },
   { 
-    path: '4',
+    path: 'quick-insights',
     component: TempToolComponent,
     canActivate: [AuthGuard]
  },
   { 
-    path: '5',
+    path: 'quick-insights',
     component: TempToolComponent,
     canActivate: [AuthGuard]
  },
   { 
-    path: '6',
+    path: 'funnel-analysis',
     component: TempToolComponent,
     canActivate: [AuthGuard]
  },
