@@ -11,9 +11,6 @@ export class ContactComponent implements OnInit {
 
   @Input() component:string;
 
-  ngOnInit() {
-    console.log(this.component);
-    
-  }
+  ngOnInit() {}
 
 }

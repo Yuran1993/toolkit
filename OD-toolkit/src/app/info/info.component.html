@@ -25,7 +25,7 @@
       <p *ngFor="let para of tool.over" [innerHTML]="para"></p>
     </section>
 
-    <section *ngIf="!auth.loggedIn()">
+    <section *ngIf="!auth.loggedIn() && !tool.auth">
       <h2 *ngIf="tool.aanmelden" >Aanmelden</h2>
       <p *ngFor="let para of tool.aanmelden" [innerHTML]="para"></p>
 
@@ -35,8 +35,8 @@
       </section>
     </section>
 
-    <section *ngIf="auth.loggedIn()" class="ctaContainer">
-      <a *ngIf="auth.loggedIn() && !tool.auth" class="cta" (click)="openAdd(tool.name)">Toevoegen</a>
+    <section *ngIf="auth.loggedIn() || tool.auth" class="ctaContainer">
+      <a *ngIf="!tool.auth" class="cta" (click)="openAdd(tool.name)">Toevoegen</a>
       <a *ngIf="tool.auth" [routerLink]="['../']" class="cta">
         Ga naar de tool
         <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">

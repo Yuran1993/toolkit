@@ -12,18 +12,7 @@ export class MailService {
   constructor(private http: HttpClient) {}
 
   addToolsReq(tool) {
-    console.log(tool);
-    
     this.http.post<any>(this._mailUrl, {tool})
-    .subscribe(
-      res => {
-        console.log(res);
-        
-      },
-      err => {
-        console.log(err.error);
-      }
-    );
   }
   
   register(data) {

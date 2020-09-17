@@ -43,8 +43,6 @@ export class DashboardComponent implements OnInit {
   }
 
   openAdd(element) {
-    console.log(element);
-    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-addTool";
     dialogConfig.disableClose = false;
@@ -64,7 +62,6 @@ export class DashboardComponent implements OnInit {
 
 async ngOnInit() {
     this.tools = await this.auth.getToolsWAuth();
-    // this.tools = [...this.tools];
     this.tools = this.tools.sort((x, y) => (x.auth === y.auth) ? 0 : x.auth ? -1 : 1);
   }
 }

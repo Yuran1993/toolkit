@@ -34,7 +34,7 @@ const verifyToken = (req, res, next) => {
   }
 }
 
-router.get('/abtest-calculator', verifyToken, async (req, res) => {
+router.get('/abtest-calculator', async (req, res) => {
   const result = await calcCalculator(req.query);
   res.status(200).send(result);
 });

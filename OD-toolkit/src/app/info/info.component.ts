@@ -58,6 +58,11 @@ export class InfoComponent implements OnInit, OnDestroy {
     let snapShot = this.route.snapshot.paramMap.get('tool');
     this.tool = this.allTools.find(e => e.url === snapShot);
 
+    if (!this.tool) {
+      this.router.navigate(['']);
+      return;
+    }
+
     this.allTools.forEach(e => e.active = false);
     this.tool.active = true;
     
@@ -69,10 +74,6 @@ export class InfoComponent implements OnInit, OnDestroy {
       this.allTools.forEach(e => e.active = false);
       this.tool.active = true;
     });
-
-    if (!this.tool) {
-      this.router.navigate(['']);
-    }
   }
 
   ngOnDestroy() {
