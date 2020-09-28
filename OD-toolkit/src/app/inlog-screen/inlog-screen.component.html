@@ -41,7 +41,8 @@
       </section>
       <section id="modal-body">
         <input [(ngModel)]="registerUserData.repeatePassword.value" [class]="registerUserData.repeatePassword.err" type="password" name="repeatePassword" placeholder="herhaal wachtwoord">
-        <button class="cta2" type="submit">Aanmelden</button>
+        <button *ngIf="!loader" class="cta2" type="submit">Aanmelden</button>
+        <span *ngIf="loader" class="loader">loader</span>
       </section>
     </form>
 

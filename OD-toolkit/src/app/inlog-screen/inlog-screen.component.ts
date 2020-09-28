@@ -138,12 +138,15 @@ export class InlogScreenComponent implements OnInit {
   }
 
   sendRegister() {
+    this.loader = true;
     this.mail.register(this.registerUserData)
       .subscribe(
         res => {
+          this.loader = false;
           this.reqSend = true
         },
         err => {
+          this.loader = false;
           this.registreerErrorMsg = err.error;
         }
       );

@@ -68,8 +68,7 @@ router.post('/register', async (req, res) => {
         tools: [],
       };
 
-      collection.insertOne(newAccount);
-
+      await collection.insertOne(newAccount);
 
       res.status(200).send();
       mongo.close();
