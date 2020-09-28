@@ -72,12 +72,12 @@ router.post('/register', async (req, res) => {
 
 
       res.status(200).send();
+      mongo.close();
     });
   } else {
 
     res.status(401).send('Er bestaat al een account op het opgegeven emailadres');
   }
-  mongo.close();
 
 
 
