@@ -1,20 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GetUser } from './getUser.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class authService {
-  tools: [];
+  tools: any;
+
+  noAccount = {
+    name: '',
+    tools: [],
+  };
+
+  private authArray = new BehaviorSubject(this.noAccount);
+  currentToolAuth = this.authArray.asObservable();
 
   private _loginUrl = "api/login";
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private user: GetUser,
   ) { }
 
   loginUser(user) {
@@ -25,21 +32,17 @@ export class authService {
     return !!localStorage.getItem('token');
   }
 
-  logout() {
+  async logout() {
     localStorage.removeItem('token');
-    this.user.reset();
+    this.reset();
     this.router.navigate(['']);
   }
 
-  getToken() {
-    return localStorage.getItem('token');
-  }
-
   getTools() {
-    return new Promise<[]>((resolve) => {
+    return new Promise<[]>((resolve) => { //! have to find out where to mix authentication from the tools.js with costum auth in the users account: here or in the backend api
       if (!this.tools) {
         this.http.get<[]>('api/getTools').subscribe(result => {
-          this.tools = result
+          this.tools = result;
           resolve(this.tools);
         });
       } else {
@@ -49,40 +52,56 @@ export class authService {
   }
 
   getUser() {
-    const token = localStorage.getItem('token');
+    return new Promise(async (resolve) => {
+      const token = localStorage.getItem('token');
 
-    if (token) {
-      return new Promise<[]>((resolve) => {
-        this.http.get<[]>('api/toolsAuth').subscribe(result => {
-
-          this.user.changeToolsAuth(result);
-
+      if (token) {
+        this.http.get<[]>('api/getUser').subscribe(result => {
+          this.changeToolsAuth(result);
           resolve();
         });
-      });
-    } else {
-      this.user.reset();
-    }
+      } else {
+        await this.reset();
+        resolve();
+      }
+    });
   }
 
-  async getToolsWAuth() {
-    return new Promise<[]>(async (resolve) => {
-      this.getUser();
+  async changeToolsAuth(userTools: any) {
+    await this.getTools();
+
+    this.tools.forEach((e) => {
+      if (e.openForAccounts) {
+        e.auth = true;
+      }
+    });
+
+    userTools.tools.forEach(userTool => {
+      const tempTool = this.tools.find(e => e.url === userTool.url);
+      tempTool.auth = userTool.auth;
+    });
+
+    console.log(userTools);
+
+    userTools.tools = this.tools;
+    this.authArray.next(userTools);
+  }
+
+  reset() {
+    return new Promise(async (resolve) => {
       await this.getTools();
-      this.user.currentToolAuth.subscribe(async user => {
 
-        if (user) {
-          this.tools.forEach((e: any, i: number) => {
-            e.auth = false;
-
-            const currentAuth = user.tools.find((element) => element.url === e.url);
-            if (currentAuth) {
-              e.auth = currentAuth.auth;
-            }
-          });
+      this.tools.forEach((e) => {
+        if (e.open) {
+          e.auth = true;
+        } else {
+          e.auth = false;
         }
-        resolve(this.tools);
       });
+
+      this.noAccount.tools = this.tools;
+      this.authArray.next(this.noAccount);
+      resolve();
     });
   }
 }

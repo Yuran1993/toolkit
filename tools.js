@@ -2,16 +2,20 @@ const tools = [
   {
     name: 'A/B-test Calculator',
     url: 'abtest-calculator',
+    open: true,
+    openForAccounts: true,
     header: 'Bepaal het resultaat van een A/B test. Is het resultaat significant? Is er genoeg power?',
   },
   {
     name: 'Bayesiaanse A/B-test calculator',
     url: 'bayesiaanse-calculator',
+    openForAccounts: true,
     header: 'Bepaal het resultaat van een A/B test. Bereken de kans dat je test variatie het origineel verslaat en bereken de business case.',
   },
   {
     name: 'Test Impact Analysis',
     url: 'impact-analysis',
+    openForAccounts: true,
     header: 'Krijg automatisch overzicht en inzicht waar je A/B testen kunt uitvoeren op je website.',
     usps: [
       'Unieke calculator in de CRO-markt',
@@ -37,16 +41,19 @@ const tools = [
   {
     name: 'Experiment Analysis',
     url: 'experiment-analysis',
+    openForAccounts: true,
     header: 'Automatiseer de analyse van je A/B testen en bespaar jezelf veel tijd.',
   },
   {
     name: 'Quick Insights',
     url: 'quick-insights',
+    openForAccounts: true,
     header: 'Krijg snelle en uitgebreide inzichten over het gedrag van je website bezoekers.',
   },
   {
     name: 'Funnel Analysis',
     url: 'funnel-analysis',
+    openForAccounts: true,
     header: 'Maak open of gesloten funnels en krijg direct inzicht in de customer journey.',
   },
 ];

@@ -80,6 +80,15 @@ router-outlet+*>*:first-of-type {
   padding-top: 100px;
 }
 
+.loader {
+  font-size: 0;
+  display: block;
+  width: 35px;
+  height: 35px;
+  transform: translateX(-50%);
+  background: url('./app/_service/loader/loader.svg');
+}
+
 .container {
   max-width: 1250px;
   padding: 15px 25px;
@@ -176,6 +185,7 @@ header {
 }
 
 .cta {
+  cursor: pointer;
   display: inline-block;
   background: $groen;
   margin-bottom: 20px;
@@ -213,7 +223,7 @@ header {
 
   a {
     position: relative;
-    padding-left: 25px;
+    padding-left: 20px;
     font-size: 0.8rem;
     font-weight: 500;
 
@@ -232,6 +242,7 @@ header {
 }
 
 .cta2 {
+  cursor: pointer;
   display: inline-block !important;
   padding: 8px 21px;
   border-radius: 50px;

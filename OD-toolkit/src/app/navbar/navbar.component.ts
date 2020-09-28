@@ -4,9 +4,6 @@ import { InlogScreenComponent } from "../inlog-screen/inlog-screen.component";
 import { authService } from '../_service/auth.service';
 import { Router } from '@angular/router';
 
-import { myTools } from '../_service/myTools'
-import { GetUser } from '../_service/getUser.service';
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -19,7 +16,6 @@ export class NavbarComponent implements OnInit {
     public matDialog: MatDialog,
     public auth: authService,
     private router: Router,
-    private getToolsAuth: GetUser,
   ) { }
 
   openLogReg(bol: boolean) {
@@ -49,9 +45,9 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-
-    this.getToolsAuth.currentToolAuth.subscribe(async user => {
+  async ngOnInit() {
+    await this.auth.getUser();
+    this.auth.currentToolAuth.subscribe(user => {
       this.user = user;
     });
   }

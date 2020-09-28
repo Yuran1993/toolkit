@@ -1,55 +1,106 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN });
-const users = require('../Users');
 
-const calc = require('./calculators')
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+const { MongoClient, ObjectId } = require('mongodb');
+
+const calc = require('./calculators');
+
+// const users = require('../Users');
+const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN });
 
 const router = express.Router();
 
 router.use('/calc', calc);
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const userData = req.body;
-  const user = users.find((e) => e.email === userData.email.value);
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
+
+  const user = await collection.findOne({ email: userData.email.value });
 
   if (user) {
-    if (user.password === userData.password) {
-      const payload = { subject: user._id };
-      const token = jwt.sign(payload, 'toolkitKey');
-      res.status(200).send({ token, user });
-    } else {
-      res.status(401).send('Het opgegeven wachtwoord komt niet overeen met het e-mailadres.<br>Probeer het nogmaals of reset je wachtwoord.');
-    }
+    bcrypt.compare(userData.password, user.password, function (err, result) {
+      if (result) {
+        const payload = { subject: user._id };
+        const token = jwt.sign(payload, 'toolkitKey');
+        res.status(200).send({ token, user });
+      } else {
+        res.status(401).send('Het opgegeven wachtwoord komt niet overeen met het e-mailadres.<br>Probeer het nogmaals of reset je wachtwoord.')
+      }
+    });
   } else {
     res.status(401).send('Het opgegeven e-mailadres komt niet voor in ons bestand.<br>Gebruik een ander e-mailadres of meld je aan.');
   }
+
+  mongo.close();
+
+  // if (user) {
+  //   if (user.password === userData.password) {
+  //     const payload = { subject: user._id };
+  //     const token = jwt.sign(payload, 'toolkitKey');
+  //     res.status(200).send({ token, user });
+  //   } else {
+  //     res.status(401).send('Het opgegeven wachtwoord komt niet overeen met het e-mailadres.<br>Probeer het nogmaals of reset je wachtwoord.');
+  //   }
+  // } else {
+  //   res.status(401).send('Het opgegeven e-mailadres komt niet voor in ons bestand.<br>Gebruik een ander e-mailadres of meld je aan.');
+  // }
 });
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   const userData = req.body;
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
 
-  const text =
-    `OD-toolkit: nieuwe registratie:
+  const alreadyInDB = await collection.findOne({ email: userData.email.value });
 
-Naam: ${userData['name'].value}
-Email: ${userData['email'].value}
-Bedrijf: ${userData['company'].value}
-`;
+  if (!alreadyInDB) {
+    bcrypt.hash(userData.password.value, saltRounds, async function (err, hash) {
+      const newAccount = {
+        name: userData.name.value,
+        company: userData.company.value,
+        email: userData.email.value,
+        password: hash,
+        tools: [],
+      };
 
-  var mail = {
-    from: 'OD-auto <dev@onlinedialogue.com>',
-    to: 'yuran@onlinedialogue.com',
-    subject: 'Nieuwe registratie OD-toolkit',
-    text
-  };
-
-  mailgun.messages().send(mail, function (err, body) {
-    if (err) console.log(err) && res.status(200).send();
-    res.status(200).send();
-  });
+      collection.insertOne(newAccount);
 
 
+      res.status(200).send();
+    });
+  } else {
+
+    res.status(401).send('Er bestaat al een account op het opgegeven emailadres');
+  }
+  mongo.close();
+
+
+
+
+  //   const text =
+  //     `OD-toolkit: nieuwe registratie:
+
+  // Naam: ${userData['name'].value}
+  // Email: ${userData['email'].value}
+  // Bedrijf: ${userData['company'].value}
+  // `;
+
+  //   var mail = {
+  //     from: 'OD-auto <dev@onlinedialogue.com>',
+  //     to: 'yuran@onlinedialogue.com',
+  //     subject: 'Nieuwe registratie OD-toolkit',
+  //     text
+  //   };
+
+  //   mailgun.messages().send(mail, function (err, body) {
+  //     if (err) console.log(err) && res.status(200).send();
+  //     res.status(200).send();
+  //   });
 });
 
 const verifyToken = (req, res, next) => {
@@ -68,7 +119,7 @@ const verifyToken = (req, res, next) => {
       } else {
         req.userId = payload.subject;
         const toolUrl = path.split('/')[2];
-        const user = users.find((e) => e._id === payload.subject);
+        const user = users.find((e) => e._id === payload.subject); //TODO users uit mongo halen en mongo requests verminderen in de api
         const toolAuth = user.tools.find(e => e.url === toolUrl)
 
         if (toolAuth && toolAuth.auth) {
@@ -93,41 +144,41 @@ router.get('/getTools', (req, res) => {
   res.end(json);
 });
 
-router.get('/toolsAuth', verifyToken, (req, res) => {
-  const id = req.userId;
-  const user = users.find(e => e._id === id);
+router.get('/getUser', verifyToken, async (req, res) => {
+  const id = req.userId; //TODO: verifyToken token does this, maybe remove verifyToken en move functionality in this function
+  console.log(id, 'id');
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
+  const user = await collection.findOne({ "_id": ObjectId(id) });
+  console.log(user, 'user');
+
+  mongo.close();
 
   res.status(200).send(user);
 });
 
-router.post('/addToolReq', verifyToken, (req, res) => {
-  const id = req.userId;
-  const user = users.find(e => e._id === id);
-  const data = req.body;
+// router.post('/addToolReq', verifyToken, (req, res) => {
+//   const id = req.userId;
+//   const user = users.find(e => e._id === id);
+//   const data = req.body;
 
-  console.log(data.tool);
-
-  let text =
-    `Gebruiker: ${user.email},
-vraagt toegang tot de volgende tool: ${data.tool}
+//   let text =
+//     `Gebruiker: ${user.email},
+// vraagt toegang tot de volgende tool: ${data.tool}
   
-`;
+// `;
 
-  // Object.keys(data).forEach(e => {
-  //   text += e + '\n';
-  // }); //TODO
+//   var mail = {
+//     from: 'OD-auto <dev@onlinedialogue.com>',
+//     to: 'yuran@onlinedialogue.com',
+//     subject: 'OD-toolkit: tools aanvraag',
+//     text
+//   };
 
-  var mail = {
-    from: 'OD-auto <dev@onlinedialogue.com>',
-    to: 'yuran@onlinedialogue.com',
-    subject: 'OD-toolkit: tools aanvraag',
-    text
-  };
-
-  mailgun.messages().send(mail, function (err, body) {
-    if (err) console.log(err);
-  });
-});
+//   mailgun.messages().send(mail, function (err, body) {
+//     if (err) console.log(err);
+//   });
+// });
 
 router.post('/forgotPassword', (req, res) => {
   const emailAdres = req.body.value;

@@ -3,7 +3,6 @@ import { MatDialogRef, throwMatDialogContentAlreadyAttachedError } from '@angula
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { authService } from '../_service/auth.service';
-import { GetUser } from '../_service/getUser.service';
 import { MailService } from '../_service/mail.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class AddToolComponent implements OnInit {
     public dialogRef: MatDialogRef<AddToolComponent>,
     private auth: authService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private toolsAuth: GetUser,
     private mail: MailService,
   ) { }
 
@@ -45,7 +43,7 @@ export class AddToolComponent implements OnInit {
     // const tools: any = await this.auth.getTools();
     // let user;
 
-    // this.toolsAuth.currentToolAuth.subscribe(async result => {
+    // this.auth.currentToolAuth.subscribe(async result => {
     //   user = result
     // });
 

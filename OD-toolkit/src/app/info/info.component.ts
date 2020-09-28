@@ -53,7 +53,10 @@ export class InfoComponent implements OnInit, OnDestroy {
     window.scrollTo(0, 0);
     document.body.className = "backgroundColor";
 
-    this.allTools = await this.auth.getToolsWAuth();
+    this.auth.currentToolAuth.subscribe(result => {
+      this.allTools = result.tools;
+      this.allTools = this.allTools.sort((x, y) => (x.auth === y.auth) ? 0 : x.auth ? -1 : 1);
+    });
 
     let snapShot = this.route.snapshot.paramMap.get('tool');
     this.tool = this.allTools.find(e => e.url === snapShot);

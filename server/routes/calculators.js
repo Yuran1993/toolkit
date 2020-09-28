@@ -1,12 +1,13 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const users = require('../Users');
+
+const { MongoClient, ObjectId } = require('mongodb');
 
 const calcCalculator = require('../calculators/calc-calculator.js');
 const bayesCalculator = require('../calculators/bayes-calculator.js');
 const router = express.Router();
 
-const verifyToken = (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   const path = req.route.path;
   if (!req.headers.authorization) {
     return res.status(401).send('Unauthorized request');
@@ -18,10 +19,14 @@ const verifyToken = (req, res, next) => {
     if (payload) {
       req.userId = payload.subject;
       const toolUrl = path.split('/')[1];
-      const user = users.find((e) => e._id === payload.subject);
-      const toolAuth = user.tools.find(e => e.url === toolUrl)
 
-      if (toolAuth && toolAuth.auth) {
+      const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+      const collection = mongo.db('OD-toolkit').collection('accounts');
+
+      const user = await collection.findOne({ "_id": ObjectId(req.userId) });
+      const toolAuth = user.tools.find(e => e.url === toolUrl);
+
+      if (!toolAuth || toolAuth && toolAuth.auth) { //TODO: backend doesnt have general tools auth
         next();
       } else {
         return res.status(401).send('Unauthorized request');
@@ -39,9 +44,9 @@ router.get('/abtest-calculator', async (req, res) => {
   res.status(200).send(result);
 });
 
-router.get('/bayes-calculator', async (req, res) => {
+router.get('/bayes-calculator', verifyToken, async (req, res) => {
   const result = await bayesCalculator(req.query);
-  
+
   res.status(200).send(result);
 });
 

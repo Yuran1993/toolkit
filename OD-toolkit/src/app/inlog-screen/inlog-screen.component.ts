@@ -4,7 +4,6 @@ import { MatDialogRef, throwMatDialogContentAlreadyAttachedError } from '@angula
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { authService } from '../_service/auth.service';
-import { GetUser } from '../_service/getUser.service';
 import { MailService } from '../_service/mail.service';
 
 @Component({
@@ -18,6 +17,7 @@ export class InlogScreenComponent implements OnInit {
   loginErrorMsg: string;
   registreerErrorMsg: string;
   reqSend = false;
+  loader = false;
 
   loginUserData = {
     email: {
@@ -37,24 +37,34 @@ export class InlogScreenComponent implements OnInit {
     email: {
       value: '',
       pattern: new RegExp(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+/),
-      err: false,
+      err: '',
     },
     company: {
       value: '',
       pattern: new RegExp(/[A-Za-z]+/),
-      err: false,
-    }
+      err: '',
+    },
+    password: {
+      value: '',
+      pattern: new RegExp(/[A-Za-z]+/),
+      err: '',
+    },
+    repeatePassword: {
+      value: '',
+      pattern: new RegExp(/[A-Za-z]+/),
+      err: '',
+    },
   };
 
   constructor(
     public dialogRef: MatDialogRef<InlogScreenComponent>,
     private auth: authService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private toolsAuth: GetUser,
     private router: Router,
     private mail: MailService) { }
 
   loginFunc() {
+    this.loader = true;
     document.querySelectorAll('#modal-body input').forEach(e => {
       e.classList.remove('err');
     });
@@ -63,12 +73,13 @@ export class InlogScreenComponent implements OnInit {
       .subscribe(
         res => {
           localStorage.setItem('token', res.token);
-          this.toolsAuth.changeToolsAuth(res.user);
+          this.auth.changeToolsAuth(res.user);
 
           this.loginErrorMsg = '';
           this.closeModal();
         },
         err => {
+          this.loader = false;
           this.loginErrorMsg = err.error
           if (err.error.indexOf('Het opgegeven e-mailadres') !== -1) {
             document.querySelector('[name="loginEmail"]').classList.add('err');
@@ -101,19 +112,27 @@ export class InlogScreenComponent implements OnInit {
   }
 
   verifyRegister() {
-    let err = false;
+    let errorGevonden = false;
+    this.registreerErrorMsg = '';
     Object.keys(this.registerUserData).forEach(element => {
       const field = this.registerUserData[element];
 
       if (!field.value.match(field.pattern)) {
         field.err = 'err'
-        err = true;
+        errorGevonden = true;
       } else {
-        field.err = ''
+        field.err = '';
       }
     });
 
-    if (!err) {
+    if (this.registerUserData.password.value !== this.registerUserData.repeatePassword.value) {
+      this.registerUserData.password.err = 'err';
+      this.registerUserData.repeatePassword.err = 'err';
+      this.registreerErrorMsg = 'Wachtwoorden komen niet overeen'
+      errorGevonden = true;
+    }
+
+    if (!errorGevonden) {
       this.sendRegister();
     }
   }
@@ -125,7 +144,7 @@ export class InlogScreenComponent implements OnInit {
           this.reqSend = true
         },
         err => {
-          console.log(err.error);
+          this.registreerErrorMsg = err.error;
         }
       );
   }

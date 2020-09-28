@@ -15,7 +15,8 @@
     <footer id="modal-footer">
       <button mat-raised-button type="button" class="forgotPassword" (click)="forgotPassword()">Wachtwoord
         vergeten</button>
-      <button type="submit" class="cta2">Inloggen</button>
+      <button *ngIf="!loader" type="submit" class="cta2">Inloggen</button>
+      <span *ngIf="loader" class="loader">loader</span>
     </footer>
   </form>
 
@@ -30,14 +31,16 @@
     <p>Wil je gebruik maken van deze tool? Meld je aan of log in met je gegevens.</p>
     <form (ngSubmit)="verifyRegister()">
       <section id="modal-body">
-        <input [autofocus] [(ngModel)]="registerUserData.name.value" [class]="registerUserData.name.err" type="text"
-          name="registreerName" id="registreerName" placeholder="Naam">
-        <input [(ngModel)]="registerUserData.email.value" [class]="registerUserData.email.err" type="text"
-          name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
+        <input [autofocus] [(ngModel)]="registerUserData.name.value" [class]="registerUserData.name.err" type="text" name="registreerName" id="registreerName" placeholder="Naam">
+        <input [(ngModel)]="registerUserData.email.value" [class]="registerUserData.email.err" type="text" name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
       </section>
       <section id="modal-body">
-        <input [(ngModel)]="registerUserData.company.value" [class]="registerUserData.company.err" type="text"
-          name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
+        <input [(ngModel)]="registerUserData.company.value" [class]="registerUserData.company.err" type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
+        <input [(ngModel)]="registerUserData.password.value" [class]="registerUserData.password.err" type="password" name="password" placeholder="wachtwoord">
+        
+      </section>
+      <section id="modal-body">
+        <input [(ngModel)]="registerUserData.repeatePassword.value" [class]="registerUserData.repeatePassword.err" type="password" name="repeatePassword" placeholder="herhaal wachtwoord">
         <button class="cta2" type="submit">Aanmelden</button>
       </section>
     </form>
