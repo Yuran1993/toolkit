@@ -9,49 +9,9 @@ main {
   }
 }
 
-h1,
-h2,
-h3 {
-  color: $groen;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-h1 {
-  font-size: 1.5rem;
-}
-
-h2 {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-}
-
-strong {
-  display: inline-block;
-  font-size: 14px;
-}
 
 th {
   font-weight: 400;
-}
-
-.rowWrap {
-  display: flex;
-  flex-flow: row wrap;
-}
-
-.secondarBtn {
-  margin: 0;
-  margin-left: auto;
-  border: none;
-  background: $oranje;
-  padding: 10px 15px;
-  border-radius: 50px;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 600;
-
-  cursor: pointer;
 }
 
 .msg {
@@ -100,6 +60,10 @@ th {
     }
   }
 
+  &:first-of-type {
+    margin-top: 0;
+  }
+
   @include breakpoint('medium') {
     margin-top: 20px;
   }
@@ -132,57 +96,6 @@ input[type="text"]:focus,
 input[type="number"]:focus {
   border-color: $groen;
 }
-
-
-
-.radio {
-  position: relative;
-  display: flex;
-  margin-top: 10px;
-  align-items: center;
-
-  input {
-    display: inline-block;
-    margin: 0 15px 0 0;
-    padding-left: 10px;
-    position: relative;
-    border: none;
-
-    &:checked {
-      &:after {
-        background: $groen;
-      }
-    }
-
-    &:before {
-      content: "";
-      width: 15px;
-      height: 15px;
-      background-color: #ffffff;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      left: 50%;
-      border: 2px solid #e8e8e8;
-      border-radius: 50%;
-    }
-
-    &:after {
-      content: "";
-      width: 10px;
-      height: 10px;
-      background-color: #ffffff;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      left: 50%;
-      border-radius: 50%;
-    }
-  }
-}
-
-// Input elements>
-
 
 
 form {
@@ -226,19 +139,6 @@ form {
     width: 50%;
   }
 }
-
-// .smallContainer:first-of-type {
-//   > div {
-//     display: flex;
-//     flex-flow: row nowrap;
-//     align-items: flex;
-//     margin-top: 15px;
-
-//     @include breakpoint('large') {
-//       flex-flow: column nowrap;
-//     }
-//   }
-// }
 
 #chart {
   width: 90%;
@@ -361,6 +261,7 @@ table {
 .resultHead {
   width: 100%;
   padding: 15px;
+  border-radius: 10px;
   margin-bottom: 20px;
   display: flex;
   flex-flow: column nowrap;
@@ -370,6 +271,10 @@ table {
   p {
     color: white;
     font-size: 16px;
+
+    &:last-of-type {
+      font-size: 25px;
+    }
   }
 }
 

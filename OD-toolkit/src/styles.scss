@@ -85,7 +85,6 @@ router-outlet+*>*:first-of-type {
   display: block;
   width: 35px;
   height: 35px;
-  transform: translateX(-50%);
   background: url('./app/_service/loader/loader.svg');
 }
 
@@ -270,7 +269,7 @@ header {
     padding-left: 35px;
 
     &:before {
-      content: url(./assets/images/icons/dashboard/usp.svg);
+      content: url(./assets/icons/dashboard/usp.svg);
       position: absolute;
       left: 0;
       top: 50%;
@@ -303,7 +302,7 @@ mat-dialog-container#modal-addTool {
 }
 
 #modal-content-wrapper {
-  min-width: 400px;
+  min-width: 590px;
   color: #000000;
   position: relative;
   background: #ffffff;
@@ -398,7 +397,7 @@ mat-dialog-container#modal-addTool {
 
   &:before {
     content: "€";
-    color: $groen;
+    color: #000;
     font-size: 14px;
     font-weight: 500;
 
@@ -424,7 +423,7 @@ mat-dialog-container#modal-addTool {
 
   &:after {
     content: "%";
-    color: $groen;
+    color: #000;
     font-size: 14px;
     font-weight: 500;
 

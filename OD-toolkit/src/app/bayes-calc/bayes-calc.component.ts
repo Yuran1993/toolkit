@@ -61,12 +61,12 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
 
     const options = {
       width: '100%',
-      height: '50%',
+      height: '100%',
       bar: { groupWidth: '85%' },
       chartArea: {
         width: '100%',
-
       },
+      annotations: false,
       legend: { position: 'none' },
       enableInteractivity: false,
       hAxis: {
@@ -87,7 +87,7 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
   }
 
   getData(params: string): Observable<object> {
-    return this.http.get('api/calc/bayes-calculator?' + params);
+    return this.http.get('api/calc/bayesiaanse-calculator?' + params);
   }
 
   async getValues() {

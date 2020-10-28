@@ -1,12 +1,12 @@
 <nav class="container">
   <a routerLink="/">
-    <img src="../../assets/images/logos/ODlogo.png" alt="logo van Online dialogue">
+    <img src="../../assets/images/ODlogo.png" alt="logo van Online dialogue">
   </a>
   <ul>
     <li><a class="tools" (click)="scroll('tools')">Tools</a></li>
     <li><a class="contact" (click)="scroll('contact')">Contact</a></li>
-    <li *ngIf="!auth.loggedIn()"><a class="user" mat-raised-button id="logout-button" (click)="openLogReg(true)">Login</a></li>
-    <li *ngIf="!auth.loggedIn()"><a class="registreer" (click)="openLogReg(false)">Aanmelding</a></li>
+    <li *ngIf="!auth.loggedIn()"><a class="user" mat-raised-button id="logout-button" (click)="openLogReg('login')">Login</a></li>
+    <li *ngIf="!auth.loggedIn()"><a class="registreer" (click)="openLogReg('registreer')">Aanmelding</a></li>
 
     <li *ngIf="auth.loggedIn() && user" class="user" >{{user.name}}</li>
     <span *ngIf="auth.loggedIn() && !user" class="loader">loader</span>

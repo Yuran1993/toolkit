@@ -17,33 +17,22 @@ export class AuthGuard implements CanActivate {
 
     this.auth.currentToolAuth.subscribe(result => {
       user = result;
-      console.log(result);
-      
     });
 
     pageAuth = user.tools.find(e => e.url === page);
 
-    if (!pageAuth) { //? for page reloads 
-      await this.auth.getUser();
-      pageAuth = user.tools.find(e => e.url === page);
-      console.log(pageAuth);
-      
-
-      if (pageAuth.auth) {
-        return true;
-      } else {
-        this.router.navigate(['']);
-        return false;
-      }
-    } else {
-      if (pageAuth.auth) {
-        return true;
-      } else {
-        this.router.navigate(['']);
-        return false;
-      }
+    if (!pageAuth) { //? Heeft het een tijd niet gedaan, lijkt het nu toe doen, maar kan nog onverwacht breken 
+      pageAuth = await this.auth.getUser();
+      pageAuth = pageAuth.tools.find(e => e.url === page);
     }
 
-    
+    if (pageAuth && pageAuth.auth) {
+      return true;
+    } else {
+      this.router.navigate(['']);
+      return false;
+    }
+
+
   }
 }

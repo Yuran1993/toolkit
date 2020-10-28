@@ -23,11 +23,11 @@ export class InfoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
   ) { }
 
-  openLogReg(bol: boolean) {
+  openLogReg(show: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-logReg";
     dialogConfig.disableClose = false;
-    dialogConfig.data = `{"login": ${bol}}`;
+    dialogConfig.data = `{"show": "${show}"}`;
     dialogConfig.position = {
       top: '100px',
     }

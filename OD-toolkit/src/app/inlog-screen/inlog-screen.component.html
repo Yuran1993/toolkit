@@ -1,19 +1,19 @@
-<div class="headBtns">
-  <button (click)="login=true;" [class]="login ? 'open' : ''">Login</button>
-  <button (click)="login=false;" [class]="!login ? 'open' : ''">Aanmelden</button>
+<div *ngIf="show !== 'changePassword'" class="headBtns">
+  <button (click)="show='login'" [class]="show === 'login' ? 'open' : ''">Login</button>
+  <button (click)="show='registreer'" [class]="show === 'registreer' ? 'open' : ''">Aanmelden</button>
 </div>
-<div *ngIf="login" id="modal-content-wrapper">
+<div *ngIf="show === 'login'" id="modal-content-wrapper">
   <h1>Login</h1>
   <p>Wil je gebruik maken van deze tool? Meld je aan of log in met je gegevens.</p>
   <form (ngSubmit)="loginFunc()">
     <section id="modal-body">
-      <input [autofocus] [(ngModel)]="loginUserData.email.value" [class]="loginUserData.email.err" type="text"
+      <input [autofocus] [(ngModel)]="loginUserData.email.value" [ngClass]="{err: loginUserData.email.err}" type="text"
         name="loginEmail" id="loginEmail" placeholder="E-mailadres">
-      <input [(ngModel)]="loginUserData.password" type="password" name="loginPassword" id="loginPassword"
-        placeholder="Wachtwoord">
+      <input [(ngModel)]="loginUserData.password.value" type="password" name="loginPassword" id="loginPassword"
+        placeholder="Wachtwoord" [ngClass]="{err: loginUserData.password.err}">
     </section>
     <footer id="modal-footer">
-      <button mat-raised-button type="button" class="forgotPassword" (click)="forgotPassword()">Wachtwoord
+      <button mat-raised-button type="button" class="forgotPassword" (click)="forgotPasswordMail()">Wachtwoord
         vergeten</button>
       <button *ngIf="!loader" type="submit" class="cta2">Inloggen</button>
       <span *ngIf="loader" class="loader">loader</span>
@@ -22,25 +22,28 @@
 
   <section *ngIf="loginErrorMsg" class="error">
     <p [innerHTML]=loginErrorMsg></p>
+    <button *ngIf="sendVerifyMailBtn" class="inlineErrorBtn" (click)="sendVerifyMail()">Stuur email opnieuw</button>
   </section>
 </div>
 
-<div *ngIf="!login" id="modal-content-wrapper" class="model-wrapper">
+<div *ngIf="show === 'registreer'" id="modal-content-wrapper" class="model-wrapper aanmelden">
   <h1>Aanmelden</h1>
   <div *ngIf="!reqSend">
     <p>Wil je gebruik maken van deze tool? Meld je aan of log in met je gegevens.</p>
-    <form (ngSubmit)="verifyRegister()">
-      <section id="modal-body">
-        <input [autofocus] [(ngModel)]="registerUserData.name.value" [class]="registerUserData.name.err" type="text" name="registreerName" id="registreerName" placeholder="Naam">
-        <input [(ngModel)]="registerUserData.email.value" [class]="registerUserData.email.err" type="text" name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
+    <form (ngSubmit)="checkRegisterInput()">
+      <section id="modal-body" class="noMarginBtm">
+        <input [autofocus] [(ngModel)]="registerUserData.name.value" [ngClass]="{err: registerUserData.name.err}" type="text"
+          name="registreerName" id="registreerName" placeholder="Naam">
+        <input [(ngModel)]="registerUserData.email.value" [ngClass]="{err: registerUserData.email.err}" type="text"
+          name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
+        <input [(ngModel)]="registerUserData.company.value" [ngClass]="{err: registerUserData.company.err}" type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
       </section>
       <section id="modal-body">
-        <input [(ngModel)]="registerUserData.company.value" [class]="registerUserData.company.err" type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
-        <input [(ngModel)]="registerUserData.password.value" [class]="registerUserData.password.err" type="password" name="password" placeholder="wachtwoord">
-        
+        <input [(ngModel)]="registerUserData.password.value" [ngClass]="{err: registerUserData.password.err}" type="password" name="password" placeholder="wachtwoord">
+        <input [(ngModel)]="registerUserData.repeatePassword.value" [ngClass]="{err: registerUserData.repeatePassword.err}" type="password" name="repeatePassword" placeholder="herhaal wachtwoord">
       </section>
-      <section id="modal-body">
-        <input [(ngModel)]="registerUserData.repeatePassword.value" [class]="registerUserData.repeatePassword.err" type="password" name="repeatePassword" placeholder="herhaal wachtwoord">
+
+      <section id="modal-body" class="noMarginBtm">
         <button *ngIf="!loader" class="cta2" type="submit">Aanmelden</button>
         <span *ngIf="loader" class="loader">loader</span>
       </section>
@@ -51,7 +54,26 @@
     </section>
   </div>
   <div *ngIf="reqSend">
-    <p>Bedankt voor je aanmelding. Je aanvraag wordt verwerkt. Je inloggegevens worden naar het betreffende e-mailadres gestuurd.</p>
-    <p class="note">Let op: Je aanmelding wordt handmatig verwerkt. Hierdoor kan je aanvraag iets langer duren dan verwacht.</p>
+    <p>Bedankt voor je aanmelding. Je aanvraag wordt verwerkt. Je inloggegevens worden naar het betreffende e-mailadres
+      gestuurd.</p>
+    <p class="note">Let op: Je aanmelding wordt handmatig verwerkt. Hierdoor kan je aanvraag iets langer duren dan
+      verwacht.</p>
   </div>
+</div>
+<div *ngIf="show === 'changePassword'" id="modal-content-wrapper" class="model-wrapper aanmelden">
+  <h1>Wachtwoord aanpassen</h1>
+  <p>Hier kan je je wachtwoord aanpassen.</p>
+  <form (ngSubmit)="changePassword()">
+    <section id="modal-body">
+      <input [(ngModel)]="changePasswordData.password.value" [ngClass]="{err: changePasswordData.password.err}" type="password" name="password" placeholder="wachtwoord">
+      <input [(ngModel)]="changePasswordData.repeatePassword.value" [ngClass]="{err: changePasswordData.repeatePassword.err}" type="password" name="repeatePassword" placeholder="herhaal wachtwoord">
+    </section>
+    <section id="modal-body" class="noMarginBtm">
+      <button *ngIf="!loader" class="cta2" type="submit">Opslaan</button>
+      <span *ngIf="loader" class="loader">loader</span>
+    </section>
+  </form>
+  <section *ngIf="changePasswordErrorMsg" class="error">
+    <p [innerHTML]=changePasswordErrorMsg></p>
+  </section>
 </div>

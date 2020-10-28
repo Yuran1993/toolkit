@@ -30,8 +30,8 @@
       <p *ngFor="let para of tool.aanmelden" [innerHTML]="para"></p>
 
       <section class="ctaContainer">
-        <a class="cta2" (click)="openLogReg(true)">Inloggen</a>
-        <a class="cta" (click)="openLogReg(false)">Aanmelden</a>
+        <a class="cta2" (click)="openLogReg('login')">Inloggen</a>
+        <a class="cta" (click)="openLogReg('registreer')">Aanmelden</a>
       </section>
     </section>
 

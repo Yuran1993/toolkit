@@ -20,13 +20,22 @@ const verifyToken = async (req, res, next) => {
       req.userId = payload.subject;
       const toolUrl = path.split('/')[1];
 
+      const standardTools = require('../../tools');
+      const standardTool = standardTools.find(e => e.url === toolUrl);
+      console.log('standardTool', standardTool);
+
       const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
       const collection = mongo.db('OD-toolkit').collection('accounts');
 
       const user = await collection.findOne({ "_id": ObjectId(req.userId) });
       const toolAuth = user.tools.find(e => e.url === toolUrl);
 
-      if (!toolAuth || toolAuth && toolAuth.auth) { //TODO: backend doesnt have general tools auth
+      let auth = standardTool.openForAccounts || false;
+      auth = toolAuth && toolAuth.auth || auth;
+
+      console.log('api calc auth', auth);
+
+      if (auth) { //TODO: backend doesnt have general tools auth
         next();
       } else {
         return res.status(401).send('Unauthorized request');
@@ -44,7 +53,7 @@ router.get('/abtest-calculator', async (req, res) => {
   res.status(200).send(result);
 });
 
-router.get('/bayes-calculator', verifyToken, async (req, res) => {
+router.get('/bayesiaanse-calculator', verifyToken, async (req, res) => {
   const result = await bayesCalculator(req.query);
 
   res.status(200).send(result);

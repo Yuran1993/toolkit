@@ -29,7 +29,7 @@ header {
         width: 40%;
       }
     }
-    
+
     .cta {
       margin-bottom: 30px;
     }
@@ -39,7 +39,7 @@ header {
       padding-bottom: 0px;
 
       .headerSection {
-        width: 100%!important;
+        width: 100% !important;
         padding: 0;
 
         img {
@@ -86,11 +86,12 @@ header {
 
       svg {
         overflow: visible;
+
         .svgArrow {
-          fill:none;
-          stroke:#D0E7CE;
-          stroke-miterlimit:10;
-          stroke-width:10px;
+          fill: none;
+          stroke: #D0E7CE;
+          stroke-miterlimit: 10;
+          stroke-width: 10px;
         }
 
         &:last-of-type {
@@ -113,6 +114,7 @@ main {
   padding: 15px 25px 0;
   margin-top: 70px;
   margin-bottom: 40px;
+
   .innerToolsContainer {
     display: flex;
     flex-flow: row wrap;
@@ -124,6 +126,7 @@ main {
       flex-direction: column;
       align-items: center;
       width: calc(33.33% - 40px);
+      position: relative;
       margin-bottom: 40px;
       padding: 20px;
       border: solid 2px #ccc;
@@ -132,7 +135,8 @@ main {
       min-width: 280px;
 
       &:hover {
-        box-shadow: 0px 0px 30px 0px rgba(235,235,235,1);
+        box-shadow: 0px 0px 30px 0px rgba(235, 235, 235, 1);
+
         &.open {
           border-color: $groen;
 
@@ -140,6 +144,7 @@ main {
             color: $groen;
           }
         }
+
         &.closed {
           border-color: $oranje;
 
@@ -186,6 +191,7 @@ main {
           }
         }
       }
+
       &.closed {
         a {
           color: $oranje;
@@ -197,13 +203,34 @@ main {
           }
         }
       }
+
+      &:after {
+        content: "";
+        width: 57px;
+        height: 27px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        object-fit: cover;
+        background-size: cover;
+      }
+
+      &.NL:after {
+        background-image: url("../../assets/icons/dashboard/NL_label.png");
+      }
+      &.EN:after {
+        background-image: url("../../assets/icons/dashboard/EN_label.png");
+      }
     }
+
     @include breakpoint('medium') {
       justify-content: space-between;
-      .toolKaart { 
+
+      .toolKaart {
         width: calc(50% - 40px);
       }
     }
+
     @include breakpoint('small') {
       justify-content: center;
     }
@@ -221,8 +248,9 @@ main {
   justify-content: space-between;
   margin-bottom: 40px;
 
-  > * {
+  >* {
     width: calc(50% - 20px);
+    border-radius: 10px;
 
     @include breakpoint('medium') {
       width: 100%

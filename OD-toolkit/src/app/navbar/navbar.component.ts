@@ -18,11 +18,11 @@ export class NavbarComponent implements OnInit {
     private router: Router,
   ) { }
 
-  openLogReg(bol: boolean) {
+  openLogReg(show: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-logReg";
     dialogConfig.disableClose = false;
-    dialogConfig.data = `{"login": ${bol}}`;
+    dialogConfig.data = `{"show": "${show}"}`;
     dialogConfig.position = {
       top: '100px',
     }
@@ -46,7 +46,9 @@ export class NavbarComponent implements OnInit {
   }
 
   async ngOnInit() {
+    // document.querySelector('app-footer').style.display = 'none';
     await this.auth.getUser();
+    // document.querySelector('app-footer').style.display = 'block';
     this.auth.currentToolAuth.subscribe(user => {
       this.user = user;
     });

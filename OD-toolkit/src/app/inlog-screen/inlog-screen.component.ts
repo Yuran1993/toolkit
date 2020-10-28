@@ -4,7 +4,6 @@ import { MatDialogRef, throwMatDialogContentAlreadyAttachedError } from '@angula
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { authService } from '../_service/auth.service';
-import { MailService } from '../_service/mail.service';
 
 @Component({
   selector: 'app-inlog-screen',
@@ -13,22 +12,41 @@ import { MailService } from '../_service/mail.service';
 })
 
 export class InlogScreenComponent implements OnInit {
-  login = JSON.parse(this.data).login;
+  // TODO de err classen overzetten naar boolean in zo wel dit bestand als de HTML, zoals de error msg in de login fn
+  show = JSON.parse(this.data).show;
   loginErrorMsg: string;
   registreerErrorMsg: string;
+  sendVerifyMailBtn = false;
+  changePasswordErrorMsg: any;
   reqSend = false;
   loader = false;
 
-  loginUserData = {
+  loginUserData: any = {
     email: {
       value: '',
       pattern: new RegExp(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+/),
       err: false
     },
-    password: '',
+    password: {
+      value: '',
+      err: false
+    }
   };
 
-  registerUserData = {
+  changePasswordData: any = {
+    password: {
+      value: '',
+      err: false,
+    },
+    repeatePassword: {
+      value: '',
+      err: false,
+    }
+  }
+
+  // TODO alle regexen moeten worden aangepast om speciale tekens toe te laten en ook spaties bijvoorbeeld bij company
+
+  registerUserData: any = {
     name: {
       value: '',
       pattern: new RegExp(/[A-Za-z]+/),
@@ -37,22 +55,22 @@ export class InlogScreenComponent implements OnInit {
     email: {
       value: '',
       pattern: new RegExp(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+/),
-      err: '',
+      err: false,
     },
     company: {
       value: '',
       pattern: new RegExp(/[A-Za-z]+/),
-      err: '',
+      err: false,
     },
     password: {
       value: '',
       pattern: new RegExp(/[A-Za-z]+/),
-      err: '',
+      err: false,
     },
     repeatePassword: {
       value: '',
       pattern: new RegExp(/[A-Za-z]+/),
-      err: '',
+      err: false,
     },
   };
 
@@ -60,74 +78,25 @@ export class InlogScreenComponent implements OnInit {
     public dialogRef: MatDialogRef<InlogScreenComponent>,
     private auth: authService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private router: Router,
-    private mail: MailService) { }
+    private router: Router) { }
 
-  loginFunc() {
-    this.loader = true;
-    document.querySelectorAll('#modal-body input').forEach(e => {
-      e.classList.remove('err');
-    });
-
-    this.auth.loginUser(this.loginUserData)
-      .subscribe(
-        res => {
-          localStorage.setItem('token', res.token);
-          this.auth.changeToolsAuth(res.user);
-
-          this.loginErrorMsg = '';
-          this.closeModal();
-        },
-        err => {
-          this.loader = false;
-          this.loginErrorMsg = err.error
-          if (err.error.indexOf('Het opgegeven e-mailadres') !== -1) {
-            document.querySelector('[name="loginEmail"]').classList.add('err');
-          } else if (err.error.indexOf('Het opgegeven wachtwoord') !== -1) {
-            document.querySelector('[name="loginPassword"]').classList.add('err');
-          }
-        }
-      );
-  }
-
-  forgotPassword() {
-    document.querySelector('[name="loginEmail"]').classList.remove('err');
-    const field: any = this.loginUserData['email'];
-
-    if (!field.value.match(field.pattern)) {
-      field.err = 'err'
-    } else {
-      field.err = '';
-      this.mail.forgotPassword(field)
-        .subscribe(
-          res => {
-            document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Aanvraag verstuurd!</p> <p style="margin-bottom: 0;">U ontvangt uw wachtwoord via het opgegeven e-mailadres.</p>`;
-          },
-          err => {
-            this.loginErrorMsg = err.error
-            document.querySelector('[name="loginEmail"]').classList.add('err');
-          }
-        );
-    }
-  }
-
-  verifyRegister() {
+  checkRegisterInput() {
     let errorGevonden = false;
     this.registreerErrorMsg = '';
     Object.keys(this.registerUserData).forEach(element => {
       const field = this.registerUserData[element];
 
       if (!field.value.match(field.pattern)) {
-        field.err = 'err'
+        field.err = true;
         errorGevonden = true;
       } else {
-        field.err = '';
+        field.err = false;
       }
     });
 
     if (this.registerUserData.password.value !== this.registerUserData.repeatePassword.value) {
-      this.registerUserData.password.err = 'err';
-      this.registerUserData.repeatePassword.err = 'err';
+      this.registerUserData.password.err = true;
+      this.registerUserData.repeatePassword.err = true;
       this.registreerErrorMsg = 'Wachtwoorden komen niet overeen'
       errorGevonden = true;
     }
@@ -139,7 +108,7 @@ export class InlogScreenComponent implements OnInit {
 
   sendRegister() {
     this.loader = true;
-    this.mail.register(this.registerUserData)
+    this.auth.register(this.registerUserData)
       .subscribe(
         res => {
           this.loader = false;
@@ -151,6 +120,114 @@ export class InlogScreenComponent implements OnInit {
         }
       );
   }
+
+  loginFunc() {
+    this.loader = true;
+    Object.keys(this.loginUserData).forEach(e => this.loginUserData[e].err = false);
+    this.sendVerifyMailBtn = false;
+
+    const user = {
+      email: this.loginUserData.email.value,
+      password: this.loginUserData.password.value,
+    }
+
+    this.auth.loginUser(user)
+      .subscribe(
+        res => {
+          localStorage.setItem('token', res.token);
+          this.auth.changeToolsAuth(res.user);
+
+          this.loginErrorMsg = '';
+          this.closeModal();
+        },
+        err => {
+          this.loader = false;
+
+          this.loginErrorMsg = err.error.text
+          if (err.error.err === 'not Found') {
+            this.loginUserData.email.err = true;
+          } else if (err.error.err === 'password incorrect') {
+            this.loginUserData.password.err = true;
+          } else if (err.error.err === 'not verifieed') {
+            this.sendVerifyMailBtn = true;
+          }
+        }
+      );
+  }
+
+  forgotPasswordMail() {
+    Object.keys(this.loginUserData).forEach(e => this.loginUserData[e].err = false);
+    const field: any = this.loginUserData['email'];
+
+    if (!field.value.match(field.pattern)) {
+      field.err = true;
+      // TODO iemand moet nog kijken naar de onderstaande melding
+      this.loginErrorMsg = 'Incorrect email adres';
+    } else {
+      field.err = '';
+    
+      this.auth.forgotPassword(field)
+        .subscribe(
+          res => {
+            // TODO onderstaande document.querySelector kan beter, miss met een neutral message veld
+            document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Mail verstuurd!</p> <p style="margin-bottom: 0;">U ontvangt een link om uw wachtwoord aan te passen via het opgegeven e-mailadres.</p>`;
+          },
+          err => {
+            this.loginErrorMsg = err.error;
+            field.err = true;
+          }
+        );
+    }
+  }
+
+  async changePassword() {
+    // TODO onderstaande foutmeldingen moeten ook bekeken worden
+
+    Object.keys(this.changePasswordData).forEach(e => this.changePasswordData[e].err = false);
+
+    if (!this.changePasswordData.password.value) {
+      this.changePasswordData.password.err = true;
+      this.changePasswordErrorMsg = 'Veld leeg';
+    } else if (!this.changePasswordData.repeatePassword.value) {
+      this.changePasswordData.repeatePassword.err = true;
+      this.changePasswordErrorMsg = 'Veld leeg';
+    } else if (this.changePasswordData.password.value !== this.changePasswordData.repeatePassword.value) {
+      this.changePasswordData.password.err = true;
+      this.changePasswordData.repeatePassword.err = true;
+      this.changePasswordErrorMsg = 'Wachtwoorden komen niet overeen';
+    } else {
+      const newUserData = {
+        id: JSON.parse(this.data).id,
+        newPassword: this.changePasswordData.password.value
+      }
+      const error: any = await this.auth.changePassword(newUserData);
+
+      if (error) {
+        this.changePasswordErrorMsg = error.error
+      } else {
+        // TODO hier moet nog een neutrale message komen dat het wachtwoord is aangepast
+        this.dialogRef.close();
+      }
+    }
+  }
+
+  sendVerifyMail() {
+    Object.keys(this.loginUserData).forEach(e => this.loginUserData[e].err = false);
+    const field: any = this.loginUserData['email'];
+
+    this.auth.sendVerifyMails(field)
+    .subscribe(
+      res => {
+        this.loader = false;
+        this.reqSend = true
+      },
+      err => {
+        this.loader = false;
+        this.registreerErrorMsg = err.error;
+      }
+    );
+  }
+
 
   closeModal() {
     this.dialogRef.close();
