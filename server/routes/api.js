@@ -123,7 +123,7 @@ router.post('/register', async (req, res) => {
       mongo.close();
 
       let text =
-        `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}?ID=${newAccount._id}`;
+        `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}/?ID=${newAccount._id}`;
 
       var mail = {
         from: 'OD-auto <dev@onlinedialogue.com>',
@@ -153,15 +153,15 @@ router.post('/sendVerifyMail', async (req, res) => {
   mongo.close();
 
   if (user) {
-    let text = `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}?ID=${user._id}`;
+    let text = `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}/?ID=${user._id}`;
 
     var mail = {
       from: 'OD-auto <dev@onlinedialogue.com>',
       to: 'yuran@onlinedialogue.com',
-      subject: 'OD-toolkit: acocount verifieeren',
+      subject: 'OD-toolkit: account verifieren',
       text
     };
-// TODO email verstuurd bericht is nog nodig
+
     mailgun.messages().send(mail, function (err, body) {
       if (err) console.log(err);
       res.status(200).send();
@@ -198,7 +198,7 @@ router.post('/forgotPasswordMail', async (req, res) => {
   if (user) {
     await collection.updateOne(user, { $set: { "changePassword": true } });
     let text =
-      `Verander uw OD-toolkit wachtwoord via de volgende url: ${req.headers.host}?PW=${user._id}`;
+      `Verander uw OD-toolkit wachtwoord via de volgende url: ${req.headers.host}/?PW=${user._id}`;
 
     var mail = {
       from: 'OD-auto <dev@onlinedialogue.com>',
