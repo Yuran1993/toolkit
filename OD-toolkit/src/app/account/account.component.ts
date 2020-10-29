@@ -25,6 +25,8 @@ export class AccountComponent implements OnInit {
     this.closeModal();
   }
 
+  // comment
+
   closeModal() {
     this.dialogRef.close();
   }
