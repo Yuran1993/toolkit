@@ -53,7 +53,7 @@ export class AddToolComponent implements OnInit {
     //   if (!found) {
     //     this.noAuth.push(e);
     //   }
-    // }); //TODO volledig bestand opschonen
+    // }); // TODO volledig bestand opschonen
 
     setTimeout(() => {
       document.getElementById('modal-content-wrapper').style.opacity = '1';

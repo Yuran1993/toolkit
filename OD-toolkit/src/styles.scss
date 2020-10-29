@@ -2,6 +2,8 @@
 @import '~@angular/cdk/overlay-prebuilt.css';
 @import './setup.scss';
 
+// TODO css moet opgechoond worden
+
 .backgroundColor {
   background: $background;
 }
@@ -11,7 +13,6 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  text-decoration: none;
   font-size: 0.9rem;
 }
 
@@ -50,6 +51,7 @@ body {
 a {
   color: #000000;
   cursor: pointer;
+  text-decoration: none;
 }
 
 input:focus {
@@ -261,6 +263,11 @@ header {
   border-color: $oranje !important;
 }
 
+.red {
+  color: $red !important;
+  border-color: $red !important;
+}
+
 .usps {
   li {
     font-size: .8rem;
@@ -284,6 +291,7 @@ header {
 }
 
 mat-dialog-container#modal-logReg,
+mat-dialog-container#modal-account,
 mat-dialog-container#modal-addTool {
   //margin-top: 100px;
   padding: 0;

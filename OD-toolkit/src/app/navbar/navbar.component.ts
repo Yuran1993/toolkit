@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InlogScreenComponent } from "../inlog-screen/inlog-screen.component";
+import { AccountComponent } from '../account/account.component';
 import { authService } from '../_service/auth.service';
 import { Router } from '@angular/router';
 
@@ -28,6 +29,18 @@ export class NavbarComponent implements OnInit {
     }
 
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
+  }
+
+  openAccount(show: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.id = "modal-account";
+    dialogConfig.disableClose = false;
+    dialogConfig.data = `{"show": "${show}"}`;
+    dialogConfig.position = {
+      top: '100px',
+    }
+
+    const modalDialog = this.matDialog.open(AccountComponent, dialogConfig);
   }
 
   scroll(id: string) {

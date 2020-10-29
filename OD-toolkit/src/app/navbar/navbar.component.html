@@ -8,7 +8,7 @@
     <li *ngIf="!auth.loggedIn()"><a class="user" mat-raised-button id="logout-button" (click)="openLogReg('login')">Login</a></li>
     <li *ngIf="!auth.loggedIn()"><a class="registreer" (click)="openLogReg('registreer')">Aanmelding</a></li>
 
-    <li *ngIf="auth.loggedIn() && user" class="user" >{{user.name}}</li>
+    <li *ngIf="auth.loggedIn() && user" class="user" (click)=openAccount()>{{user.name}}</li>
     <span *ngIf="auth.loggedIn() && !user" class="loader">loader</span>
     <li *ngIf="auth.loggedIn()"><a class="registreer orange" (click)="auth.logout()">Uitloggen</a></li>
   </ul>

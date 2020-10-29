@@ -7,8 +7,7 @@
   <p>Wil je gebruik maken van deze tool? Meld je aan of log in met je gegevens.</p>
   <form (ngSubmit)="loginFunc()">
     <section id="modal-body">
-      <input [autofocus] [(ngModel)]="loginUserData.email.value" [ngClass]="{err: loginUserData.email.err}" type="text"
-        name="loginEmail" id="loginEmail" placeholder="E-mailadres">
+      <input [autofocus] [ngModel]="loginUserData.email.value" (ngModelChange)="loginUserData.email.value = $event.toLowerCase()" [ngClass]="{err: loginUserData.email.err}" type="text" name="loginEmail" id="loginEmail" placeholder="E-mailadres">
       <input [(ngModel)]="loginUserData.password.value" type="password" name="loginPassword" id="loginPassword"
         placeholder="Wachtwoord" [ngClass]="{err: loginUserData.password.err}">
     </section>
@@ -32,10 +31,8 @@
     <p>Wil je gebruik maken van deze tool? Meld je aan of log in met je gegevens.</p>
     <form (ngSubmit)="checkRegisterInput()">
       <section id="modal-body" class="noMarginBtm">
-        <input [autofocus] [(ngModel)]="registerUserData.name.value" [ngClass]="{err: registerUserData.name.err}" type="text"
-          name="registreerName" id="registreerName" placeholder="Naam">
-        <input [(ngModel)]="registerUserData.email.value" [ngClass]="{err: registerUserData.email.err}" type="text"
-          name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
+        <input [autofocus] [(ngModel)]="registerUserData.name.value" [ngClass]="{err: registerUserData.name.err}" type="text" name="registreerName" id="registreerName" placeholder="Naam">
+        <input [ngModel]="registerUserData.email.value" (ngModelChange)="registerUserData.email.value = $event.toLowerCase()" [ngClass]="{err: registerUserData.email.err}" type="text" name="registreerEmail" id="registreerEmail" placeholder="E-mailadres">
         <input [(ngModel)]="registerUserData.company.value" [ngClass]="{err: registerUserData.company.err}" type="text" name="registreerCompany" id="registreerCompany" placeholder="Bedrijf">
       </section>
       <section id="modal-body">

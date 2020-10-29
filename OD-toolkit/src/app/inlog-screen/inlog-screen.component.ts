@@ -12,7 +12,6 @@ import { authService } from '../_service/auth.service';
 })
 
 export class InlogScreenComponent implements OnInit {
-  // TODO de err classen overzetten naar boolean in zo wel dit bestand als de HTML, zoals de error msg in de login fn
   show = JSON.parse(this.data).show;
   loginErrorMsg: string;
   registreerErrorMsg: string;
@@ -23,7 +22,7 @@ export class InlogScreenComponent implements OnInit {
 
   loginUserData: any = {
     email: {
-      value: '',
+      value: ''.toLowerCase(),
       pattern: new RegExp(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+/),
       err: false
     },
@@ -53,7 +52,7 @@ export class InlogScreenComponent implements OnInit {
       err: false,
     },
     email: {
-      value: '',
+      value: ''.toLowerCase(),
       pattern: new RegExp(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+/),
       err: false,
     },

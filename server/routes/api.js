@@ -16,6 +16,8 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).send('Unauthorized request');
   }
 
+  // TODO dit hele bestand opschonen
+
   let token = req.headers.authorization.split(' ')[1];
   if (token) {
     const payload = jwt.verify(token, 'toolkitKey'); // in .env
@@ -126,13 +128,12 @@ router.post('/register', async (req, res) => {
         `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}/?ID=${newAccount._id}`;
 
       var mail = {
-        from: 'OD-auto <dev@onlinedialogue.com>',
-        to: 'yuran@onlinedialogue.com',
+        from: 'OD-toolkit <dev@onlinedialogue.com>',
+        to: userData.email.value,
         subject: 'OD-toolkit: acocount verifieeren',
         text
       };
 
-      // TODO
       mailgun.messages().send(mail, function (err, body) {
         if (err) console.log(err);
         res.status(200).send();
@@ -156,8 +157,8 @@ router.post('/sendVerifyMail', async (req, res) => {
     let text = `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}/?ID=${user._id}`;
 
     var mail = {
-      from: 'OD-auto <dev@onlinedialogue.com>',
-      to: 'yuran@onlinedialogue.com',
+      from: 'OD-toolkit <dev@onlinedialogue.com>',
+      to: email,
       subject: 'OD-toolkit: account verifieren',
       text
     };
@@ -189,6 +190,16 @@ router.get('/getUser', verifyToken, async (req, res) => {
   res.status(200).send(user);
 });
 
+router.get('/deleteUser', verifyToken, async (req, res) => {
+  const id = req.userId;
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
+  const user = await collection.deleteOne({ "_id": ObjectId(id) });
+
+  mongo.close();
+  res.status(200).send(user);
+});
+
 router.post('/forgotPasswordMail', async (req, res) => {
   const emailAdres = req.body.value;
   const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
@@ -201,19 +212,16 @@ router.post('/forgotPasswordMail', async (req, res) => {
       `Verander uw OD-toolkit wachtwoord via de volgende url: ${req.headers.host}/?PW=${user._id}`;
 
     var mail = {
-      from: 'OD-auto <dev@onlinedialogue.com>',
-      to: 'yuran@onlinedialogue.com',
+      from: 'OD-toolkit <dev@onlinedialogue.com>',
+      to: emailAdres,
       subject: 'OD-toolkit: wachtwoord aanpassen',
       text
     };
 
-    // TODO
-    // mailgun.messages().send(mail, function (err, body) {
-    //   if (err) console.log(err);
-    //   res.status(200).send();
-    // });
-    console.log(mail);
-    res.status(200).send();
+    mailgun.messages().send(mail, function (err, body) {
+      if (err) console.log(err);
+      res.status(200).send();
+    });
   } else {
     res.status(401).send('Het opgegeven e-mailadres komt niet voor in ons bestand.<br>Gebruik een ander e-mailadres of meld je aan.');
   }

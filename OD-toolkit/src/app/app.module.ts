@@ -28,6 +28,7 @@ import { BayesCalcComponent } from './bayes-calc/bayes-calc.component';
 import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
 import { StopPropagationDirective } from './stop-propagation.directive';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { StopPropagationDirective } from './stop-propagation.directive';
     BayesCalcComponent,
     InfoComponent,
     ContactComponent,
-    StopPropagationDirective
+    StopPropagationDirective,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +71,6 @@ import { StopPropagationDirective } from './stop-propagation.directive';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [InlogScreenComponent, AddToolComponent]
+  entryComponents: [InlogScreenComponent, AddToolComponent, AccountComponent]
 })
 export class AppModule { }

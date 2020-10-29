@@ -72,6 +72,13 @@ export class authService {
     });
   }
 
+
+  deleteUser() {
+    this.http.get<[]>('api/deleteUser').subscribe(result => {
+      this.logout();
+    });
+  }
+
   sendVerifyMails(email) {
     return this.http.post<any>(this._verify, email);
   }

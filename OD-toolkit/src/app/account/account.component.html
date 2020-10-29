@@ -1,0 +1,22 @@
+<div *ngIf="!delete" id="modal-content-wrapper">
+
+  <h1>Hi, {{user.name}}!</h1>
+  <div class="accountBody">
+    <p><span>Name: </span>{{user.name}}<button>edit</button></p>
+    <p><span>Email: </span>{{user.email}}<button>edit</button></p>
+    <p><span>company: </span>{{user.company}}<button>edit</button></p>
+  </div>
+  <div class="btnsContainer">
+    <a class="cta2 red" (click)="delete=true">Verwijder account</a>
+  </div>
+</div>
+
+<div *ngIf="delete" id="modal-content-wrapper">
+
+  <h1>Account verwijderen</h1>
+  <p>sure?</p>
+  <div class="btnsContainer">
+    <a class="cta2" (click)="delete=false">noh</a>
+    <a class="cta2 red" (click)=deleteUser()>Yeah</a>
+  </div>
+</div>
