@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN, });
+const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN, host: "api.eu.mailgun.net" });
 const { MongoClient, ObjectId } = require('mongodb');
 
 const verifyToken = async (req, res, next) => {
