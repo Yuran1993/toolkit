@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN });
+const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN, });
 const { MongoClient, ObjectId } = require('mongodb');
 
 const verifyToken = async (req, res, next) => {
@@ -20,7 +20,7 @@ const verifyToken = async (req, res, next) => {
 
   let token = req.headers.authorization.split(' ')[1];
   if (token) {
-    const payload = jwt.verify(token, 'toolkitKey'); // in .env
+    const payload = jwt.verify(token, 'toolkitKey'); //TODO in .env
     if (payload) {
       if (path.indexOf('calc') === -1) {
         req.userId = payload.subject;
