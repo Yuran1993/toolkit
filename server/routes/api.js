@@ -165,6 +165,7 @@ router.post('/sendVerifyMail', async (req, res) => {
 
     mailgun.messages().send(mail, function (err, body) {
       if (err) console.log(err);
+      console.log(body);
       res.status(200).send();
 
     });
