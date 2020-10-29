@@ -31,11 +31,10 @@ export class NavbarComponent implements OnInit {
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
   }
 
-  openAccount(show: string) {
+  openAccount() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-account";
     dialogConfig.disableClose = false;
-    dialogConfig.data = `{"show": "${show}"}`;
     dialogConfig.position = {
       top: '100px',
     }

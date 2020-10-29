@@ -11,7 +11,7 @@ import { authService } from '../_service/auth.service';
 })
 export class AccountComponent implements OnInit {
   user:any;
-  delete: false;
+  delete = false;
 
   constructor(
     public dialogRef: MatDialogRef<AccountComponent>,
