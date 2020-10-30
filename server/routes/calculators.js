@@ -53,7 +53,7 @@ router.get('/abtest-calculator', async (req, res) => {
   res.status(200).send(result);
 });
 
-router.get('/bayesiaanse-calculator', verifyToken, async (req, res) => {
+router.get('/bayesiaanse-calculator', async (req, res) => {
   const result = await bayesCalculator(req.query);
 
   res.status(200).send(result);

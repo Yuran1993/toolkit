@@ -10,6 +10,7 @@ const tools = [
   {
     name: 'Bayesiaanse A/B-test calculator',
     url: 'bayesiaanse-calculator',
+    open: true,
     openForAccounts: true,
     lang: 'NL',
     header: 'Bepaal het resultaat van een A/B test. Bereken de kans dat je test variatie het origineel verslaat en bereken de business case.',
