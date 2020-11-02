@@ -40,7 +40,6 @@ const verifyToken = async (req, res, next) => {
           return res.status(401).send('Unauthorized request');
         }
       }
-
     } else {
       return res.status(401).send('Unauthorized request');
     }
@@ -80,7 +79,7 @@ router.post('/login', async (req, res) => {
   const collection = mongo.db('OD-toolkit').collection('accounts');
 
   const user = await collection.findOne({ email: userData.email });
-  if (user.changePassword) { // TODO dit moet in de /changePassword in dit bestand
+  if (user.changePassword) { // Als de gebruiker kan inloggen dan hoeft changePassword niet op true
     await collection.updateOne(user, { $set: { "changePassword": false } });
   }
 
@@ -92,11 +91,6 @@ router.post('/login', async (req, res) => {
         if (result) {
           const payload = { subject: user._id };
           const token = jwt.sign(payload, 'toolkitKey');
-
-          console.log(user.changePassword);
-
-
-
 
           res.status(200).send({ token, user });
         } else {
@@ -137,9 +131,9 @@ router.post('/register', async (req, res) => {
         `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}/?ID=${newAccount._id}`;
 
       var mail = {
-        from: 'OD-toolkit <dev@onlinedialogue.com>',
+        from: 'OD-toolkit <no-reply@onlinedialogue.nl>',
         to: userData.email.value,
-        subject: 'OD-toolkit: acocount verifieeren',
+        subject: 'Welkom bij de OD-toolkit!',
         text
       };
 
@@ -166,9 +160,9 @@ router.post('/sendVerifyMail', async (req, res) => {
     let text = `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}/?ID=${user._id}`;
 
     var mail = {
-      from: 'OD-toolkit <dev@onlinedialogue.com>',
+      from: 'OD-toolkit <no-reply@onlinedialogue.nl>',
       to: email,
-      subject: 'OD-toolkit: account verifieren',
+      subject: 'Welkom bij de OD-toolkit!',
       text
     };
 
@@ -222,9 +216,9 @@ router.post('/forgotPasswordMail', async (req, res) => {
       `Verander uw OD-toolkit wachtwoord via de volgende url: ${req.headers.host}/?PW=${user._id}`;
 
     var mail = {
-      from: 'OD-toolkit <dev@onlinedialogue.com>',
+      from: 'OD-toolkit <no-reply@onlinedialogue.nl>',
       to: emailAdres,
-      subject: 'OD-toolkit: wachtwoord aanpassen',
+      subject: 'OD-toolkit: gegevens bewerken',
       text
     };
 
