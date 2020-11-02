@@ -222,7 +222,7 @@ router.post('/forgotPasswordMail', async (req, res) => {
       `Verander uw OD-toolkit wachtwoord via de volgende url: ${req.headers.host}/?PW=${user._id}`;
 
     var mail = {
-      from: 'no-reply <onlinedialogue.nl>',
+      from: 'OD-toolkit <dev@onlinedialogue.com>',
       to: emailAdres,
       subject: 'OD-toolkit: wachtwoord aanpassen',
       text
