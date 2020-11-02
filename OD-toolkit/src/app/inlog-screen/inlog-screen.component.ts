@@ -180,6 +180,7 @@ export class InlogScreenComponent implements OnInit {
   }
 
   async changePassword() {
+    this.loader = true;
     // TODO onderstaande foutmeldingen moeten ook bekeken worden
 
     Object.keys(this.changePasswordData).forEach(e => this.changePasswordData[e].err = false);
@@ -203,9 +204,10 @@ export class InlogScreenComponent implements OnInit {
 
       if (error) {
         this.changePasswordErrorMsg = error.error
+        this.loader = false;
       } else {
-        // TODO hier moet nog een neutrale message komen dat het wachtwoord is aangepast
-        this.dialogRef.close();
+        this.show = 'passwordChanged';
+        this.loader = false;
       }
     }
   }

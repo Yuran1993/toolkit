@@ -59,9 +59,11 @@ export class DashboardComponent implements OnInit {
       this.tools = this.tools.sort((x, y) => (x.auth === y.auth) ? 0 : x.auth ? -1 : 1);
     });
 
+    // TODO nu mee bezig
     this.route.queryParams.subscribe(params => {
       if (params && params.ID && params.ID.length) {
         this.auth.verifyUser(params);
+        this.openLogReg('userVerified', 'false');
       } else if (params && params.PW && params.PW.length) {
         this.openLogReg('changePassword', params.PW);
         this.router.navigate([], {

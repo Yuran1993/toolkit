@@ -1,4 +1,4 @@
-<div *ngIf="show !== 'changePassword'" class="headBtns">
+<div *ngIf="show === 'login' || show === 'registreer'" class="headBtns">
   <button (click)="show='login'" [class]="show === 'login' ? 'open' : ''">Login</button>
   <button (click)="show='registreer'" [class]="show === 'registreer' ? 'open' : ''">Aanmelden</button>
 </div>
@@ -57,6 +57,7 @@
       verwacht.</p>
   </div>
 </div>
+
 <div *ngIf="show === 'changePassword'" id="modal-content-wrapper" class="model-wrapper aanmelden">
   <h1>Wachtwoord aanpassen</h1>
   <p>Hier kan je je wachtwoord aanpassen.</p>
@@ -73,4 +74,14 @@
   <section *ngIf="changePasswordErrorMsg" class="error">
     <p [innerHTML]=changePasswordErrorMsg></p>
   </section>
+</div>
+
+<div *ngIf="show === 'passwordChanged'" id="modal-content-wrapper" class="model-wrapper aanmelden">
+  <h1>Uw wachtwoord is aangepast</h1>
+  <p>Uw wachtwoord is aangepast en u bent ingelogd.</p>
+</div>
+
+<div *ngIf="show === 'userVerified'" id="modal-content-wrapper" class="model-wrapper aanmelden">
+  <h1>Uw account is geverifieerd!</h1>
+  <p>U kunt nu volledig gebruik maken van de toolkit!</p>
 </div>
