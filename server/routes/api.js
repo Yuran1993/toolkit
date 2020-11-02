@@ -80,13 +80,24 @@ router.post('/login', async (req, res) => {
   const collection = mongo.db('OD-toolkit').collection('accounts');
 
   const user = await collection.findOne({ email: userData.email });
+  if (user.changePassword) { // TODO dit moet in de /changePassword in dit bestand
+    await collection.updateOne(user, { $set: { "changePassword": false } });
+  }
+
+  mongo.close();
 
   if (user) {
     if (user.verified) {
-      bcrypt.compare(userData.password, user.password, function (err, result) {
+      bcrypt.compare(userData.password, user.password, async function (err, result) {
         if (result) {
           const payload = { subject: user._id };
           const token = jwt.sign(payload, 'toolkitKey');
+
+          console.log(user.changePassword);
+
+
+
+
           res.status(200).send({ token, user });
         } else {
           res.status(401).send({ err: 'password incorrect', text: 'Het opgegeven wachtwoord komt niet overeen met het e-mailadres.<br>Probeer het nogmaals of reset je wachtwoord.' })
@@ -98,8 +109,6 @@ router.post('/login', async (req, res) => {
   } else {
     res.status(401).send({ err: 'not Found', text: 'Het opgegeven e-mailadres komt niet voor in ons bestand.<br>Gebruik een ander e-mailadres of meld je aan.' });
   }
-
-  mongo.close();
 });
 
 router.post('/register', async (req, res) => {
@@ -213,7 +222,7 @@ router.post('/forgotPasswordMail', async (req, res) => {
       `Verander uw OD-toolkit wachtwoord via de volgende url: ${req.headers.host}/?PW=${user._id}`;
 
     var mail = {
-      from: 'OD-toolkit <dev@onlinedialogue.com>',
+      from: 'onlinedialogue.nl',
       to: emailAdres,
       subject: 'OD-toolkit: wachtwoord aanpassen',
       text

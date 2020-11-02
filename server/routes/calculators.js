@@ -9,6 +9,13 @@ const router = express.Router();
 
 const verifyToken = async (req, res, next) => {
   const path = req.route.path;
+  const toolUrl = path.split('/')[1];
+
+  const standardTools = require('../../tools');
+  const standardTool = standardTools.find(e => e.url === toolUrl);
+
+  if (standardTool.open) next();
+
   if (!req.headers.authorization) {
     return res.status(401).send('Unauthorized request');
   }
@@ -18,11 +25,7 @@ const verifyToken = async (req, res, next) => {
     const payload = jwt.verify(token, 'toolkitKey'); // in .env
     if (payload) {
       req.userId = payload.subject;
-      const toolUrl = path.split('/')[1];
-
-      const standardTools = require('../../tools');
-      const standardTool = standardTools.find(e => e.url === toolUrl);
-      console.log('standardTool', standardTool);
+      let auth = standardTool.openForAccounts;
 
       const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
       const collection = mongo.db('OD-toolkit').collection('accounts');
@@ -30,7 +33,6 @@ const verifyToken = async (req, res, next) => {
       const user = await collection.findOne({ "_id": ObjectId(req.userId) });
       const toolAuth = user.tools.find(e => e.url === toolUrl);
 
-      let auth = standardTool.openForAccounts || false;
       auth = toolAuth && toolAuth.auth || auth;
 
       console.log('api calc auth', auth);
@@ -48,12 +50,12 @@ const verifyToken = async (req, res, next) => {
   }
 }
 
-router.get('/abtest-calculator', async (req, res) => {
+router.get('/abtest-calculator', verifyToken, async (req, res) => {
   const result = await calcCalculator(req.query);
   res.status(200).send(result);
 });
 
-router.get('/bayesiaanse-calculator', async (req, res) => {
+router.get('/bayesiaanse-calculator', verifyToken, async (req, res) => {
   const result = await bayesCalculator(req.query);
 
   res.status(200).send(result);
