@@ -6,6 +6,7 @@ h1 {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+  min-width: 300px;
 
   p {
     display: flex;
@@ -17,6 +18,7 @@ h1 {
     span {
       width: 90px;
       font-weight: 500;
+      margin-right: 20px;
     }
   }
 

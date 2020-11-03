@@ -160,8 +160,7 @@ export class InlogScreenComponent implements OnInit {
 
     if (!field.value.match(field.pattern)) {
       field.err = true;
-      // TODO iemand moet nog kijken naar de onderstaande melding
-      this.loginErrorMsg = 'Incorrect email adres';
+      this.loginErrorMsg = 'You either provided an incorrect or no email address. <br>Please enter your email address and click “Forgot your password”.';
     } else {
       field.err = '';
     
@@ -169,7 +168,7 @@ export class InlogScreenComponent implements OnInit {
         .subscribe(
           res => {
             // TODO onderstaande document.querySelector kan beter, miss met een neutral message veld
-            document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Mail verstuurd!</p> <p style="margin-bottom: 0;">U ontvangt een link om uw wachtwoord aan te passen via het opgegeven e-mailadres.</p>`;
+            document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Email sent!</p> <p style="margin-bottom: 0;">You will receive a link to change your password via the email address you provided.</p>`;
           },
           err => {
             this.loginErrorMsg = err.error;
@@ -187,14 +186,14 @@ export class InlogScreenComponent implements OnInit {
 
     if (!this.changePasswordData.password.value) {
       this.changePasswordData.password.err = true;
-      this.changePasswordErrorMsg = 'Veld leeg';
+      this.changePasswordErrorMsg = 'Field empty';
     } else if (!this.changePasswordData.repeatePassword.value) {
       this.changePasswordData.repeatePassword.err = true;
-      this.changePasswordErrorMsg = 'Veld leeg';
+      this.changePasswordErrorMsg = 'Field empty';
     } else if (this.changePasswordData.password.value !== this.changePasswordData.repeatePassword.value) {
       this.changePasswordData.password.err = true;
       this.changePasswordData.repeatePassword.err = true;
-      this.changePasswordErrorMsg = 'Wachtwoorden komen niet overeen';
+      this.changePasswordErrorMsg = 'Passwords do not match';
     } else {
       const newUserData = {
         id: JSON.parse(this.data).id,
@@ -204,12 +203,12 @@ export class InlogScreenComponent implements OnInit {
 
       if (error) {
         this.changePasswordErrorMsg = error.error
-        this.loader = false;
       } else {
         this.show = 'passwordChanged';
-        this.loader = false;
       }
     }
+
+    this.loader = false;
   }
 
   sendVerifyMail() {

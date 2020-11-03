@@ -10,6 +10,47 @@ const saltRounds = 10;
 const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN, host: "api.eu.mailgun.net" });
 const { MongoClient, ObjectId } = require('mongodb');
 
+router.post('/sendVerifyMail', async (req, res) => {
+  const email = req.body.value;
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
+
+  const user = await collection.findOne({ email });
+  mongo.close();
+
+  if (user) {
+    let text = `Hello,
+
+Please verify your account for Online Dialogue’s CRO toolkit via the following link:
+${req.headers.host}/?ID=${user._id}
+
+Kind Regards,
+
+Online Dialogue
+
+Sint Jacobsstraat 31 
+3511 BL Utrecht
+The Netherlands `;
+
+    var mail = {
+      from: 'OD-toolkit <dev@onlinedialogue.com>',
+      to: email,
+      subject: 'Online Dialogue toolkit: verification needed',
+      text
+    };
+
+    mailgun.messages().send(mail, function (err, body) {
+      if (err) console.log(err);
+      console.log(body);
+      res.status(200).send();
+
+    });
+  } else {
+    res.status(401).send('No account found with the provided email adress.');
+  }
+});
+
+
 const verifyToken = async (req, res, next) => {
   const path = req.route.path;
   if (!req.headers.authorization) {
@@ -79,14 +120,15 @@ router.post('/login', async (req, res) => {
   const collection = mongo.db('OD-toolkit').collection('accounts');
 
   const user = await collection.findOne({ email: userData.email });
-  if (user.changePassword) { // Als de gebruiker kan inloggen dan hoeft changePassword niet op true
+
+  if (user && user.changePassword) { // Als de gebruiker kan inloggen dan hoeft changePassword niet op true
     await collection.updateOne(user, { $set: { "changePassword": false } });
   }
-
   mongo.close();
 
   if (user) {
     if (user.verified) {
+
       bcrypt.compare(userData.password, user.password, async function (err, result) {
         if (result) {
           const payload = { subject: user._id };
@@ -94,14 +136,14 @@ router.post('/login', async (req, res) => {
 
           res.status(200).send({ token, user });
         } else {
-          res.status(401).send({ err: 'password incorrect', text: 'Het opgegeven wachtwoord komt niet overeen met het e-mailadres.<br>Probeer het nogmaals of reset je wachtwoord.' })
+          res.status(401).send({ err: 'password incorrect', text: 'The provided password does not match the email adress.<br>Please try again or reset your password.' })
         }
       });
     } else {
-      res.status(401).send({ err: 'not verifieed', text: 'Verifieer alstublieft eerst uw account via de email die u heeft ontvangen op het bovenstaande email adres.' });
+      res.status(401).send({ err: 'not verifieed', text: 'Verifieer alstublieft eerst uw account via de email die u heeft ontvangen op het bovenstaande email adres.' }); // TODO
     }
   } else {
-    res.status(401).send({ err: 'not Found', text: 'Het opgegeven e-mailadres komt niet voor in ons bestand.<br>Gebruik een ander e-mailadres of meld je aan.' });
+    res.status(401).send({ err: 'not Found', text: 'We cannot find the email address you provided. <br>Please use a different email address, or sign up.' });
   }
 });
 
@@ -127,13 +169,23 @@ router.post('/register', async (req, res) => {
       newAccount = await collection.findOne({ email: userData.email.value });
       mongo.close();
 
-      let text =
-        `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}/?ID=${newAccount._id}`;
+      let text = `Hello,
+
+Please verify your account for Online Dialogue’s CRO toolkit via the following link:
+${req.headers.host}/?ID=${newAccount._id}
+
+Kind Regards,
+
+Online Dialogue
+
+Sint Jacobsstraat 31 
+3511 BL Utrecht
+The Netherlands`;
 
       var mail = {
-        from: 'OD-toolkit <no-reply@onlinedialogue.nl>',
+        from: 'OD-toolkit <dev@onlinedialogue.com>',
         to: userData.email.value,
-        subject: 'Welkom bij de OD-toolkit!',
+        subject: 'Online Dialogue toolkit: verification needed',
         text
       };
 
@@ -144,36 +196,7 @@ router.post('/register', async (req, res) => {
       });
     });
   } else {
-    res.status(401).send('Er bestaat al een account met het opgegeven emailadres');
-  }
-});
-
-router.post('/sendVerifyMail', async (req, res) => {
-  const email = req.body.value;
-  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
-  const collection = mongo.db('OD-toolkit').collection('accounts');
-
-  const user = await collection.findOne({ email });
-  mongo.close();
-
-  if (user) {
-    let text = `Verifieer uw OD-toolkit account via de volgende url: ${req.headers.host}/?ID=${user._id}`;
-
-    var mail = {
-      from: 'OD-toolkit <no-reply@onlinedialogue.nl>',
-      to: email,
-      subject: 'Welkom bij de OD-toolkit!',
-      text
-    };
-
-    mailgun.messages().send(mail, function (err, body) {
-      if (err) console.log(err);
-      console.log(body);
-      res.status(200).send();
-
-    });
-  } else {
-    res.status(401).send('Geen account gevonden op email adres:' + userData.email.value);
+    res.status(401).send('There already exist an account using the provided email adress.');
   }
 });
 
@@ -213,12 +236,23 @@ router.post('/forgotPasswordMail', async (req, res) => {
   if (user) {
     await collection.updateOne(user, { $set: { "changePassword": true } });
     let text =
-      `Verander uw OD-toolkit wachtwoord via de volgende url: ${req.headers.host}/?PW=${user._id}`;
+      `Hello ${user.name},
+
+Please change the password of your Online Dialogue toolkit account via the following link:
+${req.headers.host}/?PW=${user._id}
+
+Kind Regards,
+
+Online Dialogue
+
+Sint Jacobsstraat 31 
+3511 BL Utrecht
+The Netherlands`;
 
     var mail = {
-      from: 'OD-toolkit <no-reply@onlinedialogue.nl>',
+      from: 'OD-toolkit <dev@onlinedialogue.com>',
       to: emailAdres,
-      subject: 'OD-toolkit: gegevens bewerken',
+      subject: 'Online Dialogue toolkit: change password',
       text
     };
 
@@ -227,7 +261,7 @@ router.post('/forgotPasswordMail', async (req, res) => {
       res.status(200).send();
     });
   } else {
-    res.status(401).send('Het opgegeven e-mailadres komt niet voor in ons bestand.<br>Gebruik een ander e-mailadres of meld je aan.');
+    res.status(401).send('No account found with the provided email adress.');
   }
 });
 
@@ -241,17 +275,13 @@ router.post('/changePassword', async (req, res) => {
     bcrypt.hash(userData.newPassword, saltRounds, async function (err, hash) {
       await collection.updateOne(user, { $set: { "changePassword": false, "password": hash } });
 
-      console.log('api/changePassword', userData);
-
-      //TODO mail versturen dat het email is aangepast.
-
       const payload = { subject: user._id };
       const token = jwt.sign(payload, 'toolkitKey');
       res.status(200).send({ token, user });
     });
 
   } else {
-    res.status(401).send('De link voor het aanpassen van uw wachtwoord is niet langer actief, gebruik nogmaals de wachtwoord vergeten optie voor een nieuwe link')
+    res.status(401).send('The forgot password link is no longer usable, for a new link use the “Forgot your password” option.');
   }
 
 });

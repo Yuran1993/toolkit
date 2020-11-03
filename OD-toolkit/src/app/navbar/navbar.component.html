@@ -2,14 +2,20 @@
   <a routerLink="/">
     <img src="../../assets/images/ODlogo.png" alt="logo van Online dialogue">
   </a>
-  <ul>
+  <ul [ngClass]="mobileMenuOpen ? 'open' : 'closed'">
     <li><a class="tools" (click)="scroll('tools')">Tools</a></li>
     <li><a class="contact" (click)="scroll('contact')">Contact</a></li>
-    <li *ngIf="!auth.loggedIn()"><a class="user" mat-raised-button id="logout-button" (click)="openLogReg('login')">Login</a></li>
-    <li *ngIf="!auth.loggedIn()"><a class="registreer" (click)="openLogReg('registreer')">Aanmelding</a></li>
+    <li *ngIf="!auth.loggedIn()"><a class="user" mat-raised-button (click)="openLogReg('login')">Login</a></li>
+    <li *ngIf="!auth.loggedIn()"><a class="registreer" (click)="openLogReg('registreer')">Sign up</a></li>
 
-    <li *ngIf="auth.loggedIn() && user" class="user" (click)=openAccount()>{{user.name}}</li>
+    <li *ngIf="auth.loggedIn() && user"><a class="user" (click)="openAccount()">{{user.name}}</a></li>
     <span *ngIf="auth.loggedIn() && !user" class="loader">loader</span>
-    <li *ngIf="auth.loggedIn()"><a class="registreer orange" (click)="auth.logout()">Uitloggen</a></li>
+    <li *ngIf="auth.loggedIn()"><a class="registreer orange" (click)="auth.logout()">Logout</a></li>
   </ul>
+
+  <button *ngIf="windowWidth<920" id="nav-icon4" (click)="openCloseMobileMenu()" [ngClass]="mobileMenuOpen ? 'open' : 'closed'">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>

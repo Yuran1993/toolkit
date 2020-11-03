@@ -70,16 +70,24 @@ form {
       border-color: $groen;
     }
   }
+
+  @include breakpoint('small') {
+    flex-direction: column;
+
+    > input {
+      width: 100%;
+    }
+  }
 }
 
 #modal-footer {
   display: flex;
   justify-content: space-between;
   align-self: center;
+  margin-top: 30px;
 }
 
 .cta2 {
-  margin-top: 15px;
   margin-left: auto;
 }
 
@@ -112,28 +120,3 @@ form {
   margin-top: 10px;
   margin-left: auto;
 }
-
-// .aanmelden {
-//   form {
-//     margin-top: 15px;
-//   }
-//   #modal-body {
-//     flex-wrap: wrap;
-//     justify-content: flex-start;
-
-//     input {
-//       width: calc(33.33% - 15px);
-//       margin-top: 20px;
-//       margin-right: 15px;
-
-//       &:first-of-type {
-//         // margin-right: 0;
-//       }
-//     }
-
-//     .cta2 {
-//       margin-left: auto;
-//       margin-right: 15px;
-//     }
-//   }
-// }

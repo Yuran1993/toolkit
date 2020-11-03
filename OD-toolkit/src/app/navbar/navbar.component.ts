@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InlogScreenComponent } from "../inlog-screen/inlog-screen.component";
 import { AccountComponent } from '../account/account.component';
 import { authService } from '../_service/auth.service';
 import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -11,15 +13,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  user:any;
+  windowWidth: number;
+  user: any;
+  mobileMenuOpen = false;
 
   constructor(
     public matDialog: MatDialog,
     public auth: authService,
     private router: Router,
+    @Inject(DOCUMENT) private document: Document,
   ) { }
 
+  @HostListener('window:resize', ['$event'])
+  getWindowWidth(event?) {
+    this.windowWidth = window.innerWidth;
+  }
+
   openLogReg(show: string) {
+    if (this.mobileMenuOpen) {
+      this.openCloseMobileMenu();
+    }
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-logReg";
     dialogConfig.disableClose = false;
@@ -32,6 +46,10 @@ export class NavbarComponent implements OnInit {
   }
 
   openAccount() {
+    if (this.mobileMenuOpen) {
+      this.openCloseMobileMenu();
+    }
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-account";
     dialogConfig.disableClose = false;
@@ -43,6 +61,10 @@ export class NavbarComponent implements OnInit {
   }
 
   scroll(id: string) {
+    if (this.mobileMenuOpen) {
+      this.openCloseMobileMenu();
+    }
+
     let el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -57,7 +79,16 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  openCloseMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+    this.document.body.classList.toggle('noScroll');
+  }
+
   async ngOnInit() {
+    this.getWindowWidth();
+    console.log(this.windowWidth);
+
+
     // document.querySelector('app-footer').style.display = 'none';
     await this.auth.getUser();
     // document.querySelector('app-footer').style.display = 'block';
