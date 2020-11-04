@@ -162,6 +162,8 @@ main {
 
       p {
         text-align: center;
+        max-height: 65px;
+        overflow: hidden;
       }
 
       a {

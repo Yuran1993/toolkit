@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   windowWidth: number;
   user: any;
   mobileMenuOpen = false;
+  dialogueTop:string;
 
   constructor(
     public matDialog: MatDialog,
@@ -39,7 +40,7 @@ export class NavbarComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.data = `{"show": "${show}"}`;
     dialogConfig.position = {
-      top: '100px',
+      top: this.dialogueTop,
     }
 
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
@@ -54,7 +55,7 @@ export class NavbarComponent implements OnInit {
     dialogConfig.id = "modal-account";
     dialogConfig.disableClose = false;
     dialogConfig.position = {
-      top: '100px',
+      top: this.dialogueTop,
     }
 
     const modalDialog = this.matDialog.open(AccountComponent, dialogConfig);
@@ -86,7 +87,7 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     this.getWindowWidth();
-    console.log(this.windowWidth);
+    this.dialogueTop = this.windowWidth <= 920 ? '50px' : '100px';
 
 
     // document.querySelector('app-footer').style.display = 'none';

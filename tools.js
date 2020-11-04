@@ -5,7 +5,11 @@ const tools = [
     open: true,
     openForAccounts: true,
     lang: 'NL',
-    header: 'Bepaal het resultaat van een A/B test. Is het resultaat significant? Is er genoeg power?',
+    body: [
+      'Aan het eind van je A/B-test wil je, voor je investeert in het implementeren van je nieuw ontworpen variatie, graag zo zeker mogelijk weten dat je nieuwe variatie (B) het beter gaat doen dan je huidige versie (A). De A/B-Test Calculator verzorgt op een frequentistische manier het bewijs hiervoor. De calculator vertelt je of er genoeg statistische bewijs is om aan te tonen dat, gekeken naar je testdata, er in de werkelijkheid een significant verschil is tussen het aantal conversies voor je huidige versie (A) en je vernieuwde variant (B).',
+      'Hierbij houden we rekening met een klein error percentage, de p-waarde. De p-waarde reflecteert de geaccepteerde kans dat de testdata misschien niet representatief is voor de werkelijkheid en we dus de verkeerde conclusie trekken. In de statistische literatuur wordt deze vaak op 5% gezet ( p < 0.05), waarmee we dus voor 95% zeker weten dat we de goede conclusie trekken uit onze data (‘confidence’ ).',
+      'Je kunt het verschil tussen je A en B variant op twee manieren testen. 1) B is beter dan A. Hiermee test je een eenzijdige hypothese (one-sided test). 2) B is beter dan A of A is beter dan B. Hiermee test je een tweezijdige hypothese (two-sided test). Een een- of tweezijdige hypothese test heeft invloed op hoe het error percentage wordt verdeeld over de testdata.',
+    ],
   },
   {
     name: 'Bayesiaanse A/B-test calculator',
@@ -13,55 +17,51 @@ const tools = [
     open: true,
     openForAccounts: true,
     lang: 'NL',
-    header: 'Bepaal het resultaat van een A/B test. Bereken de kans dat je test variatie het origineel verslaat en bereken de business case.',
+    body: [
+      'Aan het eind van je A/B-test wil je, voor je investeert in het implementeren van je nieuw ontworpen variatie, graag zo zeker mogelijk weten dat je nieuwe variatie (B) het beter gaat doen dan je huidige versie (A). De Bayesiaanse A/B-Test Calculator verzorgt op een bayesiaanse manier het bewijs hiervoor. De calculator berekent de kans dat, gekeken naar je testdata, er in de werkelijkheid een significant verschil is tussen het aantal conversies voor je huidige versie (A) en je vernieuwde variant (B).',
+      'De Bayesiaanse kans kan ook gezien worden als een risico analyse. Wanneer je B variant, je huidige A variant overtreft met een bayesiaanse kans van 90%, heb je 90% kans dat je investering in het implementeren van B je geld oplevert. Zo is het makkelijk de balans (of business case) op te maken voor het implementeren van je nieuwe design.',
+    ],
   },
   {
-    name: 'Test Impact Analysis',
-    url: 'impact-analysis',
+    name: 'Automatic Sample Size Calculator',
+    url: 'sample-size-calculartor',
     openForAccounts: true,
     lang: 'EN',
-    header: 'Krijg automatisch overzicht en inzicht waar je A/B testen kunt uitvoeren op je website.',
-    usps: [
-      'Unieke calculator in de CRO-markt',
-      'Automatische koppeling met Google Analytics',
-      'Direct advies waar je kunt starten met testen op je website',
-    ],
+    header: '',
+    usps: [],
     body: [
-      'Met de <i>Test Impact Calculator</i> van Online Dialogue creëer je aan de hand van een aantal simpele stappen een volledig overzicht van je website en krijg je direct advies waar je kunt starten met A/B testen. Koppel je Google Analytics account en laat de tool voor jou berekenen waar je business impact kunt gaan maken.',
-      'De meeste Sample size & Power calculatoren die op dit moment online te vinden zijn vaak niet duidelijk. Het doel en de noodzaak van deze calculatoren zijn niet altijd voor iedereen helder en de statistische begrippen die worden gebruikt kunnen het onnodig complex maken. Dit geldt zeker voor personen die nieuw zijn met CRO en gewoon meteen willen starten met testen.',
-      'Onze automatische calculator maakt jouw leven als CRO’er een stuk makkelijker! Laat in 3 eenvoudige stappen van je gehele website automatisch berekenen waar je het beste kunt testen, hoe lang je dat moet doen en hoeveel impact op de conversie je moet halen met je A/B-testen.',
+      'Create a complete overview of your website using only 3 simple steps and get instant advice on where to start experimenting with your A/B tests? Yes, and it’s free! Link your Google Analytics account now and let the tool calculate where you can make a business impact.',
+      'The purpose and necessity of most calculators available online are not always clear and the statistical concepts make it unnecessarily complex sometimes, especially to people new to CRO.',
+      'Online Dialogue\'s Automatic Sample Size Calculator makes your life as a CRO specialist a lot easier. Within 3 simple steps you know what pages can be used for testing, how long you should be testing and how much impact on conversions is needed.',
+      'Online Dialogue\'s new Automatic Sample Size Calculator is doing this all for you.'
     ],
     over: [
-      'Wanneer je begint met experimenteren is het belangrijk om vooraf een aantal duidelijke randvoorwaarden te bepalen. Eén van die voorwaarden is om te bepalen hoe groot de groep bezoekers moet te zijn voor een experiment (‘<i>Sample size</i>’).',
-      'Om dit te bepalen gebruik je doorgaans een <i>Sample size of Power calculator</i>. Hiermee bepaal je hoeveel bezoekers je minimaal per A/B-test nodig hebt om een significant effect te kunnen vinden (‘<i>Power</i>’), hoe groot dit effect minimaal zou kunnen zijn (‘<i>Minimal Detectable Effect</i>’) en met welke zekerheid (‘<i>Significantie</i>’).',
-      'Aan de hand van deze uitkomst bepaal je waar voor jou de beste kansen liggen om impact op de conversie te kunnen maken en ook wat de looptijd van je A/B-test moet zijn.',
+      'When you start experimenting, it is important to determine a number of clear preconditions in advance. One of those conditions is to determine how much visitors you need for your experiment ("Sample size").',
+      'You determine how many visitors you need to find a significant effect (\'Power\'), along with the minimum effect size (\'Minimal Detectable Effect\') and a level of certainty (\'Significance\').',
+      'Based on these results you decide what the best chances are for your experiments and its duration.',
     ],
-    aanmelden: [
-      'Meld je nu aan voor de Beta release van de Test Impact Calculator.',
-      'Bij Online Dialogue zijn we op zoek naar feedback van beginners tot experts in het CRO vakgebied die ons willen helpen met het optimaliseren van deze nieuwe service. Natuurlijk brengen we jou ook als eerste op de hoogte wanneer de tool online beschikbaar is.'
-
-    ],
+    aanmelden: [],
   },
   {
     name: 'Experiment Analysis',
     url: 'experiment-analysis',
     openForAccounts: true,
     lang: 'EN',
-    header: 'Automatiseer de analyse van je A/B testen en bespaar jezelf veel tijd.',
+    body: ['Automatiseer de analyse van je A/B testen en bespaar jezelf veel tijd.'],
   },
   {
     name: 'Quick Insights',
     url: 'quick-insights',
     openForAccounts: true,
     lang: 'EN',
-    header: 'Krijg snelle en uitgebreide inzichten over het gedrag van je website bezoekers.',
+    body: ['Krijg snelle en uitgebreide inzichten over het gedrag van je website bezoekers.'],
   },
   {
     name: 'Funnel Analysis',
     url: 'funnel-analysis',
     openForAccounts: true,
     lang: 'EN',
-    header: 'Maak open of gesloten funnels en krijg direct inzicht in de customer journey.',
+    body: ['Maak open of gesloten funnels en krijg direct inzicht in de customer journey.'],
   },
 ];
 

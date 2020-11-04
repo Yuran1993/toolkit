@@ -140,7 +140,7 @@ router.post('/login', async (req, res) => {
         }
       });
     } else {
-      res.status(401).send({ err: 'not verifieed', text: 'Verifieer alstublieft eerst uw account via de email die u heeft ontvangen op het bovenstaande email adres.' }); // TODO
+      res.status(401).send({ err: 'not verifieed', text: 'Your account still needs to be verified. Please check the email in your inbox for instructions.' }); // TODO
     }
   } else {
     res.status(401).send({ err: 'not Found', text: 'We cannot find the email address you provided. <br>Please use a different email address, or sign up.' });

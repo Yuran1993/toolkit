@@ -20,7 +20,7 @@
 
   <section *ngIf="loginErrorMsg" class="error">
     <p [innerHTML]=loginErrorMsg></p>
-    <button *ngIf="sendVerifyMailBtn" class="inlineErrorBtn" (click)="sendVerifyMail()">Stuur email opnieuw</button>
+    <button *ngIf="sendVerifyMailBtn" class="inlineErrorBtn" (click)="sendVerifyMail()">Send email again</button>
   </section>
 </div>
 
@@ -40,7 +40,7 @@
       </section>
 
       <section id="modal-footer" class="noMarginBtm">
-        <button *ngIf="!loader" class="cta2" type="submit">Aanmelden</button>
+        <button *ngIf="!loader" class="cta2" type="submit">Sign up</button>
         <span *ngIf="loader" class="loader">loader</span>
       </section>
     </form>
@@ -50,7 +50,7 @@
     </section>
   </div>
   <div *ngIf="reqSend">
-    <p>Thank you for signing up. Your request is being processed. Your login details will be sent to your email address.</p>
+    <p>Thank you for signing up. Your request is being processed. Your login details will be sent to your email address. (note: the mail might end up in your spam box).</p>
   </div>
 </div>
 
@@ -73,11 +73,11 @@
 </div>
 
 <div *ngIf="show === 'passwordChanged'" id="modal-content-wrapper" class="model-wrapper aanmelden">
-  <h1>Uw wachtwoord is aangepast</h1>
+  <h1>Your password has changed</h1>
   <p>Uw wachtwoord is aangepast en u bent ingelogd.</p>
 </div>
 
 <div *ngIf="show === 'userVerified'" id="modal-content-wrapper" class="model-wrapper aanmelden">
   <h1>Your account has been verified.</h1>
-  <p>You now have access to Online Dialogue’s toolkit.</p>
+  <p>You have been logged in automatically.</p>
 </div>

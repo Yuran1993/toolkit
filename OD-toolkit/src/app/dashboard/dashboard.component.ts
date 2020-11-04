@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { authService } from '../_service/auth.service';
@@ -12,6 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  tools: any;
+  toolsAuth;
+  windowWidth:number;
+  dialogueTop:string;
 
   constructor(
     public auth: authService,
@@ -20,8 +24,10 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  tools: any;
-  toolsAuth;
+  @HostListener('window:resize', ['$event'])
+  getWindowWidth(event?) {
+    this.windowWidth = window.innerWidth;
+  }
 
   openLogReg(show: string, id='') {
     const dialogConfig = new MatDialogConfig();
@@ -29,7 +35,7 @@ export class DashboardComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.data = `{"show": "${show}", "id": "${id}"}`;
     dialogConfig.position = {
-      top: '100px',
+      top: this.dialogueTop,
     }
 
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
@@ -41,7 +47,7 @@ export class DashboardComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.data = `{"elClicked": "${element}"}`;
     dialogConfig.position = {
-      top: '100px'
+      top: this.dialogueTop,
     }
 
     const modalDialog = this.matDialog.open(AddToolComponent, dialogConfig);
@@ -54,6 +60,9 @@ export class DashboardComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.getWindowWidth();
+    this.dialogueTop = this.windowWidth <= 920 ? '50px' : '100px';
+
     this.auth.currentToolAuth.subscribe(result => {
       this.tools = result.tools;
       this.tools = this.tools.sort((x, y) => (x.auth === y.auth) ? 0 : x.auth ? -1 : 1);

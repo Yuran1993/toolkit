@@ -14,9 +14,9 @@
 <div *ngIf="delete" id="modal-content-wrapper">
 
   <h1>Delete account</h1>
-  <p>sure?</p>
+  <p>Are you sure you want to delete your account?</p>
   <div class="btnsContainer">
-    <a class="cta2" (click)="delete=false">noh</a>
-    <a class="cta2 red" (click)=deleteUser()>Yeah</a>
+    <a class="cta2" (click)="delete=false">No</a>
+    <a class="cta2 red" (click)=deleteUser()>Yes</a>
   </div>
 </div>

@@ -168,7 +168,7 @@ export class InlogScreenComponent implements OnInit {
         .subscribe(
           res => {
             // TODO onderstaande document.querySelector kan beter, miss met een neutral message veld
-            document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Email sent!</p> <p style="margin-bottom: 0;">You will receive a link to change your password via the email address you provided.</p>`;
+            document.querySelector('#modal-content-wrapper').innerHTML = `<p style="font-weight: 500; font-size: 1rem;">Email sent!</p> <p style="margin-bottom: 0;">You will receive a link to change your password via the email address you provided. (note: the mail might end up in your spam box).</p>`;
           },
           err => {
             this.loginErrorMsg = err.error;

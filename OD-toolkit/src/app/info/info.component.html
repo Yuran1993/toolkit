@@ -4,13 +4,13 @@
       <svg class="arrowRightWrapper" viewBox="0 0 156.15 79.49">
         <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
       </svg>
-      Terug naar homepage
+      Back to the homepage
     </a>
   </div>
   <main>
     <header>
       <h1>{{tool.name}}</h1>
-      <p>{{tool.header}}</p>
+      <p *ngIf="tool.header">{{tool.header}}</p>
       <ul *ngFor="let usp of tool.usps" class="usps">
         <li>{{usp}}</li>
       </ul>
@@ -21,24 +21,24 @@
     </section>
     
     <section *ngIf="tool.over">
-      <h2>Over</h2>
+      <h2>About experimentation</h2>
       <p *ngFor="let para of tool.over" [innerHTML]="para"></p>
     </section>
 
     <section *ngIf="!auth.loggedIn() && !tool.auth">
-      <h2 *ngIf="tool.aanmelden" >Aanmelden</h2>
+      <h2 *ngIf=" tool.aanmelden && tool.aanmelden.length" >Sign up</h2>
       <p *ngFor="let para of tool.aanmelden" [innerHTML]="para"></p>
 
       <section class="ctaContainer">
-        <a class="cta2" (click)="openLogReg('login')">Inloggen</a>
-        <a class="cta" (click)="openLogReg('registreer')">Aanmelden</a>
+        <a class="cta2" (click)="openLogReg('login')">Login</a>
+        <a class="cta" (click)="openLogReg('registreer')">Sign up</a>
       </section>
     </section>
 
     <section *ngIf="auth.loggedIn() || tool.auth" class="ctaContainer">
-      <a *ngIf="!tool.auth" class="cta" (click)="openAdd(tool.name)">Toevoegen</a>
+      <a *ngIf="!tool.auth" class="cta" (click)="openAdd(tool.name)">Add</a>
       <a *ngIf="tool.auth" [routerLink]="['../']" class="cta">
-        Ga naar de tool
+        Got to the tool
         <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
           <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
         </svg>
@@ -47,7 +47,7 @@
   </main>
   <aside>
     <section class="moreTools borderRadiusShadow">
-      <h2>Alle tools</h2>
+      <h2>All tools</h2>
 
       <ul>
         <li *ngFor="let tool of allTools">
@@ -60,6 +60,6 @@
         </li>
       </ul>
     </section>
-    <app-contact class="borderRadiusShadow" [component]="component"></app-contact>
+    <!-- <app-contact class="borderRadiusShadow" [component]="component"></app-contact> -->
   </aside>
 </div>

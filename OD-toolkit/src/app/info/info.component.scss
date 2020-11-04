@@ -2,6 +2,11 @@
 
 .mainContainer {
   justify-content: space-between;
+
+  @include breakpoint('small') {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
 main {
@@ -20,6 +25,11 @@ main {
         margin-left: 20px;
       }
     }
+  }
+
+  @include breakpoint('medium') {
+    width: 100%;
+    max-width: none;
   }
 }
 
@@ -46,6 +56,10 @@ aside {
   app-contact {
     display: block;
     background: #FFFFFF;
+  }
+
+  @include breakpoint('medium') {
+    width: 100%;
   }
 }
 

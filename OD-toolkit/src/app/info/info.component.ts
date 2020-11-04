@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { authService } from '../_service/auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InlogScreenComponent } from '../inlog-screen/inlog-screen.component';
@@ -14,7 +14,9 @@ export class InfoComponent implements OnInit, OnDestroy {
   component = 'info';
   allTools: any;
   tool: any;
-  otherTools:any
+  otherTools:any;
+  windowWidth:number;
+  dialogueTop:string;
 
   constructor(
     public auth: authService,
@@ -23,13 +25,18 @@ export class InfoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
   ) { }
 
+  @HostListener('window:resize', ['$event'])
+  getWindowWidth(event?) {
+    this.windowWidth = window.innerWidth;
+  }
+
   openLogReg(show: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-logReg";
     dialogConfig.disableClose = false;
     dialogConfig.data = `{"show": "${show}"}`;
     dialogConfig.position = {
-      top: '100px',
+      top: this.dialogueTop,
     }
 
     const modalDialog = this.matDialog.open(InlogScreenComponent, dialogConfig);
@@ -43,7 +50,7 @@ export class InfoComponent implements OnInit, OnDestroy {
     dialogConfig.disableClose = false;
     dialogConfig.data = `{"elClicked": "${element}"}`;
     dialogConfig.position = {
-      top: '100px'
+      top: this.dialogueTop,
     }
 
     const modalDialog = this.matDialog.open(AddToolComponent, dialogConfig);
@@ -52,6 +59,9 @@ export class InfoComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     window.scrollTo(0, 0);
     document.body.className = "backgroundColor";
+
+    this.getWindowWidth();
+    this.dialogueTop = this.windowWidth <= 920 ? '50px' : '100px';
 
     this.auth.currentToolAuth.subscribe(result => {
       this.allTools = result.tools;
