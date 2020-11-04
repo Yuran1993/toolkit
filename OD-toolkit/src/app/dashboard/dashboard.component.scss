@@ -15,37 +15,39 @@ header {
   .headerContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-bottom: 30px;
 
     .headerSection {
       &:first-of-type {
-        padding-right: 15px;
-        width: 60%;
+        margin-right: 30px;
+        width: 65%;
       }
 
       &:last-of-type {
-        padding-left: 15px;
-        width: 40%;
+        // margin-right: 30px;
       }
     }
 
     .cta {
-      margin-bottom: 30px;
+      margin-top: 15px;
+      margin-bottom: 0;
     }
 
     @include breakpoint('medium') {
-      flex-direction: column-reverse;
+      flex-direction: column;
       padding-bottom: 0px;
 
       .headerSection {
         width: 100% !important;
         padding: 0;
+        margin-bottom: 20px;
 
         img {
           margin: 0 auto 30px;
           max-width: 300px;
         }
+
       }
     }
   }
@@ -112,8 +114,7 @@ main {
 
 .outerToolsContainer {
   padding: 15px 25px 0;
-  margin-top: 70px;
-  margin-bottom: 40px;
+  margin-top: 40px 0;
 
   .innerToolsContainer {
     display: flex;
@@ -298,6 +299,14 @@ main {
       }
     }
   }
+}
+
+.label {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #E4EAEF;
+  border: solid 1px #ccc;
+  border-radius: 25px;
 }
 
 app-contact {
