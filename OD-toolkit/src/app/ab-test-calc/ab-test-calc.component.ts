@@ -39,7 +39,6 @@ export class AbTestCalcComponent implements OnInit, OnDestroy {
     return new Promise((resolve) => {
       const queryString = Object.keys(this.dataValues).map(key => key + '=' + this.dataValues[key]).join('&');
 
-
       this.getData(queryString)
         .subscribe(data => {
           this.result = data;

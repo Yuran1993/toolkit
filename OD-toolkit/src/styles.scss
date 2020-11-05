@@ -28,6 +28,8 @@ body {
   font-size: 0.9rem;
 }
 
+// TODO uitzoeken V
+
 .hideHtml {
   opacity: 0 !important;
 }
@@ -35,6 +37,8 @@ body {
 .opacs {
   opacity: 0;
 }
+
+// TODO uitzoeken ^
 
 .noScroll {
   position: fixed;
@@ -166,7 +170,6 @@ p {
 }
 
 header {
-
   h1 {
     font-size: 2.5rem;
     font-weight: 500;
@@ -350,10 +353,10 @@ mat-dialog-container#modal-addTool {
   }
 }
 
-.rowWrap {
-  display: flex;
-  flex-flow: row wrap;
-}
+// .rowWrap {
+//   display: flex;
+//   flex-flow: row wrap;
+// }
 
 .urlList {
   padding-left: 30px;
@@ -495,14 +498,4 @@ mat-dialog-container#modal-addTool {
 .borderRadiusShadow {
   border-radius: 10px;
   box-shadow: $shadow;
-}
-
-.note {
-  font-weight: 100;
-  background: #FEFAE0;
-  padding: 10px;
-  border: 1px solid #efecec;
-  border-radius: 10px;
-  margin-top: 20px;
-  margin-bottom: 0;
 }

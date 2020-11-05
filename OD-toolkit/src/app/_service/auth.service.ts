@@ -84,12 +84,9 @@ export class authService {
   }
 
   verifyUser(id) {
-    console.log(id);
-
     this.http.post<any>('api/verifyUser', id).subscribe(result => {
       localStorage.setItem('token', result.token);
       this.changeToolsAuth(result.user);
-      console.log(result);
 
       this.router.navigate([], {
         queryParams: [],
@@ -113,7 +110,7 @@ export class authService {
   }
 
   getTools() {
-    return new Promise<[]>((resolve) => { //! have to find out where to mix authentication from the tools.js with custom auth in the users account: here or in the backend api
+    return new Promise<[]>((resolve) => {
       if (!this.tools) {
         this.http.get<[]>('api/getTools').subscribe(result => {
           this.tools = result;
@@ -125,7 +122,7 @@ export class authService {
     });
   }
 
-  async changeToolsAuth(userTools: any) {
+  async changeToolsAuth(user: any) {
     return new Promise(async (resolve) => {
       await this.getTools();
 
@@ -135,13 +132,13 @@ export class authService {
         }
       });
 
-      userTools.tools.forEach(userTool => {
+      user.tools.forEach(userTool => {
         const tempTool = this.tools.find(e => e.url === userTool.url);
         tempTool.auth = userTool.auth;
       });
 
-      userTools.tools = this.tools;
-      this.authArray.next(userTools);
+      user.tools = this.tools;
+      this.authArray.next(user);
       resolve();
     });
   }
