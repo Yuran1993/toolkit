@@ -42,27 +42,6 @@ const tools = [
     ],
     aanmelden: [],
   },
-  {
-    name: 'Experiment Analysis',
-    url: 'experiment-analysis',
-    openForAccounts: true,
-    lang: 'EN',
-    body: ['Automatiseer de analyse van je A/B testen en bespaar jezelf veel tijd.'],
-  },
-  {
-    name: 'Quick Insights',
-    url: 'quick-insights',
-    openForAccounts: true,
-    lang: 'EN',
-    body: ['Krijg snelle en uitgebreide inzichten over het gedrag van je website bezoekers.'],
-  },
-  {
-    name: 'Funnel Analysis',
-    url: 'funnel-analysis',
-    openForAccounts: true,
-    lang: 'EN',
-    body: ['Maak open of gesloten funnels en krijg direct inzicht in de customer journey.'],
-  },
 ];
 
 module.exports = tools;

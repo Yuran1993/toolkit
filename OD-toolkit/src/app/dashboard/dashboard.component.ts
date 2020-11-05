@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.data = `{"elClicked": "${element}"}`;
     dialogConfig.position = {
-      top: this.dialogueTop,
+      top: '100px',
     }
 
     const modalDialog = this.matDialog.open(AddToolComponent, dialogConfig);
