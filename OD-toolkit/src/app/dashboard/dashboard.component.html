@@ -14,7 +14,7 @@
         <li>Free and available for everyone</li>
       </ul>
 
-      <a routerLink="/1" class="cta">
+      <a (click)="scroll('tools')" class="cta">
         Discover  the tools
         <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
           <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
@@ -22,25 +22,13 @@
       </a>
     </div>
   </div>
-  <!-- <a class="arrow" (click)="scroll('tools')">
-    Alle tools
-    <div class="arrowWrapper">
-      <svg viewBox="0 0 156.15 79.49">
-        <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
-      </svg>
-      <svg viewBox="0 0 156.15 79.49">
-        <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71"/>
-      </svg>
-    </div>
-  </a> -->
 </header>
 <main>
   <div id="tools" class="outerToolsContainer container">
     <h2>Alle tools</h2>
     <div class="innerToolsContainer">
       <a *ngFor="let tool of tools; index as i; odd as odd;" [ngClass]="[tool.auth  ? 'open toolKaart' : 'closed toolKaart', tool.lang]" routerLink="{{tool.url}}/info">
-        <img *ngIf='odd' src="../../assets/icons/dashboard/card-icoon-1.svg" alt="card icon">
-        <img *ngIf='!odd' src="../../assets/icons/dashboard/card-icoon-2.svg" alt="card icon">
+        <img src="../../assets/icons/dashboard/{{tool.icon}}.svg" alt="card icon">
         <h3>{{tool.name}}</h3>
         <p>{{tool.body[0]}}</p>
         <a *ngIf='tool.auth' stopPropagation [routerLink]="tool.url">open tool</a>
@@ -55,9 +43,10 @@
 
     <app-contact id="contact"></app-contact>
 
-    <article>
+    <article class="about">
       <h2>About Online Dialogue</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quas voluptate culpa velit, eum quis sed, provident magnam libero, quibusdam quam deserunt odio molestias? Inventore porro quo voluptates accusantium eaque.</p>
+      <p>We see “validation in every organization” as our mission and it is our job to help our customers in making better and faster decisions. To fulfill our job, we make use of (web) data and psychology in combination with business consultancy and change management.</p>
+      <img src="../../assets/images/awardWin.png" alt="">
     </article>
   </div>
 </main>

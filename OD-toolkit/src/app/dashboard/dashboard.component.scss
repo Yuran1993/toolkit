@@ -312,6 +312,14 @@ main {
   }
 }
 
+.about {
+  img {
+    width: 120px;
+    display: flex;
+    margin-left: auto;
+  }
+}
+
 .label {
   display: inline-block;
   padding: 5px 10px;

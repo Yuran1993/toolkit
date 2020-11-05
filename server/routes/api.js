@@ -10,6 +10,42 @@ const saltRounds = 10;
 const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN, host: "api.eu.mailgun.net" });
 const { MongoClient, ObjectId } = require('mongodb');
 
+const verifyToken = async (req, res, next) => {
+  const path = req.route.path;
+  if (!req.headers.authorization) {
+    return res.status(401).send('Unauthorized request');
+  }
+
+  let token = req.headers.authorization.split(' ')[1];
+  if (token) {
+    const payload = jwt.verify(token, process.env.jwtKey);
+    if (payload) {
+      if (path.indexOf('calc') === -1) {
+        req.userId = payload.subject;
+        next();
+      } else {
+        req.userId = payload.subject;
+        const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+        const collection = mongo.db('OD-toolkit').collection('accounts');
+        const user = await collection.findOne({ "_id": ObjectId(id) });
+        const toolUrl = path.split('/')[2];
+
+        const toolAuth = user.tools.find(e => e.url === toolUrl)
+
+        if (toolAuth && toolAuth.auth) {
+          next()
+        } else {
+          return res.status(401).send('Unauthorized request');
+        }
+      }
+    } else {
+      return res.status(401).send('Unauthorized request');
+    }
+  } else {
+    return res.status(401).send('Unauthorized request');
+  }
+}
+
 router.post('/sendVerifyMail', async (req, res) => {
   const email = req.body.value;
   const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
@@ -50,45 +86,6 @@ The Netherlands `;
   }
 });
 
-
-const verifyToken = async (req, res, next) => {
-  const path = req.route.path;
-  if (!req.headers.authorization) {
-    return res.status(401).send('Unauthorized request');
-  }
-
-  // TODO dit hele bestand opschonen
-
-  let token = req.headers.authorization.split(' ')[1];
-  if (token) {
-    const payload = jwt.verify(token, 'toolkitKey'); //TODO in .env
-    if (payload) {
-      if (path.indexOf('calc') === -1) {
-        req.userId = payload.subject;
-        next();
-      } else {
-        req.userId = payload.subject;
-        const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
-        const collection = mongo.db('OD-toolkit').collection('accounts');
-        const user = await collection.findOne({ "_id": ObjectId(id) });
-        const toolUrl = path.split('/')[2];
-
-        const toolAuth = user.tools.find(e => e.url === toolUrl)
-
-        if (toolAuth && toolAuth.auth) {
-          next()
-        } else {
-          return res.status(401).send('Unauthorized request');
-        }
-      }
-    } else {
-      return res.status(401).send('Unauthorized request');
-    }
-  } else {
-    return res.status(401).send('Unauthorized request');
-  }
-}
-
 router.post('/verifyUser', async (req, res) => {
   const id = req.body.ID;
   const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
@@ -128,11 +125,10 @@ router.post('/login', async (req, res) => {
 
   if (user) {
     if (user.verified) {
-
       bcrypt.compare(userData.password, user.password, async function (err, result) {
         if (result) {
           const payload = { subject: user._id };
-          const token = jwt.sign(payload, 'toolkitKey');
+          const token = jwt.sign(payload, process.env.jwtKey);
 
           res.status(200).send({ token, user });
         } else {
@@ -164,9 +160,8 @@ router.post('/register', async (req, res) => {
         tools: [],
       };
 
-      // TODO geeft de inserOne() het _id terug?
-      await collection.insertOne(newAccount);
-      newAccount = await collection.findOne({ email: userData.email.value });
+      newAccount = await collection.insertOne(newAccount);
+      newAccount = newAccount.ops[0];
       mongo.close();
 
       let text = `Hello,
@@ -192,7 +187,6 @@ The Netherlands`;
       mailgun.messages().send(mail, function (err, body) {
         if (err) console.log(err);
         res.status(200).send();
-
       });
     });
   } else {
@@ -208,7 +202,7 @@ router.get('/getTools', (req, res) => {
 });
 
 router.get('/getUser', verifyToken, async (req, res) => {
-  const id = req.userId; //TODO: verifyToken token does this, maybe remove verifyToken en move functionality in this function cause this is the only function that uses it
+  const id = req.userId;
   const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
   const collection = mongo.db('OD-toolkit').collection('accounts');
   const user = await collection.findOne({ "_id": ObjectId(id) });
@@ -221,10 +215,10 @@ router.get('/deleteUser', verifyToken, async (req, res) => {
   const id = req.userId;
   const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
   const collection = mongo.db('OD-toolkit').collection('accounts');
-  const user = await collection.deleteOne({ "_id": ObjectId(id) });
+  await collection.deleteOne({ "_id": ObjectId(id) });
 
   mongo.close();
-  res.status(200).send(user);
+  res.status(200).send();
 });
 
 router.post('/forgotPasswordMail', async (req, res) => {
@@ -276,14 +270,12 @@ router.post('/changePassword', async (req, res) => {
       await collection.updateOne(user, { $set: { "changePassword": false, "password": hash } });
 
       const payload = { subject: user._id };
-      const token = jwt.sign(payload, 'toolkitKey');
+      const token = jwt.sign(payload, process.env.jwtKey);
       res.status(200).send({ token, user });
     });
-
   } else {
     res.status(401).send('The forgot password link is no longer usable, for a new link use the “Forgot your password” option.');
   }
-
 });
 
 module.exports = router;

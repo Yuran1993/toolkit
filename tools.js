@@ -2,6 +2,7 @@ const tools = [
   {
     name: 'A/B-test Calculator',
     url: 'abtest-calculator',
+    icon: 'card-icon-1',
     open: true,
     openForAccounts: true,
     lang: 'NL',
@@ -14,6 +15,7 @@ const tools = [
   {
     name: 'Bayesiaanse A/B-test calculator',
     url: 'bayesiaanse-calculator',
+    icon: 'card-icon-2',
     open: true,
     openForAccounts: true,
     lang: 'NL',
@@ -24,7 +26,8 @@ const tools = [
   },
   {
     name: 'Automatic Sample Size Calculator',
-    url: 'sample-size-calculartor',
+    url: 'sample-size-calculator',
+    icon: 'card-icon-3',
     openForAccounts: true,
     lang: 'EN',
     header: '',
