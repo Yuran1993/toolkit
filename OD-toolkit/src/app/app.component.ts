@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
   title = 'OD-toolkit';
 
   constructor(
-    private readyState: ReadyStateService
+    public readyState: ReadyStateService
   ) { }
 
   ngOnInit() {

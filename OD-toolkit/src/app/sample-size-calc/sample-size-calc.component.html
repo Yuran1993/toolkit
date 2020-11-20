@@ -147,7 +147,7 @@
         </div>
         <div>
           <select name="step1ContentGroup" [(ngModel)]='step1.contentGroups.selected'>
-            <option *ngFor='let contentGroup of step1.contentGroups.options' [value]="contentGroups">
+            <option *ngFor='let contentGroup of step1.contentGroups.options' [value]="contentGroup">
               {{contentGroup}}
             </option>
           </select>

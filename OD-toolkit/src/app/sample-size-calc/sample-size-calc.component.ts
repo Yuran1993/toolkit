@@ -28,7 +28,7 @@ export class SampleSizeCalcComponent implements OnInit, OnDestroy {
 
   constructor(
     private readyState: ReadyStateService,
-    private googleAuth: GoogleAuthService,
+    public googleAuth: GoogleAuthService,
     public analyticsSettings: AnalyticsSettingsService
   ) { }
 
