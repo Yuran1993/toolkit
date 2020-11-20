@@ -1,6 +1,7 @@
 @import '../../setup.scss';
 
 .mainContainer {
+  min-height: calc(100vh - 158px);
   justify-content: space-between;
 
   @include breakpoint('small') {

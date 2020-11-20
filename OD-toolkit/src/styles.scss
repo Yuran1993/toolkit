@@ -59,6 +59,10 @@ select {
   border: 1px solid #ccc;
 }
 
+[disabled] {
+  cursor: auto!important;
+}
+
 button {
   background: none;
   border: none;
