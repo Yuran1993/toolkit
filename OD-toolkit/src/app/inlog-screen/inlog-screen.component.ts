@@ -43,12 +43,10 @@ export class InlogScreenComponent implements OnInit {
     }
   }
 
-  // TODO alle regexen moeten worden aangepast om speciale tekens toe te laten en ook spaties bijvoorbeeld bij company
-
   registerUserData: any = {
     name: {
       value: '',
-      pattern: new RegExp(/[A-Za-z]+/),
+      pattern: new RegExp(/.+/),
       err: false,
     },
     email: {
@@ -58,17 +56,17 @@ export class InlogScreenComponent implements OnInit {
     },
     company: {
       value: '',
-      pattern: new RegExp(/[A-Za-z]+/),
+      pattern: new RegExp(/.+/),
       err: false,
     },
     password: {
       value: '',
-      pattern: new RegExp(/[A-Za-z]+/),
+      pattern: new RegExp(/.+/),
       err: false,
     },
     repeatePassword: {
       value: '',
-      pattern: new RegExp(/[A-Za-z]+/),
+      pattern: new RegExp(/.+/),
       err: false,
     },
   };
@@ -180,7 +178,6 @@ export class InlogScreenComponent implements OnInit {
 
   async changePassword() {
     this.loader = true;
-    // TODO onderstaande foutmeldingen moeten ook bekeken worden
 
     Object.keys(this.changePasswordData).forEach(e => this.changePasswordData[e].err = false);
 

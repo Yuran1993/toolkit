@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const calc = require('./calculators');
+const googleAuth = require('./googleAuth');
 router.use('/calc', calc);
+router.use('/googleAuth', googleAuth);
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -45,103 +47,6 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).send('Unauthorized request');
   }
 }
-
-router.post('/sendVerifyMail', async (req, res) => {
-  const email = req.body.value;
-  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
-  const collection = mongo.db('OD-toolkit').collection('accounts');
-
-  const user = await collection.findOne({ email });
-  mongo.close();
-
-  if (user) {
-    let text = `Hello,
-
-Please verify your account for Online Dialogue’s CRO toolkit via the following link:
-${req.headers.host}/?ID=${user._id}
-
-Kind Regards,
-
-Online Dialogue
-
-Sint Jacobsstraat 31 
-3511 BL Utrecht
-The Netherlands `;
-
-    var mail = {
-      from: 'OD-toolkit <dev@onlinedialogue.com>',
-      to: email,
-      subject: 'Online Dialogue toolkit: verification needed',
-      text
-    };
-
-    mailgun.messages().send(mail, function (err, body) {
-      if (err) console.log(err);
-      console.log(body);
-      res.status(200).send();
-
-    });
-  } else {
-    res.status(401).send('No account found with the provided email adress.');
-  }
-});
-
-router.post('/verifyUser', async (req, res) => {
-  const id = req.body.ID;
-  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
-  const collection = mongo.db('OD-toolkit').collection('accounts');
-
-  try {
-    const user = await collection.findOne({ "_id": ObjectId(id) });
-
-    if (!user.verified) {
-      await collection.updateOne(user, { $set: { "verified": true } });
-
-      const payload = { subject: user._id };
-      const token = jwt.sign(payload, 'toolkitKey');
-      res.status(200).send({ token, user });
-
-    } else {
-      return res.status(200).send();
-    }
-  } catch (err) {
-    return res.status(401).send('Unauthorized request');
-  }
-
-  mongo.close();
-});
-
-router.post('/login', async (req, res) => {
-  const userData = req.body;
-  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
-  const collection = mongo.db('OD-toolkit').collection('accounts');
-
-  const user = await collection.findOne({ email: userData.email });
-
-  if (user && user.changePassword) { // Als de gebruiker kan inloggen dan hoeft changePassword niet op true
-    await collection.updateOne(user, { $set: { "changePassword": false } });
-  }
-  mongo.close();
-
-  if (user) {
-    if (user.verified) {
-      bcrypt.compare(userData.password, user.password, async function (err, result) {
-        if (result) {
-          const payload = { subject: user._id };
-          const token = jwt.sign(payload, process.env.jwtKey);
-
-          res.status(200).send({ token, user });
-        } else {
-          res.status(401).send({ err: 'password incorrect', text: 'The provided password does not match the email adress.<br>Please try again or reset your password.' })
-        }
-      });
-    } else {
-      res.status(401).send({ err: 'not verifieed', text: 'Your account still needs to be verified. Please check the email in your inbox for instructions.' }); // TODO
-    }
-  } else {
-    res.status(401).send({ err: 'not Found', text: 'We cannot find the email address you provided. <br>Please use a different email address, or sign up.' });
-  }
-});
 
 router.post('/register', async (req, res) => {
   const userData = req.body;
@@ -194,8 +99,105 @@ The Netherlands`;
   }
 });
 
+router.post('/verifyUser', async (req, res) => {
+  const id = req.body.ID;
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
+
+  try {
+    const user = await collection.findOne({ "_id": ObjectId(id) });
+
+    if (!user.verified) {
+      await collection.updateOne(user, { $set: { "verified": true } });
+
+      const payload = { subject: user._id };
+      const token = jwt.sign(payload, 'toolkitKey');
+      res.status(200).send({ token, user });
+
+    } else {
+      return res.status(200).send();
+    }
+  } catch (err) {
+    return res.status(401).send('Unauthorized request');
+  }
+
+  mongo.close();
+});
+
+router.post('/sendVerifyMail', async (req, res) => {
+  const email = req.body.value;
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
+
+  const user = await collection.findOne({ email });
+  mongo.close();
+
+  if (user) {
+    let text = `Hello,
+
+Please verify your account for Online Dialogue’s CRO toolkit via the following link:
+${req.headers.host}/?ID=${user._id}
+
+Kind Regards,
+
+Online Dialogue
+
+Sint Jacobsstraat 31 
+3511 BL Utrecht
+The Netherlands `;
+
+    var mail = {
+      from: 'OD-toolkit <dev@onlinedialogue.com>',
+      to: email,
+      subject: 'Online Dialogue toolkit: verification needed',
+      text
+    };
+
+    mailgun.messages().send(mail, function (err, body) {
+      if (err) console.log(err);
+      console.log(body);
+      res.status(200).send();
+
+    });
+  } else {
+    res.status(401).send('No account found with the provided email adress.');
+  }
+});
+
+router.post('/login', async (req, res) => {
+  const userData = req.body;
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
+
+  const user = await collection.findOne({ email: userData.email });
+
+  if (user && user.changePassword) { // Als de gebruiker kan inloggen dan hoeft changePassword niet op true
+    await collection.updateOne(user, { $set: { "changePassword": false } });
+  }
+  mongo.close();
+
+  if (user) {
+    if (user.verified) {
+      bcrypt.compare(userData.password, user.password, async function (err, result) {
+        if (result) {
+          const payload = { subject: user._id };
+          const token = jwt.sign(payload, process.env.jwtKey);
+
+          res.status(200).send({ token, user });
+        } else {
+          res.status(401).send({ err: 'password incorrect', text: 'The provided password does not match the email adress.<br>Please try again or reset your password.' })
+        }
+      });
+    } else {
+      res.status(401).send({ err: 'not verifieed', text: 'Your account still needs to be verified. Please check the email in your inbox for instructions.' }); // TODO
+    }
+  } else {
+    res.status(401).send({ err: 'not Found', text: 'We cannot find the email address you provided. <br>Please use a different email address, or sign up.' });
+  }
+});
+
 router.get('/getTools', (req, res) => {
-  const tools = require('../../tools');
+  const tools = require('../../../tools');
   var json = JSON.stringify(tools);
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(json);

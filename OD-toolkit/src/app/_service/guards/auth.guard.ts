@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { authService } from '../auth.service';
 
@@ -10,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
   constructor(private router: Router, public auth: authService) { }
 
-  async canActivate(activeRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(activeRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> {
     let user;
     const page = state.url.replace('/', '');
 
@@ -21,15 +22,28 @@ export class AuthGuard implements CanActivate {
     let pageAuth = user.tools.find(e => e.url === page);
 
     if (!pageAuth) {
-      pageAuth = await this.auth.getUser();
-      pageAuth = pageAuth.tools.find(e => e.url === page);
-    }
-
-    if (pageAuth && pageAuth.auth) {
+      return new Observable<boolean>((observer) => {
+        this.auth.getUser().then((value) => {
+          pageAuth = value;
+          setTimeout(() => {
+            if (pageAuth) {
+              pageAuth = pageAuth.tools.find(e => e.url === page);
+              if (pageAuth && pageAuth.auth) {
+                observer.next(true);
+              } else {
+                observer.next(false);
+                this.router.navigate(['']);
+              }
+            } else {
+              observer.next(false);
+              this.router.navigate(['']);
+            }
+            observer.complete();
+          }, 500);
+        });
+      });
+    } else if (pageAuth && pageAuth.auth) {
       return true;
-    } else {
-      this.router.navigate(['']);
-      return false;
     }
   }
 }

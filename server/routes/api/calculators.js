@@ -3,24 +3,28 @@ const jwt = require('jsonwebtoken');
 
 const { MongoClient, ObjectId } = require('mongodb');
 
-const calcCalculator = require('../calculators/calc-calculator.js');
-const bayesCalculator = require('../calculators/bayes-calculator.js');
+const calcCalculator = require('../../calculators/calc-calculator.js');
+const bayesCalculator = require('../../calculators/bayes-calculator.js');
 const router = express.Router();
 
 const verifyToken = async (req, res, next) => {
   const path = req.route.path;
   const toolUrl = path.split('/')[1];
 
-  const allTools = require('../../tools');
+  const allTools = require('../../../tools');
   const tool = allTools.find(e => e.url === toolUrl);
 
-  if (tool.open) next();
+  if (tool.open) {
+    next();
+    return;
+  };
 
   if (!req.headers.authorization) {
     return res.status(401).send('Unauthorized request');
   }
 
   let token = req.headers.authorization.split(' ')[1];
+  console.log(token);
   if (token) {
     const payload = jwt.verify(token, process.env.jwtKey); // in .env
     if (payload) {

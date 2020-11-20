@@ -23,10 +23,6 @@ header {
         margin-right: 30px;
         width: 65%;
       }
-
-      &:last-of-type {
-        // margin-right: 30px;
-      }
     }
 
     .cta {
@@ -47,62 +43,6 @@ header {
           margin: 0 auto 30px;
           max-width: 300px;
         }
-
-      }
-    }
-  }
-
-  img {
-    display: block;
-    margin-left: auto;
-    width: 100%;
-  }
-
-  .arrow {
-    width: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    position: relative;
-    color: $groen;
-    font-weight: 500;
-    font-size: .95rem;
-    transform: translateY(40px);
-    cursor: pointer;
-
-    &:before {
-      content: '';
-      background: $background;
-      width: 70px;
-      height: 70px;
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -6px) rotate(40deg) skewX(-11deg);
-      z-index: -1;
-    }
-
-    .arrowWrapper {
-      width: 25%;
-      padding-top: 5px;
-
-      svg {
-        overflow: visible;
-
-        .svgArrow {
-          fill: none;
-          stroke: #D0E7CE;
-          stroke-miterlimit: 10;
-          stroke-width: 10px;
-        }
-
-        &:last-of-type {
-          transform: translateY(-10px);
-
-          .svgArrow {
-            stroke: $groen;
-          }
-        }
       }
     }
   }
@@ -114,7 +54,7 @@ main {
 
 .outerToolsContainer {
   padding: 15px 25px 0;
-  margin-top: 40px 0;
+  margin-top: 40px;
 
   .innerToolsContainer {
     display: flex;
@@ -255,23 +195,26 @@ main {
   }
 }
 
-.ctaContainer {
-  display: flex;
-  justify-content: center;
-  padding: 0px 25px 15px;
-}
-
 .articleContainer {
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
 
-  >* {
+  > * {
     width: calc(50% - 20px);
     border-radius: 10px;
 
     @include breakpoint('medium') {
       width: 100%
+    }
+
+
+    &.about {
+      img {
+        width: 120px;
+        display: flex;
+        margin-left: auto;
+      }
     }
   }
 
@@ -309,14 +252,6 @@ main {
         }
       }
     }
-  }
-}
-
-.about {
-  img {
-    width: 120px;
-    display: flex;
-    margin-left: auto;
   }
 }
 

@@ -6,13 +6,14 @@ import { AuthGuard } from './_service/guards/auth.guard';
 import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 import { BayesCalcComponent } from './bayes-calc/bayes-calc.component';
 import { InfoComponent } from './info/info.component';
+import { SampleSizeCalcComponent } from './sample-size-calc/sample-size-calc.component';
 
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: DashboardComponent },
   { 
     path: 'sample-size-calculator',
-    component: TempToolComponent,
+    component: SampleSizeCalcComponent,
     canActivate: [AuthGuard]
  },
   { 

@@ -1,0 +1,120 @@
+.container {
+  min-height: calc(100vh - 57px);
+}
+
+.smallContainer {
+  max-width: 700px;
+  margin: 0 auto;
+
+  .cta {
+    margin: 0 0 0 auto;
+    display: block;
+  }
+}
+
+.selectContainer {
+  >div {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    span {
+      font-weight: 600;
+      margin-right: 20px;
+    }
+
+    select {
+      -webkit-appearance: none;
+      cursor: pointer;
+      width: 100%;
+      max-width: 520px;
+      padding: 10px 15px;
+      border-radius: 20px;
+      margin-left: auto;
+
+
+      &::-ms-expand {
+        display: none !important;
+      }
+    }
+
+    .arrow {
+      background: #EFF4F8;
+      border-radius: 50%;
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 7px;
+      display: flex;
+      align-items: center;
+
+      svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
+
+.labelContainer {
+  margin-bottom: 10px;
+}
+
+.viewElement {
+  .footer {
+    min-height: 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+}
+
+.stepFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin-left: auto;
+  margin-top: 20px;
+
+  .cta {
+    margin-bottom: 0;
+  }
+}
+
+.step1 {
+  .selectContainer {
+    display: flex;
+    min-height: 150px;
+    align-items: flex-start;
+
+    >div {
+      margin-top: 0;
+      margin-right: 20px;
+
+      select {
+        max-width: none;
+        margin-left: 0;
+      }
+
+      &:nth-of-type(1) {
+        width: 30%;
+      }
+      &:nth-of-type(2) {
+        width: 20%;
+      }
+      &:nth-of-type(3) {
+        width: 50%;
+      }
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}

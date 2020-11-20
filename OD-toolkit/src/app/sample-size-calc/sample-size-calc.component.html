@@ -1,0 +1,177 @@
+<!-- <p [ngClass]="gotGoogleAuth  ? 'green' : 'red'">sample-size-calc works!</p> -->
+
+<div *ngIf="ready" class="container">
+  <div *ngIf="!gotGoogleAuth" class="borderRadiusShadow smallContainer">
+    <h1>Google authorisation</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est aut molestias qui autem nisi tempore ipsam
+      necessitatibus, non nulla dolor ducimus iste, a dignissimos laudantium perspiciatis deserunt fugit officiis
+      aperiam!</p>
+    <button type="button" class="cta" (click)="googleAuth.getGoogleAuth()">connect to google</button>
+  </div>
+
+  <div *ngIf="gotGoogleAuth && !analyticsSettings.userSettings.settingsSet"
+    class="borderRadiusShadow smallContainer viewElement">
+    <h1>Select a view</h1>
+    <div class="selectContainer">
+      <div>
+        <span>Account</span>
+        <select name="accountSelect" [(ngModel)]='analyticsSettings.userSettings.account'
+          (change)="analyticsSettings.getAnalyticsProperties()">
+          <option *ngFor='let account of analyticsSettings.allAccounts;' [value]="account.id">{{account.name}} -
+            <span>{{account.id}}</span>
+          </option>
+        </select>
+        <div class="arrow">
+          <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke: #1d1d1b;
+                  stroke-miterlimit: 10;
+                  stroke-width: 10px;
+                }
+              </style>
+            </defs>
+            <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+          </svg>
+        </div>
+      </div>
+      <div>
+        <span>Propery</span>
+        <select name="propertySelect" [(ngModel)]='analyticsSettings.userSettings.property'
+          (change)="analyticsSettings.getAnalyticsViews()" [disabled]="analyticsSettings.allProperties.length <= 0">
+          <option *ngFor='let property of analyticsSettings.allProperties' [value]="property.id">{{property.name}} -
+            <span>{{property.id}}</span>
+          </option>
+        </select>
+        <div class="arrow">
+          <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke: #1d1d1b;
+                  stroke-miterlimit: 10;
+                  stroke-width: 10px;
+                }
+              </style>
+            </defs>
+            <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+          </svg>
+        </div>
+      </div>
+      <div>
+        <span>View</span>
+        <select name="propertySelect" [(ngModel)]='analyticsSettings.userSettings.view'
+          [disabled]="analyticsSettings.allViews.length <= 0">
+          <option *ngFor='let view of analyticsSettings.allViews' [value]="view.id">{{view.name}} -
+            <span>{{view.id}}</span>
+          </option>
+        </select>
+        <div class="arrow">
+          <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke: #1d1d1b;
+                  stroke-miterlimit: 10;
+                  stroke-width: 10px;
+                }
+              </style>
+            </defs>
+            <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <span *ngIf="analyticsSettings.loader" class="loader">loader</span>
+      <button *ngIf="analyticsSettings.userSettings.view" class="cta2"
+        (click)="analyticsSettings.saveUserSettings()">save</button>
+    </div>
+  </div>
+
+  <div *ngIf="analyticsSettings.userSettings.settingsSet" class="">
+    <div class="steps"></div>
+    <div class="step1">
+      <h1>1. Pagina's selecteren</h1>
+      <div class="labelContainer">
+        <span>Page type</span>
+      </div>
+      <div class="selectContainer">
+        <div>
+          <select name="step1PageType" [(ngModel)]='step1.pageType.selected'>
+            <option *ngFor='let pageType of step1.pageType.options' [value]="pageType">
+              {{pageType}}
+            </option>
+          </select>
+          <div class="arrow">
+            <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #1d1d1b;
+                    stroke-miterlimit: 10;
+                    stroke-width: 10px;
+                  }
+                </style>
+              </defs>
+              <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <select name="step1Methodes" [(ngModel)]='step1.methodes.selected'>
+            <option *ngFor='let methode of step1.methodes.options' [value]="methode">
+              {{methode}}
+            </option>
+          </select>
+          <div class="arrow">
+            <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #1d1d1b;
+                    stroke-miterlimit: 10;
+                    stroke-width: 10px;
+                  }
+                </style>
+              </defs>
+              <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <select name="step1ContentGroup" [(ngModel)]='step1.contentGroups.selected'>
+            <option *ngFor='let contentGroup of step1.contentGroups.options' [value]="contentGroups">
+              {{contentGroup}}
+            </option>
+          </select>
+          <div class="arrow">
+            <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #1d1d1b;
+                    stroke-miterlimit: 10;
+                    stroke-width: 10px;
+                  }
+                </style>
+              </defs>
+              <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="stepFooter">
+        <button (click)="analyticsSettings.open()">Change analytics settings</button>
+        <div class="cta">Next step</div>
+      </div>
+    </div>
+  </div>
+</div>

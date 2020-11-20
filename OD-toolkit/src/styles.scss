@@ -2,7 +2,6 @@
 @import '~@angular/cdk/overlay-prebuilt.css';
 @import './setup.scss';
 
-// TODO css moet opgechoond worden
 
 .backgroundColor {
   background: $background;
@@ -28,17 +27,9 @@ body {
   font-size: 0.9rem;
 }
 
-// TODO uitzoeken V
-
 .hideHtml {
   opacity: 0 !important;
 }
-
-.opacs {
-  opacity: 0;
-}
-
-// TODO uitzoeken ^
 
 .noScroll {
   position: fixed;
@@ -69,6 +60,7 @@ button {
   border: none;
   outline: none;
   font-family: 'Poppins', sans-serif;
+  cursor: pointer;
 }
 
 a.mat-raised-button,
@@ -352,11 +344,6 @@ mat-dialog-container#modal-addTool {
     }
   }
 }
-
-// .rowWrap {
-//   display: flex;
-//   flex-flow: row wrap;
-// }
 
 .urlList {
   padding-left: 30px;

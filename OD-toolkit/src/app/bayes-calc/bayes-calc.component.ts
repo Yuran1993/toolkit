@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { InputDataControllerService } from '../_service/input-data-controller.service';
 import { GoogleCharts } from '../_service/google-charts';
 import { Observable } from 'rxjs';
+import { ReadyStateService } from '../ready-state.service';
 
 @Component({
   selector: 'app-bayes-calc',
@@ -30,12 +31,10 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
   };
 
   @ViewChild('table', { static: false }) largeTable: ElementRef;
-  tableHeight = this.largeTable ? this.largeTable.nativeElement.offsetHeight : 200;
   smallTable = false;
   tableValues = null;
 
   addBusiness = false;
-  hideBusiness = 'opacs';
 
   result = null;
   hideHtml = 'hideHtml';
@@ -45,7 +44,8 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
     private router: Router,
     private inputDataController: InputDataControllerService,
     private activeRoute: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private readyState: ReadyStateService,
   ) { }
 
   drawChart(result) {
@@ -107,9 +107,6 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
       this.getData(queryString)
         .subscribe(data => {
           this.result = data;
-          if (this.addBusiness) {
-            this.hideBusiness = '';
-          }
           resolve();
         });
     });
@@ -153,16 +150,12 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
     if (this.businessCorrect) {
       this.addBusiness = true;
       this.getValues();
-      this.hideBusiness = '';
     }
   }
 
   @HostListener('window:resize', ['$event'])
   onResize($event: Event) {
     this.drawChart(this.result);
-
-    // this.smallTable = window.innerWidth < 635;
-    // this.tableHeight = this.largeTable ? this.largeTable.nativeElement.offsetHeight : 200;
   }
 
   async ngOnInit() {
@@ -173,6 +166,7 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
     const loadChart = () => {
       this.drawChart(this.result);
       this.hideHtml = '';
+      this.readyState.ready = true;
     };
     GoogleCharts.load(loadChart);
 
@@ -181,5 +175,6 @@ export class BayesCalcComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     document.body.className="";
+    this.readyState.ready = false;
   }
 }

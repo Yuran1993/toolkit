@@ -22,21 +22,11 @@ export class AccountComponent implements OnInit {
   deleteUser() {
     this.auth.deleteUser();
     this.dialogRef.close();
-    this.closeModal();
-  }
-
-  // comment
-
-  closeModal() {
-    this.dialogRef.close();
   }
 
   ngOnInit() {
     this.auth.currentToolAuth.subscribe(user => {
       this.user = user;
-      console.log(user);
-      
     });
   }
-
 }

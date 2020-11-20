@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
+import { ReadyStateService } from './ready-state.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,10 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent implements OnInit{
   title = 'OD-toolkit';
+
+  constructor(
+    private readyState: ReadyStateService
+  ) { }
 
   ngOnInit() {
     if (environment.production) {

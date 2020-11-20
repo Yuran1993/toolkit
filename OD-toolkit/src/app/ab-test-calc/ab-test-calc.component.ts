@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { InputDataControllerService } from '../_service/input-data-controller.service';
 import { GoogleCharts } from '../_service/google-charts';
 import { drawBasic, drawLargeChart } from './drawChart';
+import { ReadyStateService } from '../ready-state.service';
 
 interface LooseObject {
   [key: string]: any;
@@ -29,6 +30,7 @@ export class AbTestCalcComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private http: HttpClient,
     private inputDataController: InputDataControllerService,
+    private readyState: ReadyStateService,
   ) { }
 
   getData(params: string): Observable<object> {
@@ -91,6 +93,7 @@ export class AbTestCalcComponent implements OnInit, OnDestroy {
       drawBasic(this.result);
       drawLargeChart(this.result);
       this.hideHtml = '';
+      this.readyState.ready = true;
     };
     setTimeout(() => {
       GoogleCharts.load(loadChart);
@@ -99,5 +102,6 @@ export class AbTestCalcComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     document.body.className="";
+    this.readyState.ready = false;
   }
 }

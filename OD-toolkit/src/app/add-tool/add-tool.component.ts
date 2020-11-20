@@ -23,14 +23,13 @@ export class AddToolComponent implements OnInit {
     // private mail: MailService,
   ) { }
 
-  // sendReq() {
-  //   this.reqSend = true;
-  //   this.mail.addToolsReq(this.toolReq);
+  sendReq() {
+    // TODO moet nog gebeuren
 
-  //   setTimeout(() => {
-  //     this.closeModal();
-  //   }, 2000);
-  // }
+    setTimeout(() => {
+      this.closeModal();
+    }, 2000);
+  }
 
   closeModal() {
     this.dialogRef.close();
@@ -38,25 +37,5 @@ export class AddToolComponent implements OnInit {
 
   async ngOnInit() {
 
-    // this.mail.addToolsReq(this.tool);
-    
-    // const tools: any = await this.auth.getTools();
-    // let user;
-
-    // this.auth.currentToolAuth.subscribe(async result => {
-    //   user = result
-    // });
-
-    // tools.forEach(e => {
-    //   const found = user.tools.find(r => r.url === e.url && r.auth);
-
-    //   if (!found) {
-    //     this.noAuth.push(e);
-    //   }
-    // }); // TODO volledig bestand opschonen
-
-    setTimeout(() => {
-      document.getElementById('modal-content-wrapper').style.opacity = '1';
-    }, 0);
   }
 }

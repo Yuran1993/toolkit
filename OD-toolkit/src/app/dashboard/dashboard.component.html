@@ -1,11 +1,12 @@
 <header>
+  
   <div class="headerContainer container">
     <div class="headerSection">
       <h1>Online Dialogue's toolkit for CRO</h1>
       <p>Online Dialogue offers a brand new toolkit with CRO tools for anyone working in website- and conversion optimization. Check it out - it's free!</p>
       <p class="label">More tools will be available soon.</p>
-  
     </div>
+
     <div class="headerSection">
       <h2>All-in-one toolkit</h2>
       <ul class="usps">
@@ -24,10 +25,11 @@
   </div>
 </header>
 <main>
+  
   <div id="tools" class="outerToolsContainer container">
     <h2>Alle tools</h2>
     <div class="innerToolsContainer">
-      <a *ngFor="let tool of tools; index as i; odd as odd;" [ngClass]="[tool.auth  ? 'open toolKaart' : 'closed toolKaart', tool.lang]" routerLink="{{tool.url}}/info">
+      <a *ngFor="let tool of tools;" [ngClass]="[tool.auth  ? 'open toolKaart' : 'closed toolKaart', tool.lang]" routerLink="{{tool.url}}/info">
         <img src="../../assets/icons/dashboard/{{tool.icon}}.svg" alt="card icon">
         <h3>{{tool.name}}</h3>
         <p>{{tool.body[0]}}</p>
@@ -40,7 +42,6 @@
   </div>
   
   <div class="container articleContainer">
-
     <app-contact id="contact"></app-contact>
 
     <article class="about">
@@ -49,4 +50,5 @@
       <img src="../../assets/images/awardWin.png" alt="">
     </article>
   </div>
-</main>
+
+  <p class="g-signin2" data-onsuccess="queryReports"></p>

@@ -48,13 +48,7 @@
       <div class="inputContainer euro">
         <label for="averageValue">Average order value</label>
         <input (change)="go()" [(ngModel)]="business.aov.value" name="businessAov" id="averageValue" type="number" class="{{business.aov.err}}">
-      </div>
-      <!--<div class="inputContainer euro">
-        <label for="minRevenue">Min. revenue yield in 6 months</label>
-        <input id="minRevenue"  type="number" (focus)='euroFocus($event)' >
-      </div>-->
-      
-      
+      </div>      
     </div>
   </form>
   <input class="cta" type="button" value="add business case" (click)="getBusiness()">
@@ -137,11 +131,6 @@
     </div>
   </div>
 
-
-
-
-
-
  <div *ngIf="businessCorrect" class="smallContainer borderRadiusShadow">
     <h2>Risk assessment of implementing B</h2>
     <div class="resultContainer">
@@ -154,24 +143,19 @@
           <th class="tg-0lax">Implement B</th>
           <th class="tg-0lax">Probability</th>
           <th class="tg-0lax">Effect on revenue</th>
-          <!-- <th class="tg-0lax">Total contribution</th> -->
         </tr>
         <tr>
           <th class="tg-0lax">Expected risk</th>
           <th class="tg-0lax">{{result[0]["Bayesian Score"] | percent:'0.2'}}</th>
           <th class="tg-0lax">€ {{result[0]["Revenue"]}}</th>
-          <!-- <th class="tg-0lax"></th> -->
        </tr>
         <tr>
           <th class="tg-0lax">Expected uplift</th>
           <th class="tg-0lax">{{result[1]["Bayesian Score"] | percent:'0.2'}}</th>
           <th class="tg-0lax">€ {{result[1]["Revenue"]}}</th>
-          <!-- <th class="tg-0lax">€ {{result[1]["totalEffect"]}}</th> -->
         </tr>
       </table>
-
     </div>
   </div>
-
 </main>
 </div>

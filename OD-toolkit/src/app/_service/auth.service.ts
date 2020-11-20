@@ -39,12 +39,8 @@ export class authService {
 
   changePassword(userData) {
     return new Promise(async (resolve) => {
-      console.log(userData);
-
       this.http.post<any>(this._changePassword, userData).subscribe(
         res => {
-          console.log(res);
-          
           localStorage.setItem('token', res.token);
           this.changeToolsAuth(res.user);
           resolve();

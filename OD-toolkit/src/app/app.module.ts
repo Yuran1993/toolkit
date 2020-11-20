@@ -29,6 +29,7 @@ import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
 import { StopPropagationDirective } from './_service/directives/stop-propagation.directive';
 import { AccountComponent } from './account/account.component';
+import { SampleSizeCalcComponent } from './sample-size-calc/sample-size-calc.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AccountComponent } from './account/account.component';
     InfoComponent,
     ContactComponent,
     StopPropagationDirective,
-    AccountComponent
+    AccountComponent,
+    SampleSizeCalcComponent
   ],
   imports: [
     BrowserModule,

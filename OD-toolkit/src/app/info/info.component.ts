@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InlogScreenComponent } from '../inlog-screen/inlog-screen.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddToolComponent } from '../add-tool/add-tool.component';
+import { ReadyStateService } from '../ready-state.service';
 
 @Component({
   selector: 'app-info',
@@ -23,6 +24,7 @@ export class InfoComponent implements OnInit, OnDestroy {
     private matDialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
+    private readyState: ReadyStateService,
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -43,8 +45,6 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
 
   openAdd(element) {
-    console.log(element);
-    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = "modal-addTool";
     dialogConfig.disableClose = false;
@@ -57,8 +57,9 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    window.scrollTo(0, 0);
     document.body.className = "backgroundColor";
+    window.scrollTo(0, 0);
+    this.readyState.ready = true;
 
     this.getWindowWidth();
     this.dialogueTop = this.windowWidth <= 920 ? '50px' : '100px';
@@ -78,7 +79,6 @@ export class InfoComponent implements OnInit, OnDestroy {
 
     this.allTools.forEach(e => e.active = false);
     this.tool.active = true;
-    
 
     this.router.events.subscribe((val) => {
       snapShot = this.route.snapshot.paramMap.get('tool');
@@ -91,5 +91,7 @@ export class InfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     document.body.className = "";
+    this.readyState.ready = false;
   }
+  
 }
