@@ -1,5 +1,4 @@
-<!-- <p [ngClass]="gotGoogleAuth  ? 'green' : 'red'">sample-size-calc works!</p> -->
-
+<!--------------------------- Permission for google message ------------------------------------>
 <div *ngIf="ready" class="container">
   <div *ngIf="!gotGoogleAuth" class="borderRadiusShadow smallContainer">
     <h1>Google authorisation</h1>
@@ -9,6 +8,7 @@
     <button type="button" class="cta" (click)="googleAuth.getGoogleAuth()">connect to google</button>
   </div>
 
+  <!--------------------------- Analytics settings window ------------------------------------>
   <div *ngIf="gotGoogleAuth && !analyticsSettings.userSettings.settingsSet"
     class="borderRadiusShadow smallContainer viewElement">
     <h1>Select a view</h1>
@@ -93,9 +93,24 @@
     </div>
   </div>
 
+  <!--------------------------- Steps ------------------------------------>
   <div *ngIf="analyticsSettings.userSettings.settingsSet" class="">
-    <div class="steps"></div>
-    <div class="step1">
+    <div class="progress progress_{{currentStep}}">
+      <div class="1 number">
+        <span>1</span>
+      </div>
+      <div class="bar"></div>
+      <div class="2 number">
+        <span>2</span>
+      </div>
+      <div class="bar"></div>
+      <div class="3 number">
+        <span>3</span>
+      </div>
+    </div>
+
+    <!--------------------------- Step 1 ------------------------------------>
+    <div class="step {{currentStep}}" *ngIf="currentStep == 'step_1'">
       <h1>1. Pagina's selecteren</h1>
       <div class="labelContainer">
         <span>Page type</span>
@@ -169,8 +184,164 @@
         </div>
       </div>
       <div class="stepFooter">
-        <button (click)="analyticsSettings.open()">Change analytics settings</button>
-        <div class="cta">Next step</div>
+        <div class="stepBtnContainer">
+          <button class="cta" (click)="currentStep = 'step_2'">
+            Next step
+            <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
+              <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </button>
+        </div>
+        <button class="gaSettings" (click)="openGaSettings()">
+          <img src="../../assets/icons/impact-calc/GAicon.png" alt="">
+          Change analytics settings
+        </button>
+      </div>
+    </div>
+
+    <!--------------------------- Step 2 ------------------------------------>
+    <div class="step {{currentStep}}" *ngIf="currentStep === 'step_2'">
+      <h1>2. Determine goal</h1>
+      <div class="labelContainer">
+        <span>Goal</span>
+      </div>
+      <div class="selectContainer">
+        <div>
+          <select name="step1PageType" [(ngModel)]='step1.pageType.selected'>
+            <option *ngFor='let pageType of step1.pageType.options' [value]="pageType">
+              {{pageType}}
+            </option>
+          </select>
+          <div class="arrow">
+            <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #1d1d1b;
+                    stroke-miterlimit: 10;
+                    stroke-width: 10px;
+                  }
+                </style>
+              </defs>
+              <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <select name="step1Methodes" [(ngModel)]='step1.methodes.selected'>
+            <option *ngFor='let methode of step1.methodes.options' [value]="methode">
+              {{methode}}
+            </option>
+          </select>
+          <div class="arrow">
+            <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #1d1d1b;
+                    stroke-miterlimit: 10;
+                    stroke-width: 10px;
+                  }
+                </style>
+              </defs>
+              <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <select name="step1ContentGroup" [(ngModel)]='step1.contentGroups.selected'>
+            <option *ngFor='let contentGroup of step1.contentGroups.options' [value]="contentGroup">
+              {{contentGroup}}
+            </option>
+          </select>
+          <div class="arrow">
+            <svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.15 79.49">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #1d1d1b;
+                    stroke-miterlimit: 10;
+                    stroke-width: 10px;
+                  }
+                </style>
+              </defs>
+              <polyline class="cls-1" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="stepFooter">
+        <div class="stepBtnContainer">
+          <button class="backBtn" (click)="currentStep = 'step_1'">
+            <svg class="arrowRightWrapper" viewBox="0 0 156.15 79.49">
+              <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+            Previous step
+          </button>
+          <button (click)="currentStep = 'step_3'" class="cta">
+            Next step
+            <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
+              <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </button>
+        </div>
+        <button class="gaSettings" (click)="openGaSettings()">
+          <img src="../../assets/icons/impact-calc/GAicon.png" alt="">
+          Change analytics settings
+        </button>
+      </div>
+    </div>
+
+    <!--------------------------- Step 3 ------------------------------------>
+    <div class="step {{currentStep}}" *ngIf="currentStep === 'step_3'">
+      <h1>3. Page overview</h1>
+      <div class="stepFooter">
+        <div class="stepBtnContainer">
+          <button class="backBtn" (click)="currentStep = 'step_2'">
+            <svg class="arrowRightWrapper" viewBox="0 0 156.15 79.49">
+              <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+            Previous step
+          </button>
+          <button (click)="currentStep = 'step_complete'" class="cta">
+            Next step
+            <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
+              <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </button>
+        </div>
+        <button class="gaSettings" (click)="openGaSettings()">
+          <img src="../../assets/icons/impact-calc/GAicon.png" alt="">
+          Change analytics settings
+        </button>
+      </div>
+    </div>
+
+    <!--------------------------- Steps complete ------------------------------------>
+    <div class="step {{currentStep}}" *ngIf="currentStep === 'step_complete'">
+      <h1>Impact analyse</h1>
+      <div class="stepFooter">
+        <div class="stepBtnContainer">
+          <button class="backBtn" (click)="currentStep = 'step_3'">
+            <svg class="arrowRightWrapper" viewBox="0 0 156.15 79.49">
+              <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+            Previous step
+          </button>
+          <button (click)="currentStep = 'step_complete'" class="cta">
+            Export
+            <svg class="arrowLeftWrapper" viewBox="0 0 156.15 79.49">
+              <polyline class="svgArrow" points="155.44 0.71 78.07 78.07 0.71 0.71" />
+            </svg>
+          </button>
+        </div>
+        <button class="gaSettings" (click)="openGaSettings()">
+          <img src="../../assets/icons/impact-calc/GAicon.png" alt="">
+          Change analytics settings
+        </button>
       </div>
     </div>
   </div>

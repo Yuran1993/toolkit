@@ -11,6 +11,7 @@ import { GoogleAuthService } from '../_service/google-auth.service';
 export class SampleSizeCalcComponent implements OnInit, OnDestroy {
   ready = false;
   gotGoogleAuth: any;
+  currentStep = 'step_1'
   step1 = {
     pageType: {
       options: ['Pages', 'Content group'],
@@ -32,6 +33,11 @@ export class SampleSizeCalcComponent implements OnInit, OnDestroy {
     public analyticsSettings: AnalyticsSettingsService
   ) { }
 
+  openGaSettings() {
+    this.analyticsSettings.open();
+    this.currentStep = 'step_1';
+  }
+
   async ngOnInit() {
     document.body.className = "backgroundColor";
 
@@ -39,8 +45,6 @@ export class SampleSizeCalcComponent implements OnInit, OnDestroy {
     await this.analyticsSettings.getUserSettings();
     this.ready = true;
     this.readyState.ready = true;
-
-
   }
   ngOnDestroy() {
     document.body.className = "";

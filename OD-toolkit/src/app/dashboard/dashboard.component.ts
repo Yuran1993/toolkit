@@ -63,6 +63,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    document.querySelector('nav').classList.add('overlay');
     this.googleAuth.findGoogleToken();
     this.getWindowWidth();
     this.dialogueTop = this.windowWidth <= 920 ? '50px' : '100px';
@@ -88,6 +89,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    document.querySelector('nav').classList.remove('overlay');
     this.readyState.ready = false;
   }
 }

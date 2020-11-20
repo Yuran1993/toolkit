@@ -16,6 +16,7 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    padding-top: 100px;
     padding-bottom: 30px;
 
     .headerSection {
@@ -103,7 +104,7 @@ main {
 
       p {
         text-align: center;
-        max-height: 65px;
+        max-height: 70px;
         overflow: hidden;
       }
 

@@ -55,6 +55,10 @@ input:focus {
   outline: none;
 }
 
+select {
+  border: 1px solid #ccc;
+}
+
 button {
   background: none;
   border: none;
@@ -76,9 +80,9 @@ a.mat-raised-button,
   transform: none !important;
 }
 
-router-outlet+*>*:first-of-type {
-  padding-top: 100px;
-}
+// router-outlet+*>*:first-of-type {
+//   padding-top: 100px;
+// }
 
 .loader {
   font-size: 0;
