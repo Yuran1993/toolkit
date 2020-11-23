@@ -16,6 +16,7 @@ export class AppComponent implements OnInit{
   ) { }
 
   ngOnInit() {
+    //? when in production redirect the user to https
     if (environment.production) {
       if (location.protocol === 'http:') {
         window.location.href = location.href.replace('http', 'https');

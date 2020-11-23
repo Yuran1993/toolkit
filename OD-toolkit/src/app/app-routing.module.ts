@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TempToolComponent } from './temp-tool/temp-tool.component';
+
 import { AuthGuard } from './_service/guards/auth.guard';
+
+import { InfoComponent } from './info/info.component';
 import { AbTestCalcComponent } from './ab-test-calc/ab-test-calc.component';
 import { BayesCalcComponent } from './bayes-calc/bayes-calc.component';
-import { InfoComponent } from './info/info.component';
 import { SampleSizeCalcComponent } from './sample-size-calc/sample-size-calc.component';
 
 

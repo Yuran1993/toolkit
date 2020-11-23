@@ -20,11 +20,13 @@ export class AuthGuard implements CanActivate {
     });
 
     let pageAuth = user.tools.find(e => e.url === page);
+    
 
     if (!pageAuth) {
       return new Observable<boolean>((observer) => {
         this.auth.getUser().then((value) => {
           pageAuth = value;
+          console.log(value);
           setTimeout(() => {
             if (pageAuth) {
               pageAuth = pageAuth.tools.find(e => e.url === page);

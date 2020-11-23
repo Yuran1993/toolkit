@@ -11,7 +11,7 @@ interface LooseObject {
 
 export class InputDataControllerService {
   constructor(private router: Router, private activeRoute: ActivatedRoute) { }
-
+  //TODO doesn't work anymore, probably because of the guard 
   start(parent: any) {
     const parentName = parent.activeRoute.component.name;
     const params = this.activeRoute.snapshot.queryParams;

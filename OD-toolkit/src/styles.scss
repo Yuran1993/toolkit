@@ -60,7 +60,7 @@ select {
 }
 
 [disabled] {
-  cursor: auto!important;
+  cursor: auto !important;
 }
 
 button {
@@ -372,14 +372,14 @@ mat-dialog-container#modal-addTool {
 }
 
 [matTooltip]:after {
-  // TODO
-  content: "?";
-  color: #0A5504;
-  font-size: 10px;
-  font-weight: 900;
-  margin-left: 5px;
-  display: inline-block;
+  content: "";
+  background-image: url('./assets/icons/infoIcon.png');
+  width: 13px;
+  height: 13px;
   transform: translateY(-5px);
+  display: inline-block;
+  background-size: 13px;
+  margin-left: 5px;
 }
 
 *:focus {

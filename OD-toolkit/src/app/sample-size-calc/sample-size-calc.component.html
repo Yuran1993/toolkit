@@ -88,7 +88,7 @@
     </div>
     <div class="footer">
       <span *ngIf="analyticsSettings.loader" class="loader">loader</span>
-      <button *ngIf="analyticsSettings.userSettings.view" class="cta2"
+      <button *ngIf="analyticsSettings.userSettings.view && !analyticsSettings.loader" class="cta2"
         (click)="analyticsSettings.saveUserSettings()">save</button>
     </div>
   </div>
@@ -113,7 +113,9 @@
     <div class="step {{currentStep}}" *ngIf="currentStep == 'step_1'">
       <h1>1. Pagina's selecteren</h1>
       <div class="labelContainer">
-        <span>Page type</span>
+        <div class="title">
+          <span>Page type</span>
+        </div>
       </div>
       <div class="selectContainer">
         <div>
@@ -203,7 +205,9 @@
     <div class="step {{currentStep}}" *ngIf="currentStep === 'step_2'">
       <h1>2. Determine goal</h1>
       <div class="labelContainer">
-        <span>Goal</span>
+        <div class="title">
+          <span>Goal</span>
+        </div>
       </div>
       <div class="selectContainer">
         <div>

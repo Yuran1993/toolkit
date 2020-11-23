@@ -8,6 +8,7 @@ const bayesCalculator = require('../../calculators/bayes-calculator.js');
 const router = express.Router();
 
 const verifyToken = async (req, res, next) => {
+  //? checking if user is logged in and has auth for the tool
   const path = req.route.path;
   const toolUrl = path.split('/')[1];
 
@@ -38,8 +39,6 @@ const verifyToken = async (req, res, next) => {
       const standardAuth = tool.openForAccounts;
 
       let auth = userAuth && userAuth.auth || standardAuth;
-
-      console.log('api calc auth', auth);
 
       if (auth) {
         next();

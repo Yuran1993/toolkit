@@ -15,11 +15,11 @@ export class SampleSizeCalcComponent implements OnInit, OnDestroy {
   step1 = {
     pageType: {
       options: ['Pages', 'Content group'],
-      selected: ''
+      selected: 'Pages'
     },
     methodes: {
       options: ['Equal to', 'Includes', 'Regex'],
-      selected: ''
+      selected: 'Equal to'
     },
     contentGroups: {
       options: ['content group 1', 'content group 1', 'content group 1'],

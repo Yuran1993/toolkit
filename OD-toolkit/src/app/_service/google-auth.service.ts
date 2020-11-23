@@ -15,7 +15,7 @@ export class GoogleAuthService {
 
   findGoogleToken() {
     return new Promise((resolve) => {
-      // callback end for a token
+      //? find google auth token, set it and redirect user to the calc page or send user to the google auth screen
       this.http.get<any>('api/googleAuth/findToken').subscribe(result => {
         
         if (result.auth) {
@@ -23,13 +23,14 @@ export class GoogleAuthService {
         } else if (!result.auth) {
           this.route.queryParams.subscribe(params => {
             if (params.code) {
+              //? set google token
               this.http.post<any>('api/googleAuth/setToken', params).subscribe(result => {
-                // Send user back to the calculation page
+                //? send user back to the calculation page
                 window.location.href = JSON.parse(params.state).component;
                 resolve(true);
               });
             } else {
-              // send user to the google auth screen
+              //? send user to the google auth screen
               resolve(false);
             }
           });
@@ -39,6 +40,7 @@ export class GoogleAuthService {
   }
 
   getGoogleAuth() {
+    //? get url for google auth screen
     this.http.get<any>('api/googleAuth/login').subscribe(result => {
       const url = result.url;
       window.location.href = url;

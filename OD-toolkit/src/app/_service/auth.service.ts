@@ -17,11 +17,11 @@ export class authService {
   private authArray = new BehaviorSubject(this.noAccount);
   currentToolAuth = this.authArray.asObservable();
 
-  private _loginUrl = "api/login";
-  private _registerUrl = 'api/register';
-  private _forgotPassword = 'api/forgotPasswordMail';
-  private _changePassword = 'api/changePassword';
-  private _verify = 'api/sendVerifyMail';
+  private _loginUrl = "api/ODauth/login";
+  private _registerUrl = 'api/ODauth/register';
+  private _forgotPassword = 'api/ODauth/forgotPasswordMail';
+  private _changePassword = 'api/ODauth/changePassword';
+  private _verify = 'api/ODauth/sendVerifyMail';
 
   constructor(
     private http: HttpClient,
@@ -55,10 +55,13 @@ export class authService {
   getUser() {
     return new Promise(async (resolve) => {
       const token = localStorage.getItem('token');
+      console.log('authServer', token);
 
       if (token) {
-        this.http.get<[]>('api/getUser').subscribe(result => {
+        this.http.get<[]>('api/ODauth/getUser').subscribe(result => {
           this.changeToolsAuth(result);
+          console.log('authServer', result);
+          
           resolve(result);
         });
       } else {
@@ -68,9 +71,8 @@ export class authService {
     });
   }
 
-
   deleteUser() {
-    this.http.get<[]>('api/deleteUser').subscribe(result => {
+    this.http.get<[]>('api/ODauth/deleteUser').subscribe(result => {
       this.logout();
     });
   }
@@ -80,7 +82,7 @@ export class authService {
   }
 
   verifyUser(id) {
-    this.http.post<any>('api/verifyUser', id).subscribe(result => {
+    this.http.post<any>('api/ODauth/verifyUser', id).subscribe(result => {
       localStorage.setItem('token', result.token);
       this.changeToolsAuth(result.user);
 
@@ -108,7 +110,7 @@ export class authService {
   getTools() {
     return new Promise<[]>((resolve) => {
       if (!this.tools) {
-        this.http.get<[]>('api/getTools').subscribe(result => {
+        this.http.get<[]>('api/ODauth/getTools').subscribe(result => {
           this.tools = result;
           resolve(this.tools);
         });

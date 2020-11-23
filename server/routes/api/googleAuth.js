@@ -17,7 +17,7 @@ const scopes = [
 google.options({ auth: oauth2Client });
 
 const verifyToken = async (req, res, next) => {
-  const path = req.route.path;
+  //? checking if the user is loggedin
   if (!req.headers.authorization) {
     return res.status(401).send('Unauthorized request');
   }
@@ -26,24 +26,9 @@ const verifyToken = async (req, res, next) => {
   if (token) {
     const payload = jwt.verify(token, process.env.jwtKey);
     if (payload) {
-      if (path.indexOf('calc') === -1) {
-        req.userId = payload.subject;
-        next();
-      } else {
-        req.userId = payload.subject;
-        const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
-        const collection = mongo.db('OD-toolkit').collection('accounts');
-        const user = await collection.findOne({ "_id": ObjectId(id) });
-        const toolUrl = path.split('/')[2];
+      req.userId = payload.subject;
+      next();
 
-        const toolAuth = user.tools.find(e => e.url === toolUrl)
-
-        if (toolAuth && toolAuth.auth) {
-          next()
-        } else {
-          return res.status(401).send('Unauthorized request');
-        }
-      }
     } else {
       return res.status(401).send('Unauthorized request');
     }
@@ -52,16 +37,9 @@ const verifyToken = async (req, res, next) => {
   }
 }
 
-const getMongoAccountCol = () => {
-  return new Promise(async resolve => {
-    const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
-    const collection = mongo.db('OD-toolkit').collection('accounts');
-
-    resolve(collection);
-  });
-}
 
 router.get('/login', async (req, res) => {
+  //? getting google login in link for the user
   const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: scopes,
@@ -71,22 +49,28 @@ router.get('/login', async (req, res) => {
 });
 
 router.post('/setToken', verifyToken, async (req, res) => {
-  const go = async () => {
-    const { code } = req.body
-    const { tokens } = await oauth2Client.getToken(code);
+  //? save google auth token to the database 
+  const { code } = req.body
+  const { tokens } = await oauth2Client.getToken(code);
 
-    const collection = await getMongoAccountCol();
-    await collection.findOneAndUpdate({ "_id": ObjectId(req.userId) }, { $set: { "google.googleTokens": JSON.stringify(tokens) } });
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
 
-    oauth2Client.setCredentials(tokens);
-    res.status(200).send(tokens);
-  }
+  await collection.findOneAndUpdate({ "_id": ObjectId(req.userId) }, { $set: { "google.googleTokens": JSON.stringify(tokens) } });
 
-  go() //.catch(err => console.log(err))
+  mongo.close();
+
+  oauth2Client.setCredentials(tokens);
+  res.status(200).send(tokens);
 });
+
 router.get('/findToken', verifyToken, async (req, res) => {
-  const collection = await getMongoAccountCol();
+  //? checking of google token is present in the database. If so, setting google credetials. If not, returning false
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
   const user = await collection.findOne({ "_id": ObjectId(req.userId) });
+  mongo.close();
+
   let googleAuth = user.google;
 
   if (googleAuth && googleAuth.googleTokens) {
@@ -99,12 +83,16 @@ router.get('/findToken', verifyToken, async (req, res) => {
     res.status(200).send({ auth: false });
   }
 });
+
 router.get('/getAnalyticsAccounts', async (req, res) => {
+  //? getting google analytics accounts
   const accounts = await google.analytics('v3').management.accounts.list();
 
   res.status(200).send(accounts.data.items);
 });
+
 router.get('/getAnalyticsProperties', async (req, res) => {
+  //? getting google analytics properties
   const accountID = req.get('accountID');
   const properties = await google.analytics('v3').management.webproperties.list({
     'accountId': accountID
@@ -114,6 +102,7 @@ router.get('/getAnalyticsProperties', async (req, res) => {
 });
 
 router.get('/getAnalyticsViews', async (req, res) => {
+  //? getting google analytics views
   const accountID = req.get('accountID');
   const PropertyID = req.get('PropertyID');
   const views = await google.analytics('v3').management.profiles.list({
@@ -125,19 +114,26 @@ router.get('/getAnalyticsViews', async (req, res) => {
 });
 
 router.post('/saveUserSettings', verifyToken, async (req, res) => {
+  //? adding google analytics user settings (account, property and view) to the database
   const userSettings = req.body;
 
-  console.log(userSettings);
-
-  const collection = await getMongoAccountCol();
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
   await collection.findOneAndUpdate({ "_id": ObjectId(req.userId) }, { $set: { "google.userSettings": JSON.stringify(userSettings) } });
+  mongo.close();
 
   res.status(200).send();
+
+  getData(userSettings);
 });
 
 router.get('/getUserSettings', verifyToken, async (req, res) => {
-  const collection = await getMongoAccountCol();
+  //? getting google analytics user settings (account, property and view) from the database
+  const mongo = await MongoClient.connect(process.env.MONGO, { useUnifiedTopology: true });
+  const collection = mongo.db('OD-toolkit').collection('accounts');
   const user = await collection.findOne({ "_id": ObjectId(req.userId) });
+  mongo.close();
+
   let googleAuth = user.google;
 
   if (googleAuth && googleAuth.userSettings) {
@@ -150,15 +146,21 @@ router.get('/getUserSettings', verifyToken, async (req, res) => {
   }
 });
 
-//   const results = await google.analytics('v3').data.ga.get({
-//     'auth': oauth2Client,
-//     'ids': 'ga:' + temp3.data.items[0].id,
+const getData = async (userSettings) => {
+  //? gettting google analytics data
+  const results = await google.analytics('v3').data.ga.get({
+    'auth': oauth2Client,
+    'ids': 'ga:' + userSettings.view,
 
-//     'start-date': '2020-11-01',
-//     'end-date': 'today',
-//     'metrics': 'ga:users, ga:transactionRevenue',
-//     'dimensions': 'ga:date, ga:eventAction',
-//   });
+    'start-date': '2020-11-01',
+    'end-date': 'today',
+    'metrics': 'ga:users',
+    'dimensions': 'ga:deviceCategory',
+  });
+
+  console.log(results);
+  console.log(results.data.items);
+}
 
 module.exports = router;
 

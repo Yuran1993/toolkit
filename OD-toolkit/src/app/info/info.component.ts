@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, AfterViewInit } from '@angular/core';
 import { authService } from '../_service/auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InlogScreenComponent } from '../inlog-screen/inlog-screen.component';
@@ -11,7 +11,7 @@ import { ReadyStateService } from '../ready-state.service';
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss']
 })
-export class InfoComponent implements OnInit, OnDestroy {
+export class InfoComponent implements OnInit, AfterViewInit, OnDestroy {
   component = 'info';
   allTools: any;
   tool: any;
@@ -59,7 +59,6 @@ export class InfoComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     document.body.className = "backgroundColor";
     window.scrollTo(0, 0);
-    this.readyState.ready = true;
 
     this.getWindowWidth();
     this.dialogueTop = this.windowWidth <= 920 ? '50px' : '100px';
@@ -87,6 +86,10 @@ export class InfoComponent implements OnInit, OnDestroy {
       this.allTools.forEach(e => e.active = false);
       this.tool.active = true;
     });
+  }
+
+  ngAfterViewInit() {
+    this.readyState.ready = true;
   }
 
   ngOnDestroy() {
